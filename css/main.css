@@ -55,6 +55,10 @@ body {
     background-color: var(--white) !important;
 }
 
+.bg-light {
+    background-color: #eeeeee79 !important;
+}
+
 .text-primary-blue {
     color: var(--primary-blue);
 }
@@ -202,10 +206,24 @@ body {
     transform: translateY(-3px);
 }
 
-/* Hero Section */
+/* Hero section  */
 .hero {
-    padding-top: calc(var(--spacing-lg) * 4);
+    padding-top: 5rem;
+    position: relative;
+    overflow: hidden;
 }
+
+.hero h1 {
+    font-size: calc(1.8rem + 2vw);
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.hero .lead {
+    font-size: calc(1rem + 0.5vw);
+    font-weight: 300;
+}
+
 
 /* Responsive Design */
 @media (min-width: 992px) {

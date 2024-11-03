@@ -1,20 +1,3 @@
-/* Hero section  */
-.hero {
-    padding-top: 5rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero h1 {
-    font-size: calc(1.8rem + 2vw);
-    font-weight: 600;
-    letter-spacing: -0.5px;
-}
-
-.hero .lead {
-    font-size: calc(1rem + 0.5vw);
-    font-weight: 300;
-}
 
 .paw-pattern {
     position: absolute;
