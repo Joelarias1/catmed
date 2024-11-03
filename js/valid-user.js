@@ -1,11 +1,29 @@
 // valid-user.js
 document.addEventListener('DOMContentLoaded', function() {
+    // Constantes de configuración
+    const CONFIG = {
+        PASSWORD: {
+            MIN_LENGTH: 8,
+            SPECIAL_CHARS: '@$!%*?&'
+        },
+        NAME: {
+            MIN_LENGTH: 2
+        },
+        FILE: {
+            MAX_SIZE: 3 * 1024 * 1024, // 3MB
+            VALID_TYPES: ['image/jpeg', 'image/png'],
+            INVALID_CHARS: /[<>:"/\\|?*]/
+        }
+    };
+
     // Validaciones específicas para usuarios
     const validations = {
         email: function(value) {
-            const emailRegex = /^[a-zA-Z0-9]+[a-zA-Z0-9._-]*[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]*[a-zA-Z0-9]+\.[a-zA-Z]{2,6}$/
+            const emailRegex = /^[a-zA-Z0-9]+[a-zA-Z0-9._-]*[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]*[a-zA-Z0-9]+\.[a-zA-Z]{2,6}$/;
+            const sanitizedEmail = value.trim().toLowerCase();
+            
             return {
-                isValid: emailRegex.test(value),
+                isValid: emailRegex.test(sanitizedEmail),
                 message: 'Por favor, ingresa un correo electrónico válido'
             };
         },
@@ -16,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const checkPassword = (type) => {
                 switch(type) {
                     case 'length':
-                        if (value.length < 8) {
-                            failedChecks.push('- Al menos 8 caracteres');
+                        if (value.length < CONFIG.PASSWORD.MIN_LENGTH) {
+                            failedChecks.push(`- Al menos ${CONFIG.PASSWORD.MIN_LENGTH} caracteres`);
                         }
                         break;
                     case 'uppercase':
@@ -36,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         break;
                     case 'special':
-                        if (!/[@$!%*?&]/.test(value)) {
-                            failedChecks.push('- Al menos un símbolo (@$!%*?&)');
+                        if (!new RegExp(`[${CONFIG.PASSWORD.SPECIAL_CHARS}]`).test(value)) {
+                            failedChecks.push(`- Al menos un símbolo (${CONFIG.PASSWORD.SPECIAL_CHARS})`);
                         }
                         break;
                 }
@@ -68,10 +86,11 @@ document.addEventListener('DOMContentLoaded', function() {
         },
  
         nombre_mascota: function(value) {
-            if(value.length < 2) {
+            const sanitizedName = value.trim();
+            if(sanitizedName.length < CONFIG.NAME.MIN_LENGTH) {
                 return {
                     isValid: false,
-                    message: 'El nombre de la mascota debe tener al menos 2 caracteres'
+                    message: `El nombre de la mascota debe tener al menos ${CONFIG.NAME.MIN_LENGTH} caracteres`
                 };
             }
             return {
@@ -96,22 +115,49 @@ document.addEventListener('DOMContentLoaded', function() {
         foto_mascota: function(input) {
             if(input.files && input.files[0]) {
                 const file = input.files[0];
-                const validTypes = ['image/jpeg', 'image/png'];
-                const maxSize = 3 * 1024 * 1024; // 3MB
- 
-                if (!validTypes.includes(file.type)) {
+                
+                // Validar caracteres no permitidos en el nombre
+                if(CONFIG.FILE.INVALID_CHARS.test(file.name)) {
+                    return {
+                        isValid: false,
+                        message: 'El nombre del archivo contiene caracteres no permitidos'
+                    };
+                }
+
+                // Validar extensión del archivo
+                if (!CONFIG.FILE.VALID_TYPES.includes(file.type)) {
                     return {
                         isValid: false,
                         message: 'Solo se permiten archivos JPG y PNG'
                     };
                 }
  
-                if (file.size > maxSize) {
+                // Validar tamaño
+                if (file.size > CONFIG.FILE.MAX_SIZE) {
+                    const maxSizeMB = CONFIG.FILE.MAX_SIZE / (1024 * 1024);
                     return {
                         isValid: false,
-                        message: 'La imagen no debe superar los 3MB'
+                        message: `La imagen no debe superar los ${maxSizeMB}MB`
                     };
                 }
+
+                // Validar que sea una imagen real
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        resolve({
+                            isValid: true,
+                            message: ''
+                        });
+                    };
+                    img.onerror = () => {
+                        resolve({
+                            isValid: false,
+                            message: 'El archivo no es una imagen válida'
+                        });
+                    };
+                    img.src = URL.createObjectURL(file);
+                });
             }
             return {
                 isValid: true,
@@ -134,12 +180,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('user-form');
         if (!form) return;
  
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             let isValid = true;
  
             // Validar campos requeridos
-            fieldsToValidate.forEach(field => {
+            for (const field of fieldsToValidate) {
                 const input = form.querySelector(`[name="${field}"]`);
                 if (input) {
                     const result = validations[field](input.value, form);
@@ -150,27 +196,51 @@ document.addEventListener('DOMContentLoaded', function() {
                         auxui.showSuccess(input);
                     }
                 }
-            });
+            }
  
             // Validar foto si se ha subido
             const fotoInput = form.querySelector('input[name="foto_mascota"]');
             if (fotoInput && fotoInput.files.length > 0) {
-                const result = validations.foto_mascota(fotoInput);
-                if (!result.isValid) {
-                    auxui.showError(fotoInput, result.message);
+                try {
+                    const result = await validations.foto_mascota(fotoInput);
+                    if (!result.isValid) {
+                        auxui.showError(fotoInput, result.message);
+                        isValid = false;
+                    } else {
+                        auxui.showSuccess(fotoInput);
+                    }
+                } catch (error) {
+                    auxui.showError(fotoInput, 'Error al validar la imagen');
                     isValid = false;
-                } else {
-                    auxui.showSuccess(fotoInput);
                 }
             }
  
             if (isValid) {
                 console.log('Formulario de usuario válido, enviando datos...');
-                // Aquí puedes agregar el código para enviar el formulario
+                // TODO: creacion en un futuro en bd ? 
             }
         });
+
+        // Validación en tiempo real de la foto
+        const fotoInput = form.querySelector('input[name="foto_mascota"]');
+        if (fotoInput) {
+            fotoInput.addEventListener('change', async function() {
+                if (this.files.length > 0) {
+                    try {
+                        const result = await validations.foto_mascota(this);
+                        if (!result.isValid) {
+                            auxui.showError(this, result.message);
+                        } else {
+                            auxui.showSuccess(this);
+                        }
+                    } catch (error) {
+                        auxui.showError(this, 'Error al validar la imagen');
+                    }
+                }
+            });
+        }
     }
  
     // Exportar función de inicialización
     window.initializeUserForm = initializeUserForm;
- });
+});

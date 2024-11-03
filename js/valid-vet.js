@@ -1,11 +1,29 @@
 // valid-vet.js
 document.addEventListener('DOMContentLoaded', function() {
+    // Constantes de configuración
+    const CONFIG = {
+        PASSWORD: {
+            MIN_LENGTH: 8,
+            SPECIAL_CHARS: '@$!%*?&'
+        },
+        LICENSE: {
+            MIN_LENGTH: 6,
+            MAX_LENGTH: 15
+        },
+        EXPERIENCE: {
+            MIN_YEARS: 0,
+            MAX_YEARS: 50
+        }
+    };
+
     // Validaciones específicas para veterinarios
     const validations = {
         email: function(value) {
-            const emailRegex = /^[a-zA-Z0-9]+[a-zA-Z0-9._-]*[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]*[a-zA-Z0-9]+\.[a-zA-Z]{2,6}$/
+            const emailRegex = /^[a-zA-Z0-9]+[a-zA-Z0-9._-]*[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]*[a-zA-Z0-9]+\.[a-zA-Z]{2,6}$/;
+            const sanitizedEmail = value.trim().toLowerCase();
+            
             return {
-                isValid: emailRegex.test(value),
+                isValid: emailRegex.test(sanitizedEmail),
                 message: 'Por favor, ingresa un correo electrónico válido'
             };
         },
@@ -16,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const checkPassword = (type) => {
                 switch(type) {
                     case 'length':
-                        if (value.length < 8) {
-                            failedChecks.push('- Al menos 8 caracteres');
+                        if (value.length < CONFIG.PASSWORD.MIN_LENGTH) {
+                            failedChecks.push(`- Al menos ${CONFIG.PASSWORD.MIN_LENGTH} caracteres`);
                         }
                         break;
                     case 'uppercase':
@@ -36,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         break;
                     case 'special':
-                        if (!/[@$!%*?&]/.test(value)) {
-                            failedChecks.push('- Al menos un símbolo (@$!%*?&)');
+                        if (!new RegExp(`[${CONFIG.PASSWORD.SPECIAL_CHARS}]`).test(value)) {
+                            failedChecks.push(`- Al menos un símbolo (${CONFIG.PASSWORD.SPECIAL_CHARS})`);
                         }
                         break;
                 }
@@ -68,24 +86,50 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         licencia: function(value) {
-            const licenseRegex = /^[A-Z0-9]{6,10}$/;
+            const sanitizedLicense = value.trim().toUpperCase();
+            const licenseRegex = new RegExp(`^[A-Z0-9]{${CONFIG.LICENSE.MIN_LENGTH},${CONFIG.LICENSE.MAX_LENGTH}}$`);
+            
+            if (!licenseRegex.test(sanitizedLicense)) {
+                return {
+                    isValid: false,
+                    message: `El número de licencia debe tener entre ${CONFIG.LICENSE.MIN_LENGTH} y ${CONFIG.LICENSE.MAX_LENGTH} caracteres alfanuméricos`
+                };
+            }
+
             return {
-                isValid: licenseRegex.test(value),
-                message: 'Número de licencia no válido'
+                isValid: true,
+                message: ''
             };
         },
 
         experiencia: function(value) {
             const years = parseInt(value);
+            const isValid = !isNaN(years) && 
+                          years >= CONFIG.EXPERIENCE.MIN_YEARS && 
+                          years <= CONFIG.EXPERIENCE.MAX_YEARS;
+
+            if (!isValid) {
+                return {
+                    isValid: false,
+                    message: `Ingresa un número válido de años de experiencia (${CONFIG.EXPERIENCE.MIN_YEARS}-${CONFIG.EXPERIENCE.MAX_YEARS})`
+                };
+            }
+
             return {
-                isValid: !isNaN(years) && years >= 0 && years <= 50,
-                message: 'Ingresa un número válido de años de experiencia (0-50)'
+                isValid: true,
+                message: ''
             };
         }
     };
 
     // Campos a validar
-    const fieldsToValidate = ['email', 'password', 'confirm_password', 'licencia', 'experiencia'];
+    const fieldsToValidate = [
+        'email', 
+        'password', 
+        'confirm_password', 
+        'licencia', 
+        'experiencia'
+    ];
 
     // Inicialización del formulario
     function initializeVetForm() {
@@ -96,10 +140,15 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             let isValid = true;
 
+            // Validar campos requeridos
             fieldsToValidate.forEach(field => {
                 const input = form.querySelector(`[name="${field}"]`);
                 if (input) {
-                    const result = validations[field](input.value, form);
+                    // Sanitizar valor antes de validar
+                    const valueToValidate = input.type === 'password' ? 
+                        input.value : input.value.trim();
+                    
+                    const result = validations[field](valueToValidate, form);
                     if (!result.isValid) {
                         auxui.showError(input, result.message);
                         isValid = false;
