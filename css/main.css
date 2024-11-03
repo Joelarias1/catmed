@@ -62,6 +62,9 @@ body {
 .text-primary-blue {
     color: var(--primary-blue);
 }
+.text-primary-blue-light {
+    color: #4179f3;
+}
 
 .bg-primary-blue {
     background-color: var(--primary-blue);

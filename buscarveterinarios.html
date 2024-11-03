@@ -96,18 +96,30 @@
         <!-- Filtros Rápidos -->
         <div class="card rounded-4 mb-4">
           <div class="card-body p-4">
-            <div class="d-flex gap-3 flex-wrap">
-              <button class="btn btn-light rounded-pill px-4">
+            <h5 class="mb-3">Filtros Rápidos</h5>
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="btn btn-light rounded-pill px-3 py-2">
                 <i class="fas fa-dollar-sign me-2"></i>Precio
               </button>
-              <button class="btn btn-light rounded-pill px-4">
+              <button class="btn btn-light rounded-pill px-3 py-2">
                 <i class="fas fa-map-marker-alt me-2"></i>Zona
               </button>
-              <button class="btn btn-light rounded-pill px-4">
+              <button class="btn btn-light rounded-pill px-3 py-2">
                 <i class="fas fa-star me-2"></i>Rating
               </button>
-              <button class="btn btn-light rounded-pill px-4">
+              <button class="btn btn-light rounded-pill px-3 py-2">
                 <i class="fas fa-clock me-2"></i>Disponible hoy
+              </button>
+              <button class="btn btn-light rounded-pill px-3 py-2">
+                <i class="fas fa-video me-2"></i>Telemedicina
+              </button>
+              <button class="btn btn-light rounded-pill px-3 py-2">
+                <i class="fas fa-home me-2"></i>Visita a domicilio
+              <button class="btn btn-light rounded-pill px-3 py-2">
+                <i class="fas fa-syringe me-2"></i>Vacunación
+              </button>
+              <button class="btn btn-light rounded-pill px-3 py-2">
+                <i class="fas fa-paw me-2"></i>Especialidad felina
               </button>
             </div>
           </div>
@@ -116,52 +128,70 @@
         <!-- Veterinarios Grid -->
         <h2 class="h4 text-white mb-4">Veterinarios Disponibles</h2>
         <div class="row g-4">
+
           <!-- Card Veterinario -->
-          <div class="col-12 col-md-6">
-            <div class="card vet-card rounded-4 h-100 border-0 shadow-sm">
-              <div class="card-body p-4">
-                <div class="d-flex align-items-center gap-3 mb-4">
-                  <div class="vet-image-container">
-                    <img
-                      src="/img/placeholderveterinary.png"
-                      alt="Veterinario"
-                      class="img-fluid rounded-circle"
-                    />
-                  </div>
-                  <div>
-                    <h3 class="h5 mb-1">Dra. Ana Silva</h3>
-                    <div class="text-warning mb-2">
-                      ★★★★★ <span class="text-muted">5.0</span>
-                    </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card vet-card rounded-4 h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+              <!-- Encabezado con foto y datos principales -->
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="vet-image-container">
+                  <img src="/img/placeholderveterinary.png" alt="Veterinario" class="img-fluid rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+                </div>
+                <div>
+                  <h3 class="h5 mb-1">Dra. Ana Silva</h3>
+                  <p class="text-muted mb-0"><small>Especialista en felinos</small></p>
+                  <div class="text-warning">
+                    ★★★★★ <span class="text-muted">5.0 (120 reseñas)</span>
                   </div>
                 </div>
+              </div>
 
-                <div class="mb-4">
-                  <p class="mb-2 text-muted">
-                    <i class="fas fa-tag me-2"></i>Servicios desde:
-                  </p>
-                  <h4 class="h5 text-primary-blue">$25.000</h4>
-                  <small class="text-muted"
-                    ><i class="fas fa-stethoscope me-2"></i>Consulta
-                    general</small
-                  >
+              <!-- Información de servicios y ubicación -->
+              <div class="mb-3">
+                <p class="mb-0">
+                  <i class="fas fa-map-marker-alt me-2 text-primary-blue-light"></i>
+                  <small class="fw-custon">Clínica Felina MiauSalud, Providencia</small>
+                </p>
+                <p class="mt-2">
+                  <i class="fas fa-tag me-2 text-primary-blue-light"></i>
+                  <span class="text-primary-blue fw-custom">$25.000</span>
+                  <small class="text-muted ms-2 fw-cu">Consulta general</small>
+                </p>
+              </div>
+
+              <!-- Especialidades -->
+              <div class="mb-3">
+                <p class="mb-2 text-muted fw-custom"><small>Especialidades:</small></p>
+                <div class="d-flex flex-wrap gap-1">
+                  <span class="badge bg-primary-soft text-primary-blue rounded-pill">Vacunación</span>
+                  <span class="badge bg-primary-soft text-primary-blue rounded-pill">Cirugía</span>
+                  <span class="badge bg-primary-soft text-primary-blue rounded-pill">Nutrición</span>
                 </div>
+              </div>
 
-                <div class="badge-container mb-4">
-                  <span class="badge bg-light text-dark rounded-pill mb-2 me-2">
+              <!-- Horarios disponibles -->
+              <div class="mb-3">
+                <p class="mb-2 text-muted fw-custom"><small>Próximas citas disponibles:</small></p>
+                <div class="d-flex flex-wrap gap-1">
+                  <span class="badge bg-success text-white rounded-pill">
                     <i class="far fa-clock me-1"></i>Hoy 15:00
                   </span>
-                  <span class="badge bg-light text-dark rounded-pill mb-2">
+                  <span class="badge bg-light text-dark rounded-pill">
                     <i class="far fa-clock me-1"></i>Mañana 9:00
                   </span>
                 </div>
-
-                <button class="btn btn-primary w-100 rounded-pill">
-                  <i class="fas fa-calendar-plus me-2"></i>Agendar Cita
-                </button>
               </div>
+
+              <!-- Botón de acción -->
+              <button class="btn btn-primary w-100 rounded-pill mt-2">
+                <i class="fas fa-calendar-plus me-2"></i>Agendar Cita
+              </button>
             </div>
           </div>
+        </div>
+
+
         </div>
       </div>
     </main>
