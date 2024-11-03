@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CatMed - Conectando dueños de gatos con veterinarios especializados" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <title>Registro Usuario - CatMed</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-md">
+      <div class="container">
+        <!-- Logo con texto -->
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <img src="/img/logo.png" alt="CatMed" class="navbar-logo" />
+          <span class="logo-brand">CatMed</span>
+        </a>
+
+        <!-- Botón hamburguesa -->
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú colapsable -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Buscar Veterinario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="soyusuario.html">Soy Dueño/a</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="soyvet.html">Soy Veterinario</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-primary px-4 rounded-pill" href="#"
+                >Iniciar Sesión</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Registro Section -->
+    <section class="login-section bg-primary-blue py-4">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-10 col-lg-8 col-xl-6 px-4">
+            <div class="auth-card p-3 p-md-4 bg-white card">
+              <!-- Header del formulario -->
+              <div class="text-center py-4">
+                <h2 class="text-primary-blue mb-3 fw-bold">
+                  Registro de Usuario
+                  <i class="fas fa-cat text-primary-blue"></i>
+                </h2>
+                <p class="text-muted">
+                  Únete a nuestra comunidad y encuentra el mejor cuidado para tu
+                  felino
+                </p>
+              </div>
+
+              <!-- Formulario -->
+              <form class="auth-form row g-3">
+                <!-- Datos personales -->
+                <div class="col-md-6">
+                  <label class="form-label">Nombre</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    required
+                    placeholder="Nombre"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Apellidos</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    required
+                    placeholder="Apellidos"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Correo electrónico</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    required
+                    placeholder="correo@ejemplo.com"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Teléfono</label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    required
+                    placeholder="+56 9 0000 0000"
+                  />
+                </div>
+
+                <!-- Separador -->
+                <div class="col-12">
+                  <hr class="text-muted" />
+                  <h4 class="text-primary-blue mb-3">
+                    Información de tu Mascota
+                    <i class="fas fa-paw"></i>
+                  </h4>
+                </div>
+
+                <!-- Datos de la mascota -->
+                <div class="col-md-6">
+                  <label class="form-label">Nombre de tu gato</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    required
+                    placeholder="Nombre de tu felino"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Edad</label>
+                    <select class="form-select form-control" required>
+                      <option value="">Selecciona la edad</option>
+                      <option>Menos de 1 año</option>
+                      <option>1-3 años</option>
+                      <option>4-7 años</option>
+                      <option>8-12 años</option>
+                      <option>Más de 12 años</option>
+                    </select>
+                  </div>
+
+                <div class="col-12">
+                  <label class="form-label">Foto de tu gato</label>
+                  <input type="file" class="form-control" accept="image/*" />
+                  <small class="form-text">Formato: JPG, PNG. Máximo 3MB</small>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label"
+                    >Notas o condiciones especiales</label
+                  >
+                  <textarea
+                    class="form-control"
+                    rows="3"
+                    placeholder="Información relevante sobre tu gato (alergias, condiciones médicas, etc.)"
+                  ></textarea>
+                </div>
+
+                <!-- Contraseña -->
+                <div class="col-md-6">
+                  <label class="form-label">Contraseña</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    required
+                    placeholder="*********"
+                  />
+                  <small class="form-text"
+                    >Mínimo 8 caracteres, incluyendo mayúsculas, números y
+                    símbolos</small
+                  >
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Confirmar Contraseña</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    required
+                    placeholder="*********"
+                  />
+                </div>
+
+                <!-- Términos y condiciones -->
+                <div class="col-12">
+                  <div class="form-check">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="terms"
+                      required
+                    />
+                    <label class="form-check-label" for="terms">
+                      Acepto los <a href="#">términos y condiciones</a>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Botón de registro -->
+                <div class="col-12">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-submit w-100 rounded-pill"
+                  >
+                    Crear mi cuenta
+                  </button>
+                </div>
+
+                <!-- Login link -->
+                <div class="col-12 text-center">
+                  <p class="mb-0">
+                    ¿Ya tienes cuenta?
+                    <a href="#">Inicia sesión aquí</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer bg-white py-5 mt-auto">
+      <div class="container">
+        <div class="row gy-4">
+          <!-- Logo y descripción -->
+          <div class="col-12 col-md-4 mb-4 mb-md-0">
+            <div class="d-flex align-items-center mb-3">
+              <img src="img/logo.png" alt="CatMed" class="footer-logo" />
+              <span class="logo-brand ms-2">CatMed</span>
+            </div>
+            <p class="text-muted">
+              Conectando amantes de los gatos con los mejores veterinarios
+              especializados en tu zona.
+            </p>
+          </div>
+
+          <!-- Enlaces rápidos -->
+          <div class="col-12 col-md-4 mb-4 mb-md-0">
+            <h5 class="text-primary-blue mb-3">Enlaces Rápidos</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="#" class="text-decoration-none text-muted">Inicio</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-decoration-none text-muted"
+                  >Buscar Veterinario</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-decoration-none text-muted"
+                  >Soy Veterinario</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-decoration-none text-muted"
+                  >Términos y Condiciones</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contacto y redes sociales -->
+          <div class="col-12 col-md-4">
+            <h5 class="text-primary-blue mb-3">Síguenos</h5>
+            <div class="d-flex gap-3 mb-3">
+              <a href="#" class="text-primary-blue fs-5">
+                <i class="fab fa-facebook"></i>
+              </a>
+              <a href="#" class="text-primary-blue fs-5">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="text-primary-blue fs-5">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </div>
+            <p class="text-muted mb-1">¿Tienes preguntas?</p>
+            <a
+              href="mailto:contacto@catmed.com"
+              class="text-decoration-none text-primary-blue"
+            >
+              contacto@catmed.com
+            </a>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="row mt-4 pt-4 border-top">
+          <div class="col-12 text-center text-muted">
+            <small>&copy; 2024 CatMed. Todos los derechos reservados.</small>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
