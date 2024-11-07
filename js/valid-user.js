@@ -1,13 +1,16 @@
-// valid-user.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Constantes de configuración
+    // Configuración centralizada
     const CONFIG = {
         PASSWORD: {
             MIN_LENGTH: 8,
             SPECIAL_CHARS: '@$!%*?&'
         },
         NAME: {
-            MIN_LENGTH: 2
+            MIN_LENGTH: 2,
+            MAX_LENGTH: 50
+        },
+        PHONE: {
+            PATTERN: /^\+?56\s?9\s?\d{4}\s?\d{4}$/
         },
         FILE: {
             MAX_SIZE: 3 * 1024 * 1024, // 3MB
@@ -16,19 +19,120 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Validaciones específicas para usuarios
+    // Validaciones específicas para cada campo
     const validations = {
+        required: function(value, fieldName) {
+            const trimmedValue = value.trim();
+            return {
+                isValid: trimmedValue.length > 0,
+                message: `El campo ${fieldName} es obligatorio`
+            };
+        },
+
+        nombre: function(value) {
+            const trimmedValue = value.trim();
+            if (!trimmedValue) {
+                return {
+                    isValid: false,
+                    message: 'El nombre es obligatorio'
+                };
+            }
+            if (trimmedValue.length < CONFIG.NAME.MIN_LENGTH) {
+                return {
+                    isValid: false,
+                    message: `El nombre debe tener al menos ${CONFIG.NAME.MIN_LENGTH} caracteres`
+                };
+            }
+            if (trimmedValue.length > CONFIG.NAME.MAX_LENGTH) {
+                return {
+                    isValid: false,
+                    message: `El nombre no puede superar los ${CONFIG.NAME.MAX_LENGTH} caracteres`
+                };
+            }
+            if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(trimmedValue)) {
+                return {
+                    isValid: false,
+                    message: 'El nombre solo puede contener letras y espacios'
+                };
+            }
+            return {
+                isValid: true,
+                message: ''
+            };
+        },
+
+        apellidos: function(value) {
+            const trimmedValue = value.trim();
+            if (!trimmedValue) {
+                return {
+                    isValid: false,
+                    message: 'Los apellidos son obligatorios'
+                };
+            }
+            if (trimmedValue.length < CONFIG.NAME.MIN_LENGTH) {
+                return {
+                    isValid: false,
+                    message: `Los apellidos deben tener al menos ${CONFIG.NAME.MIN_LENGTH} caracteres`
+                };
+            }
+            if (trimmedValue.length > CONFIG.NAME.MAX_LENGTH) {
+                return {
+                    isValid: false,
+                    message: `Los apellidos no pueden superar los ${CONFIG.NAME.MAX_LENGTH} caracteres`
+                };
+            }
+            if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(trimmedValue)) {
+                return {
+                    isValid: false,
+                    message: 'Los apellidos solo pueden contener letras y espacios'
+                };
+            }
+            return {
+                isValid: true,
+                message: ''
+            };
+        },
+
         email: function(value) {
             const emailRegex = /^[a-zA-Z0-9]+[a-zA-Z0-9._-]*[a-zA-Z0-9]+@[a-zA-Z0-9]+[a-zA-Z0-9.-]*[a-zA-Z0-9]+\.[a-zA-Z]{2,6}$/;
             const sanitizedEmail = value.trim().toLowerCase();
+            
+            if (!sanitizedEmail) {
+                return {
+                    isValid: false,
+                    message: 'El correo electrónico es obligatorio'
+                };
+            }
             
             return {
                 isValid: emailRegex.test(sanitizedEmail),
                 message: 'Por favor, ingresa un correo electrónico válido'
             };
         },
- 
+
+        telefono: function(value) {
+            const trimmedValue = value.trim();
+            if (!trimmedValue) {
+                return {
+                    isValid: false,
+                    message: 'El teléfono es obligatorio'
+                };
+            }
+            
+            return {
+                isValid: CONFIG.PHONE.PATTERN.test(trimmedValue),
+                message: 'Ingresa un número válido en formato +56 9 XXXX XXXX'
+            };
+        },
+
         password: function(value) {
+            if (!value) {
+                return {
+                    isValid: false,
+                    message: 'La contraseña es obligatoria'
+                };
+            }
+
             let failedChecks = [];
             
             const checkPassword = (type) => {
@@ -64,29 +168,35 @@ document.addEventListener('DOMContentLoaded', function() {
             ['length', 'uppercase', 'lowercase', 'number', 'special']
                 .forEach(checkPassword);
         
-            if (failedChecks.length > 0) {
-                return {
-                    isValid: false,
-                    message: 'La contraseña debe tener:\n' + failedChecks.join('\n')
-                };
-            }
-        
             return {
-                isValid: true,
-                message: ''
+                isValid: failedChecks.length === 0,
+                message: failedChecks.length > 0 ? 'La contraseña debe tener:\n' + failedChecks.join('\n') : ''
             };
         },
- 
+
         confirm_password: function(value, form) {
+            if (!value) {
+                return {
+                    isValid: false,
+                    message: 'Debes confirmar la contraseña'
+                };
+            }
+
             const password = form.querySelector('input[name="password"]').value;
             return {
                 isValid: value === password,
                 message: 'Las contraseñas no coinciden'
             };
         },
- 
+
         nombre_mascota: function(value) {
             const sanitizedName = value.trim();
+            if (!sanitizedName) {
+                return {
+                    isValid: false,
+                    message: 'El nombre de la mascota es obligatorio'
+                };
+            }
             if(sanitizedName.length < CONFIG.NAME.MIN_LENGTH) {
                 return {
                     isValid: false,
@@ -98,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: ''
             };
         },
- 
+
         edad_mascota: function(value) {
             if(!value) {
                 return {
@@ -111,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: ''
             };
         },
- 
+
         foto_mascota: function(input) {
             if(input.files && input.files[0]) {
                 const file = input.files[0];
@@ -131,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         message: 'Solo se permiten archivos JPG y PNG'
                     };
                 }
- 
+
                 // Validar tamaño
                 if (file.size > CONFIG.FILE.MAX_SIZE) {
                     const maxSizeMB = CONFIG.FILE.MAX_SIZE / (1024 * 1024);
@@ -163,84 +273,73 @@ document.addEventListener('DOMContentLoaded', function() {
                 isValid: true,
                 message: ''
             };
+        },
+
+        terms: function(value) {
+            return {
+                isValid: value === true,
+                message: 'Debes aceptar los términos y condiciones'
+            };
         }
     };
- 
-    // Campos a validar
-    const fieldsToValidate = [
-        'email', 
-        'password', 
-        'confirm_password', 
-        'nombre_mascota',
-        'edad_mascota'
-    ];
- 
+
     // Inicialización del formulario
     function initializeUserForm() {
         const form = document.getElementById('user-form');
         if (!form) return;
- 
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            let isValid = true;
- 
-            // Validar campos requeridos
-            for (const field of fieldsToValidate) {
-                const input = form.querySelector(`[name="${field}"]`);
-                if (input) {
-                    const result = validations[field](input.value, form);
-                    if (!result.isValid) {
-                        auxui.showError(input, result.message);
-                        isValid = false;
-                    } else {
-                        auxui.showSuccess(input);
-                    }
-                }
-            }
- 
-            // Validar foto si se ha subido
-            const fotoInput = form.querySelector('input[name="foto_mascota"]');
-            if (fotoInput && fotoInput.files.length > 0) {
-                try {
-                    const result = await validations.foto_mascota(fotoInput);
-                    if (!result.isValid) {
-                        auxui.showError(fotoInput, result.message);
-                        isValid = false;
-                    } else {
-                        auxui.showSuccess(fotoInput);
-                    }
-                } catch (error) {
-                    auxui.showError(fotoInput, 'Error al validar la imagen');
-                    isValid = false;
-                }
-            }
- 
-            if (isValid) {
-                console.log('Formulario de usuario válido, enviando datos...');
-                // TODO: creacion en un futuro en bd ? 
-            }
-        });
 
-        // Validación en tiempo real de la foto
-        const fotoInput = form.querySelector('input[name="foto_mascota"]');
-        if (fotoInput) {
-            fotoInput.addEventListener('change', async function() {
-                if (this.files.length > 0) {
-                    try {
-                        const result = await validations.foto_mascota(this);
-                        if (!result.isValid) {
-                            auxui.showError(this, result.message);
-                        } else {
-                            auxui.showSuccess(this);
-                        }
-                    } catch (error) {
-                        auxui.showError(this, 'Error al validar la imagen');
+        // Validación en tiempo real
+        form.querySelectorAll('input, select, textarea').forEach(field => {
+            field.addEventListener('blur', async function() {
+                if (validations[this.name]) {
+                    const result = await validateField(this, form);
+                    if (result.isValid) {
+                        auxui.showSuccess(this);
+                    } else {
+                        auxui.showError(this, result.message);
                     }
                 }
             });
-        }
+        });
+
+        // Validación al enviar
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Validar todos los campos
+            const fields = form.querySelectorAll('input, select, textarea');
+            for (const field of fields) {
+                if (validations[field.name]) {
+                    const result = await validateField(field, form);
+                    if (!result.isValid) {
+                        auxui.showError(field, result.message);
+                        isValid = false;
+                    } else {
+                        auxui.showSuccess(field);
+                    }
+                }
+            }
+
+            if (isValid) {
+                console.log('Formulario válido, enviando datos...');
+                // Aquí iría la lógica para enviar el formulario
+            }
+        });
     }
- 
+
+    // Función auxiliar para validar un campo
+    async function validateField(field, form) {
+        const validation = validations[field.name];
+        if (!validation) return { isValid: true, message: '' };
+
+        let value = field.type === 'checkbox' ? field.checked : field.value;
+        if (field.type === 'file') {
+            return await validation(field);
+        }
+        return validation(value, form);
+    }
+
     // Exportar función de inicialización
     window.initializeUserForm = initializeUserForm;
 });
