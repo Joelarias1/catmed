@@ -1,0 +1,154 @@
+/* Variables específicas para el perfil */
+:root {
+  --profile-xl-size: 120px;
+  --profile-camera-size: 36px;
+  --profile-border-width: 4px;
+}
+
+/* Estilos para la foto de perfil grande */
+.profile-picture-xl {
+  width: var(--profile-xl-size);
+  height: var(--profile-xl-size);
+  border: var(--profile-border-width) solid var(--white);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.profile-picture-xl img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-button {
+  width: 36px;
+  height: 36px;
+  background-color: var(--primary-blue);
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transform: translate(20%, 20%);
+}
+
+.camera-button:hover {
+  background-color: var(--primary-blue-hover);
+  transform: translate(20%, 20%) scale(1.1);
+}
+
+.camera-button i {
+  font-size: 14px;
+  color: var(--white);
+}
+
+
+/* Estilos para los campos del formulario */
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-control:disabled {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
+/* Botón de edición en campos */
+.form-edit-button {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--primary-blue);
+  padding: 0.25rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
+
+}
+
+.form-group:hover .form-edit-button {
+  opacity: 1;
+}
+
+.form-edit-button:hover {
+  color: var(--primary-blue-hover);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Estilos para las pestañas */
+
+.nav-pills {
+  gap: 0.5rem;
+}
+
+.nav-pills .nav-item {
+  margin: 0;
+}
+
+.nav-pills .nav-link {
+  color: var(--text-gray);
+  border-radius: 50rem;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+
+.nav-pills .nav-link:hover {
+  background-color: rgba(27, 42, 74, 0.05);
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--primary-blue);
+  color: var(--white);
+}
+
+/* Estilos para las tarjetas de mascotas y citas */
+.pet-card,
+.appointment-card {
+  transition: all 0.3s ease;
+}
+
+.pet-card {
+  width: var(--profile-xl-size);
+  height: var(--profile-xl-size);
+  border: var(--profile-border-width) solid var(--white);
+  position: relative;
+}
+
+.pet-card:hover,
+.appointment-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Badges personalizados */
+.badge.bg-primary-soft {
+  background-color: rgba(27, 42, 74, 0.1);
+  color: var(--primary-blue);
+  font-weight: 500;
+  padding: 0.5em 1em;
+}
+
+.badge.bg-danger-soft {
+  background-color: rgba(255, 104, 40, 0.1);
+  color: var(--primary-blue);
+  font-weight: 500;
+  padding: 0.5em 1em;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  :root {
+    --profile-xl-size: 100px;
+    --profile-camera-size: 32px;
+  }
+
+  .form-edit-button {
+    opacity: 1;
+  }
+}

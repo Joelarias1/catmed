@@ -23,11 +23,11 @@
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-md">
+    <nav class="navbar navbar-expand-lg bg-white shadow-md" role="navigation">
       <div class="container">
         <!-- Logo con texto -->
-        <a class="navbar-brand d-flex align-items-center" href="index.html">
-          <img src="img/logo.png" alt="CatMed" class="navbar-logo" />
+        <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="CatMed Home">
+          <img src="img/logo.png" alt="" class="navbar-logo" aria-hidden="true" />
           <span class="logo-brand">CatMed</span>
         </a>
 
@@ -37,6 +37,9 @@
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,21 +48,20 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto align-items-center">
             <li class="nav-item">
-              <a class="nav-link" href="#">Mis Citas</a>
+              <a class="nav-link" href="#" aria-current="page">Mis Citas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Mi Gato</a>
             </li>
             <li class="nav-item bg-light rounded-pill p-2">
-              <a class="nav-link profile-link" href="#">
+              <a class="nav-link profile-link" href="perfilusuario.html" aria-label="Perfil de usuario">
                 <div class="d-flex align-items-center gap-2">
-                  <div
-                    class="profile-picture-container rounded-circle overflow-hidden"
-                  >
+                  <div class="profile-picture-container rounded-circle overflow-hidden">
                     <img
                       src="/img/placeholderprofilepicture.png"
-                      alt="Perfil"
+                      alt=""
                       class="img-fluid"
+                      aria-hidden="true"
                     />
                   </div>
                   <span class="profile-name d-lg-block fw-custom">Camila</span>
@@ -71,55 +73,67 @@
       </div>
     </nav>
 
-    <main class="bg-primary-blue min-vh-100 py-4">
+    <main class="bg-primary-blue min-vh-100 py-4" role="main">
       <div class="container">
         <!-- Bienvenida y Búsqueda -->
-        <div class="card rounded-4 mb-4">
+        <div class="card rounded-4 mb-4 fade-in">
           <div class="card-body p-4">
             <h1 class="h3 text-primary-blue mb-3">¡Hola Camila! 👋</h1>
             <p class="text-muted mb-4">
               Encuentra al veterinario ideal para Mota
             </p>
-            <div class="input-group">
-              <span class="input-group-text border-0 bg-light">
-                <i class="fas fa-search text-muted"></i>
-              </span>
-              <input
-                type="text"
-                class="form-control border-0 bg-light"
-                placeholder="Buscar veterinario, servicio o especialidad..."
-              />
+            <div class="search-container" role="search">
+              <div class="input-group">
+                <span class="input-group-text border-0 bg-light" aria-hidden="true">
+                  <i class="fas fa-search text-muted"></i>
+                </span>
+                <input
+                  type="search"
+                  class="form-control border-0 bg-light"
+                  placeholder="Buscar veterinario, servicio o especialidad..."
+                  aria-label="Buscar veterinario"
+                />
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Filtros Rápidos -->
-        <div class="card rounded-4 mb-4">
+        <div class="card rounded-4 mb-4 fade-in">
           <div class="card-body p-4">
-            <h5 class="mb-3">Filtros Rápidos</h5>
-            <div class="d-flex gap-2 flex-wrap">
-              <button class="btn btn-light rounded-pill px-3 py-2">
-                <i class="fas fa-dollar-sign me-2"></i>Precio
+            <h2 class="h5 mb-3">Filtros Rápidos</h2>
+            <div class="d-flex gap-2 flex-wrap" role="group" aria-label="Filtros de búsqueda">
+              <button class="btn btn-filter rounded-pill px-3 py-2" role="checkbox" aria-checked="false">
+                <i class="fas fa-dollar-sign me-2" aria-hidden="true"></i>
+                <span>Precio</span>
               </button>
-              <button class="btn btn-light rounded-pill px-3 py-2">
-                <i class="fas fa-map-marker-alt me-2"></i>Zona
+              <button class="btn btn-filter rounded-pill px-3 py-2" role="checkbox" aria-checked="false">
+                <i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i>
+                <span>Zona</span>
               </button>
-              <button class="btn btn-light rounded-pill px-3 py-2">
-                <i class="fas fa-star me-2"></i>Rating
+              <button class="btn btn-filter rounded-pill px-3 py-2" role="checkbox" aria-checked="false">
+                <i class="fas fa-star me-2" aria-hidden="true"></i>
+                <span>Rating</span>
               </button>
-              <button class="btn btn-light rounded-pill px-3 py-2">
-                <i class="fas fa-clock me-2"></i>Disponible hoy
+              <button class="btn btn-filter rounded-pill px-3 py-2" role="checkbox" aria-checked="false">
+                <i class="fas fa-clock me-2" aria-hidden="true"></i>
+                <span>Disponible hoy</span>
               </button>
-              <button class="btn btn-light rounded-pill px-3 py-2">
-                <i class="fas fa-video me-2"></i>Telemedicina
+              <button class="btn btn-filter rounded-pill px-3 py-2" role="checkbox" aria-checked="false">
+                <i class="fas fa-video me-2" aria-hidden="true"></i>
+                <span>Telemedicina</span>
               </button>
-              <button class="btn btn-light rounded-pill px-3 py-2">
-                <i class="fas fa-home me-2"></i>Visita a domicilio
-              <button class="btn btn-light rounded-pill px-3 py-2">
-                <i class="fas fa-syringe me-2"></i>Vacunación
+              <button class="btn btn-filter rounded-pill px-3 py-2" role="checkbox" aria-checked="false">
+                <i class="fas fa-home me-2" aria-hidden="true"></i>
+                <span>Visita a domicilio</span>
               </button>
-              <button class="btn btn-light rounded-pill px-3 py-2">
-                <i class="fas fa-paw me-2"></i>Especialidad felina
+              <button class="btn btn-filter rounded-pill px-3 py-2" role="checkbox" aria-checked="false">
+                <i class="fas fa-syringe me-2" aria-hidden="true"></i>
+                <span>Vacunación</span>
+              </button>
+              <button class="btn btn-filter rounded-pill px-3 py-2" role="checkbox" aria-checked="false">
+                <i class="fas fa-paw me-2" aria-hidden="true"></i>
+                <span>Especialidad felina</span>
               </button>
             </div>
           </div>
@@ -128,72 +142,83 @@
         <!-- Veterinarios Grid -->
         <h2 class="h4 text-white mb-4">Veterinarios Disponibles</h2>
         <div class="row g-4">
-
           <!-- Card Veterinario -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card vet-card rounded-4 h-100 border-0 shadow-sm">
-            <div class="card-body p-4">
-              <!-- Encabezado con foto y datos principales -->
-              <div class="d-flex align-items-center gap-3 mb-3">
-                <div class="vet-image-container">
-                  <img src="img/placeholderveterinary.png" alt="Veterinario" class="img-fluid rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+          <div class="col-12 col-md-6 col-lg-4">
+            <article class="card vet-card rounded-4 h-100 border-0 shadow-sm fade-in">
+              <div class="card-body p-4">
+                <!-- Encabezado con foto y datos principales -->
+                <header class="d-flex align-items-center gap-3 mb-3">
+                  <div class="vet-image-container">
+                    <img 
+                      src="img/placeholderveterinary.png" 
+                      alt="Foto de la Dra. Ana Silva" 
+                      class="img-fluid rounded-circle"
+                    />
+                  </div>
+                  <div>
+                    <h3 class="h5 mb-1">Dra. Ana Silva</h3>
+                    <p class="text-muted mb-0"><small>Especialista en felinos</small></p>
+                    <div class="text-warning" aria-label="Calificación 5 de 5 estrellas">
+                      <span aria-hidden="true">★★★★★</span>
+                      <span class="text-muted">5.0 (120 reseñas)</span>
+                    </div>
+                  </div>
+                </header>
+
+                <!-- Información de servicios y ubicación -->
+                <div class="mb-3">
+                  <p class="mb-0">
+                    <i class="fas fa-map-marker-alt me-2 text-primary-blue-light" aria-hidden="true"></i>
+                    <span class="fw-custom">Clínica Felina MiauSalud, Providencia</span>
+                  </p>
+                  <p class="mt-2">
+                    <i class="fas fa-tag me-2 text-primary-blue-light" aria-hidden="true"></i>
+                    <span class="text-primary-blue fw-custom">$25.000</span>
+                    <small class="text-muted ms-2">Consulta general</small>
+                  </p>
                 </div>
-                <div>
-                  <h3 class="h5 mb-1">Dra. Ana Silva</h3>
-                  <p class="text-muted mb-0"><small>Especialista en felinos</small></p>
-                  <div class="text-warning">
-                    ★★★★★ <span class="text-muted">5.0 (120 reseñas)</span>
+
+                <!-- Especialidades -->
+                <div class="mb-3">
+                  <p class="mb-2 text-muted fw-custom"><small>Especialidades:</small></p>
+                  <div class="d-flex flex-wrap gap-1" role="list">
+                    <span class="badge bg-primary-soft text-primary-blue rounded-pill" role="listitem">Vacunación</span>
+                    <span class="badge bg-primary-soft text-primary-blue rounded-pill" role="listitem">Cirugía</span>
+                    <span class="badge bg-primary-soft text-primary-blue rounded-pill" role="listitem">Nutrición</span>
                   </div>
                 </div>
-              </div>
 
-              <!-- Información de servicios y ubicación -->
-              <div class="mb-3">
-                <p class="mb-0">
-                  <i class="fas fa-map-marker-alt me-2 text-primary-blue-light"></i>
-                  <small class="fw-custon">Clínica Felina MiauSalud, Providencia</small>
-                </p>
-                <p class="mt-2">
-                  <i class="fas fa-tag me-2 text-primary-blue-light"></i>
-                  <span class="text-primary-blue fw-custom">$25.000</span>
-                  <small class="text-muted ms-2 fw-cu">Consulta general</small>
-                </p>
-              </div>
-
-              <!-- Especialidades -->
-              <div class="mb-3">
-                <p class="mb-2 text-muted fw-custom"><small>Especialidades:</small></p>
-                <div class="d-flex flex-wrap gap-1">
-                  <span class="badge bg-primary-soft text-primary-blue rounded-pill">Vacunación</span>
-                  <span class="badge bg-primary-soft text-primary-blue rounded-pill">Cirugía</span>
-                  <span class="badge bg-primary-soft text-primary-blue rounded-pill">Nutrición</span>
+                <!-- Horarios disponibles -->
+                <div class="mb-3">
+                  <p class="mb-2 text-muted fw-custom"><small>Próximas citas disponibles:</small></p>
+                  <div class="d-flex flex-wrap gap-1" role="list">
+                    <span class="badge bg-success text-white rounded-pill" role="listitem">
+                      <i class="far fa-clock me-1" aria-hidden="true"></i>Hoy 15:00
+                    </span>
+                    <span class="badge bg-light text-dark rounded-pill" role="listitem">
+                      <i class="far fa-clock me-1" aria-hidden="true"></i>Mañana 9:00
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Horarios disponibles -->
-              <div class="mb-3">
-                <p class="mb-2 text-muted fw-custom"><small>Próximas citas disponibles:</small></p>
-                <div class="d-flex flex-wrap gap-1">
-                  <span class="badge bg-success text-white rounded-pill">
-                    <i class="far fa-clock me-1"></i>Hoy 15:00
-                  </span>
-                  <span class="badge bg-light text-dark rounded-pill">
-                    <i class="far fa-clock me-1"></i>Mañana 9:00
-                  </span>
-                </div>
+                <!-- Botón de acción -->
+                <button class="btn btn-primary w-100 rounded-pill mt-2">
+                  <i class="fas fa-calendar-plus me-2" aria-hidden="true"></i>Agendar Cita
+                </button>
               </div>
-
-              <!-- Botón de acción -->
-              <button class="btn btn-primary w-100 rounded-pill mt-2">
-                <i class="fas fa-calendar-plus me-2"></i>Agendar Cita
-              </button>
-            </div>
+            </article>
           </div>
-        </div>
-
-
         </div>
       </div>
     </main>
+
+    <script>
+      document.querySelectorAll('.btn-filter').forEach(button => {
+        button.addEventListener('click', function() {
+          this.classList.toggle('active');
+          this.setAttribute('aria-checked', this.classList.contains('active'));
+        });
+      });
+    </script>
   </body>
 </html>

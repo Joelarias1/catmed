@@ -52,14 +52,39 @@
 }
 
 /* Card del veterinario */
+/* Mejoras para la tarjeta de veterinario */
 .vet-card {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    transition: all 0.3s ease;
+    border: none;
 }
 
 .vet-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Mejora para las badges de especialidades */
+.badge.bg-primary-soft {
+    background-color: rgba(27, 42, 74, 0.1);
+    color: var(--primary-blue);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.badge.bg-primary-soft:hover {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+/* Mejora para los horarios disponibles */
+.badge.bg-success {
+    background-color: #28a745 !important;
+    transition: all 0.3s ease;
+}
+
+.badge.bg-success:hover {
+    transform: scale(1.05);
 }
 
 /* Info del veterinario */
@@ -83,6 +108,31 @@
 .fw-custom {
     font-weight: 450;
 }
+
+.btn-filter {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-filter:hover {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.btn-filter.active {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.btn-filter i {
+    transition: transform 0.3s ease;
+}
+
+.btn-filter:hover i {
+    transform: scale(1.2);
+}
+
 
 /* Media queries */
 @media (max-width: 768px) {
