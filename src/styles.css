@@ -1,0 +1,25 @@
+/* src/styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Jua&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fuentes */
+@layer base {
+  html {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    @apply bg-[#CBD5DA] text-[#4A5568] min-h-screen flex flex-col;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#1B2A4A] border-none px-6 py-3 font-medium tracking-wider
+           hover:bg-[#2c3e6f] hover:-translate-y-0.5 hover:shadow-sm
+           transition-all duration-300;
+  }
+}

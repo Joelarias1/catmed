@@ -1,0 +1,37 @@
+<!-- navbar.component.html -->
+<nav class="fixed top-0 w-full bg-white shadow-sm">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <!-- Logo y Marca -->
+        <a routerLink="/" class="flex items-center hover:scale-105 transition-all">
+        <img src="/assets/img/logo.png" alt="CatMed" class="h-16 w-auto transition-all">
+          <span class="font-['Jua'] text-primary text-2xl ml-2">CatMed</span>
+        </a>
+  
+        <!-- Menú -->
+        <ul class="hidden lg:flex items-center space-x-8">
+          <li><a routerLink="/buscar-veterinarios" class="text-custom-gray hover:text-primary hover:scale-110 transition-all">Buscar Veterinario</a></li>
+          <li><a routerLink="/soy-usuario" class="text-custom-gray hover:text-primary hover:scale-110 transition-all">Soy Dueño/a</a></li>
+          <li><a routerLink="/soy-vet" class="text-custom-gray hover:text-primary hover:scale-110 transition-all">Soy Veterinario</a></li>
+          <li><a routerLink="/login" class="btn-primary text-white rounded-full">Iniciar Sesión</a></li>
+        </ul>
+  
+        <!-- Botón móvil -->
+        <button class="lg:hidden" (click)="toggleMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-16 6h16" />
+          </svg>
+        </button>
+      </div>
+  
+      <!-- Menú móvil -->
+      <div [class.hidden]="!isMenuOpen" class="lg:hidden">
+        <ul class="py-4 space-y-4">
+          <li><a routerLink="/buscar-veterinarios" class="block text-custom-gray hover:text-primary">Buscar Veterinario</a></li>
+          <li><a routerLink="/soy-usuario" class="block text-custom-gray hover:text-primary">Soy Dueño/a</a></li>
+          <li><a routerLink="/soy-vet" class="block text-custom-gray hover:text-primary">Soy Veterinario</a></li>
+          <li><a routerLink="/login" class="block btn-primary text-white text-center rounded-full">Iniciar Sesión</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
