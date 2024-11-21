@@ -9,7 +9,9 @@ import { provideIcons } from '@ng-icons/core';
 import { 
   bootstrapTwitterX,
   bootstrapInstagram,
-  bootstrapFacebook
+  bootstrapFacebook,
+  bootstrapEyeSlashFill,
+  bootstrapEyeSlash
 } from '@ng-icons/bootstrap-icons';
 
 export const appConfig: ApplicationConfig = {
@@ -20,7 +22,9 @@ export const appConfig: ApplicationConfig = {
     provideIcons({ 
       bootstrapInstagram, 
       bootstrapTwitterX, 
-      bootstrapFacebook 
+      bootstrapFacebook,
+      bootstrapEyeSlashFill,
+      bootstrapEyeSlash
     })
   ]
 };
