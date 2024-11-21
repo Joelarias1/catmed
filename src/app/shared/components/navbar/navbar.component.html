@@ -1,5 +1,5 @@
 <!-- navbar.component.html -->
-<nav class="fixed top-0 w-full bg-white shadow-sm">
+<nav class="fixed top-0 w-full bg-white shadow-sm z-50">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center py-4">
         <!-- Logo y Marca -->
@@ -10,10 +10,10 @@
   
         <!-- Menú -->
         <ul class="hidden lg:flex items-center space-x-8">
-          <li><a routerLink="/buscar-veterinarios" class="text-custom-gray hover:text-primary hover:scale-110 transition-all">Buscar Veterinario</a></li>
-          <li><a routerLink="/soy-usuario" class="text-custom-gray hover:text-primary hover:scale-110 transition-all">Soy Dueño/a</a></li>
-          <li><a routerLink="/soy-vet" class="text-custom-gray hover:text-primary hover:scale-110 transition-all">Soy Veterinario</a></li>
-          <li><a routerLink="/login" class="btn-primary text-white rounded-full">Iniciar Sesión</a></li>
+          <li class="hover:scale-110 transition-all"><a routerLink="/buscar-veterinarios" class="text-custom-gray hover:text-primary transition-all">Buscar Veterinario</a></li>
+          <li class="hover:scale-110 transition-all"><a routerLink="/soy-usuario" class="text-custom-gray hover:text-primary transition-all">Soy Dueño/a</a></li>
+          <li class="hover:scale-110 transition-all"><a routerLink="/soy-vet" class="text-custom-gray hover:text-primary transition-all">Soy Veterinario</a></li>
+          <li class="hover:scale-110 transition-all"><a routerLink="/login" class="btn-primary text-white rounded-full">Iniciar Sesión</a></li>
         </ul>
   
         <!-- Botón móvil -->
