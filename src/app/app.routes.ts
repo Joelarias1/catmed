@@ -6,6 +6,8 @@ import { LandingComponent } from './features/home/pages/landing/landing.componen
 // Auth
 import { LoginComponent } from './features/auth/pages/login/login.component';
 import { PasswordRecoveryComponent } from './features/auth/pages/password-recovery/password-recovery.component';
+import { UserRegisterComponent } from './features/auth/pages/register/user-register/user-register.component';
+import { VetRegisterComponent } from './features/auth/pages/register/vet-register/vet-register.component';
 
 export const routes: Routes = [
   {
@@ -14,7 +16,7 @@ export const routes: Routes = [
     title: 'Inicio',
   },
 
-  //   AUTH
+  //   AUTH & RECOVERY
   {
     path: 'login',
     component: LoginComponent,
@@ -25,8 +27,28 @@ export const routes: Routes = [
     component: PasswordRecoveryComponent,
     title: 'Recuperar Contraseña',
   },
+  
+  //   SECCION: USER
+  {
+    path: 'registeruser',
+    component: UserRegisterComponent,
+    title: 'Registrarme como Dueño/a',
+  },
+  
+  
+  // SECCION: VET
+  {
+    path: 'registervet',
+    component: VetRegisterComponent,
+    title: 'Registrarme como Veterinario',
+  },
+  
 
-  //   USER
+
+
+
+
+
 
   //   REDIRECT
   {

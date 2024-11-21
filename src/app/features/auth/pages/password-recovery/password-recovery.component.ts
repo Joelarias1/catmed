@@ -30,7 +30,7 @@ export class PasswordRecoveryComponent {
   onSubmit(): void {
     if (this.recoveryForm.valid) {
       this.isLoading = true;
-      // Simular envío (aquí irá tu lógica real)
+      // TODO: Implementar la lógica de envío de correo electrónico
       setTimeout(() => {
         this.isLoading = false;
         this.isEmailSent = true;

@@ -11,7 +11,10 @@ import {
   bootstrapInstagram,
   bootstrapFacebook,
   bootstrapEyeSlashFill,
-  bootstrapEyeSlash
+  bootstrapEyeSlash,
+  bootstrapCheckCircle,
+  bootstrapPersonBadge,
+
 } from '@ng-icons/bootstrap-icons';
 
 export const appConfig: ApplicationConfig = {
@@ -24,7 +27,10 @@ export const appConfig: ApplicationConfig = {
       bootstrapTwitterX, 
       bootstrapFacebook,
       bootstrapEyeSlashFill,
-      bootstrapEyeSlash
+      bootstrapEyeSlash,
+      bootstrapCheckCircle,
+      bootstrapPersonBadge,
+  
     })
   ]
 };

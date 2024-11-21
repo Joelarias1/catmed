@@ -1,1 +1,226 @@
-<p>vet-register works!</p>
+<!-- features/auth/pages/register/vet-register/vet-register.component.html -->
+<main class="flex-grow mt-16">
+    <section class="mx-5">
+      <div class="container mx-auto">
+        <div class="flex justify-center">
+          <div class="w-full max-w-4xl">
+            <!-- Más ancho que el login -->
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-md">
+              <!-- Header -->
+              <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-primary mb-2">
+                  Registro de Veterinario
+                </h2>
+                <p class="text-gray-600">
+                  Únete a nuestra red de especialistas felinos
+                </p>
+              </div>
+  
+              <!-- Formulario -->
+              <form class="space-y-6">
+                <!-- Datos Personales -->
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="nombre"
+                      >Nombre</label
+                    >
+                    <input
+                      type="text"
+                      id="nombre"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                      placeholder="Nombre"
+                    />
+                  </div>
+  
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="apellidos"
+                      >Apellidos</label
+                    >
+                    <input
+                      type="text"
+                      id="apellidos"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                      placeholder="Apellidos"
+                    />
+                  </div>
+  
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="email"
+                      >Correo electrónico</label
+                    >
+                    <input
+                      type="email"
+                      id="email"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                      placeholder="dongato@miau.com"
+                    />
+                  </div>
+  
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="telefono"
+                      >Teléfono</label
+                    >
+                    <input
+                      type="tel"
+                      id="telefono"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                      placeholder="+56 9 0000 0000"
+                    />
+                  </div>
+                </div>
+  
+                <!-- Datos Profesionales -->
+                <div class="space-y-6">
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="licencia"
+                      >Número de Licencia</label
+                    >
+                    <input
+                      type="text"
+                      id="licencia"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    />
+                  </div>
+  
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="especialidad"
+                      >Especialidad</label
+                    >
+                    <select
+                      id="especialidad"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light bg-white"
+                    >
+                      <option value="">Selecciona una especialidad</option>
+                      <option value="general">Medicina General Felina</option>
+                      <option value="cirugia">Cirugía Felina</option>
+                      <option value="dermatologia">Dermatología Felina</option>
+                      <option value="comportamiento">
+                        Comportamiento Felino
+                      </option>
+                      <option value="nutricion">Nutrición Felina</option>
+                      <option value="dental">Dental</option>
+                    </select>
+                  </div>
+  
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="experiencia"
+                      >Años de experiencia</label
+                    >
+                    <input
+                      type="number"
+                      id="experiencia"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                      min="0"
+                      placeholder="0"
+                    />
+                  </div>
+  
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="descripcion"
+                      >Descripción profesional</label
+                    >
+                    <textarea
+                      id="descripcion"
+                      rows="3"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light resize-y max-h-48 min-h24"
+                      placeholder="Cuéntanos sobre tu experiencia con gatos..."
+                    ></textarea>
+                  </div>
+                </div>
+  
+                <!-- Ubicación -->
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="ciudad"
+                      >Ciudad</label
+                    >
+                    <input
+                      type="text"
+                      id="ciudad"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    />
+                  </div>
+  
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="codigo_postal"
+                      >Código Postal</label
+                    >
+                    <input
+                      type="text"
+                      id="codigo_postal"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    />
+                  </div>
+                </div>
+  
+                <!-- Contraseña -->
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="password"
+                      >Contraseña</label
+                    >
+                    <input
+                      type="password"
+                      id="password"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                      placeholder="********"
+                    />
+                    <p class="text-sm text-gray-500 mt-1">
+                      Mínimo 8 caracteres, incluyendo mayúsculas, números y
+                      símbolos
+                    </p>
+                  </div>
+  
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="confirm_password"
+                      >Confirmar Contraseña</label
+                    >
+                    <input
+                      type="password"
+                      id="confirm_password"
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                      placeholder="********"
+                    />
+                  </div>
+                </div>
+  
+                <!-- Términos -->
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                  />
+                  <label class="ml-2 text-gray-700" for="terms">
+                    Acepto los
+                    <a href="#" class="text-primary hover:underline"
+                      >términos y condiciones</a
+                    >
+                  </label>
+                </div>
+  
+                <!-- Botón de registro -->
+                <button
+                  type="submit"
+                  class="w-full bg-primary text-white py-3 rounded-full hover:bg-primary-dark transition-all"
+                >
+                  Registrarme como Veterinario
+                </button>
+  
+                <!-- Login link -->
+                <div class="text-center">
+                  <p class="text-gray-600">
+                    ¿Ya tienes cuenta?
+                    <a routerLink="/login" class="text-primary hover:underline">
+                      Inicia sesión aquí
+                    </a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
