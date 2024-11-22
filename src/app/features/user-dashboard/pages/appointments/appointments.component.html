@@ -1,0 +1,125 @@
+<div class="container mx-auto px-4 py-6">
+  <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+    <!-- Header con botón de agendar -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b pb-4 gap-4">
+      <h2 class="text-xl md:text-2xl font-bold text-primary">Mis Citas</h2>
+      <button class="w-full sm:w-auto bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full flex items-center justify-center gap-2 transition-colors">
+        <ng-icon name="bootstrapCalendarPlus"></ng-icon>
+        <span>Agendar Cita</span>
+      </button>
+    </div>
+
+    <!-- Lista de Citas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Cita Individual - Próxima -->
+      <div class="bg-gray-50 rounded-lg p-4 hover:shadow-md transition-shadow border-l-4 border-l-blue-500">
+        <!-- Cabecera con info principal -->
+        <div class="flex items-start gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10 flex-shrink-0">
+            <img
+              src="/assets/img/placeholderveterinary.png"
+              alt="Dr. Carlos Ruiz"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="flex-grow">
+            <div class="flex items-start justify-between gap-2">
+              <h3 class="text-base font-semibold text-gray-800">Vacunación - Mota</h3>
+              <span class="inline-flex px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-600">
+                Próxima
+              </span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">
+              <span class="font-medium">Dr. Carlos Ruiz</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Info compacta -->
+        <div class="space-y-2 mb-3 text-sm">
+          <div class="flex items-center gap-2 text-gray-600">
+            <ng-icon name="bootstrapCalendar3" class="text-primary flex-shrink-0"></ng-icon>
+            <span class="font-medium">22 marzo 2024</span>
+            <span class="mx-1">•</span>
+            <span>10:00</span>
+          </div>
+          <div class="flex items-center gap-2 text-gray-600">
+            <ng-icon name="bootstrapGeoAlt" class="text-primary flex-shrink-0"></ng-icon>
+            <span>Clínica CatMed Norte</span>
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="flex justify-end gap-2">
+          <button 
+            class="w-10 h-10 flex items-center justify-center bg-primary/5 hover:bg-primary/15 text-primary rounded-full transition-colors relative group"
+            title="Ver detalles">
+            <ng-icon name="bootstrapFileText" class="text-lg"></ng-icon>
+            <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+              Ver detalles
+            </span>
+          </button>
+          <button 
+            class="w-10 h-10 flex items-center justify-center bg-red-50 hover:bg-red-100 text-red-600 rounded-full transition-colors relative group"
+            title="Cancelar cita">
+            <ng-icon name="bootstrapXCircle" class="text-lg"></ng-icon>
+            <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+              Cancelar cita
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cita Individual - Completada -->
+      <div class="bg-gray-50 rounded-lg p-4 hover:shadow-md transition-shadow border-l-4 border-l-green-500">
+        <!-- Similar estructura pero más compacta -->
+        <div class="flex items-start gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10 flex-shrink-0">
+            <img
+              src="/assets/img/placeholderveterinary.png"
+              alt="Dra. Ana Silva"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="flex-grow">
+            <div class="flex items-start justify-between gap-2">
+              <h3 class="text-base font-semibold text-gray-800">Control General - Mota</h3>
+              <span class="inline-flex px-2 py-1 text-xs rounded-full bg-green-100 text-green-600">
+                Completada
+              </span>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">
+              <span class="font-medium">Dra. Ana Silva</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Info compacta -->
+        <div class="space-y-2 mb-3 text-sm">
+          <div class="flex items-center gap-2 text-gray-600">
+            <ng-icon name="bootstrapCalendar3" class="text-primary flex-shrink-0"></ng-icon>
+            <span class="font-medium">15 marzo 2024</span>
+            <span class="mx-1">•</span>
+            <span>14:30</span>
+          </div>
+          <div class="flex items-center gap-2 text-gray-600">
+            <ng-icon name="bootstrapGeoAlt" class="text-primary flex-shrink-0"></ng-icon>
+            <span>Clínica CatMed Central</span>
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="flex justify-end gap-2">
+          <button 
+            class="w-10 h-10 flex items-center justify-center bg-primary/5 hover:bg-primary/15 text-primary rounded-full transition-colors relative group"
+            title="Ver detalles">
+            <ng-icon name="bootstrapFileText" class="text-lg"></ng-icon>
+            <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+              Ver detalles
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

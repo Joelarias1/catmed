@@ -1,0 +1,91 @@
+<nav class="bg-white shadow-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <!-- Logo y nombre -->
+      <div class="flex items-center">
+        <a routerLink="/user/home" class="flex items-center gap-x-2">
+          <img src="/assets/img/logo.png" alt="Logo" class="h-8 w-auto" />
+          <span class="text-primary font-semibold text-lg">CatMed</span>
+        </a>
+      </div>
+
+      <!-- Botón hamburguesa móvil -->
+      <div class="flex items-center lg:hidden">
+        <button
+          type="button"
+          (click)="toggleMenu()"
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100"
+        >
+          <ng-icon
+            [name]="isMenuOpen ? 'bootstrapX' : 'bootstrapList'"
+            class="h-6 w-6"
+          >
+          </ng-icon>
+        </button>
+      </div>
+
+      <!-- Menú desktop -->
+      <div class="hidden lg:flex lg:items-center lg:space-x-8">
+        <a
+          routerLink="/user/appointments"
+          routerLinkActive="text-primary"
+          class="flex items-center gap-x-2 text-gray-700 hover:text-primary transition-colors"
+        >
+          <ng-icon name="bootstrapCalendar2Check"></ng-icon>
+          <span>Mis Citas</span>
+        </a>
+        <a
+          routerLink="/user/pets"
+          routerLinkActive="text-primary"
+          class="flex items-center gap-x-2 text-gray-700 hover:text-primary transition-colors"
+        >
+          <ng-icon name="bootstrapHeart"></ng-icon>
+          <span>Mi Gato</span>
+        </a>
+
+        <!-- Perfil -->
+        <a
+          routerLink="/user/profile"
+          routerLinkActive="bg-gray-100"
+          class="flex items-center gap-x-2 px-4 py-2 rounded-full hover:bg-gray-100 transition-colors"
+        >
+          <div class="w-8 h-8 rounded-full overflow-hidden">
+            <img
+              src="assets/img/placeholderprofilepicture.png"
+              alt=""
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <span class="text-gray-700">Camila</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Menú móvil -->
+    <div class="lg:hidden" [class.hidden]="!isMenuOpen">
+      <div class="pt-2 pb-3 space-y-1">
+        <a
+          routerLink="/user/appointments"
+          routerLinkActive="text-primary bg-primary/10"
+          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+        >
+          Mis Citas
+        </a>
+        <a
+          routerLink="/user/pets"
+          routerLinkActive="text-primary bg-primary/10"
+          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+        >
+          Mi Gato
+        </a>
+        <a
+          routerLink="/user/profile"
+          routerLinkActive="text-primary bg-primary/10"
+          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+        >
+          Mi Perfil
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

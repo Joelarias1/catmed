@@ -1,18 +1,40 @@
 // app.component.ts
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
-// Shared Componentes
+// Shared Components
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { NavbarUserComponent } from './shared/components/navbar-user/navbar-user.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true, 
-  imports: [RouterOutlet, NavbarComponent, FooterComponent], 
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet, 
+    NavbarComponent, 
+    NavbarUserComponent,
+    FooterComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'catmed';
+  currentNavbar = 'public';
+
+  constructor(private router: Router) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      // Obtener el tipo de navbar de la ruta actual
+      const root = this.router.routerState.snapshot.root;
+      const navbarType = root.firstChild?.data['navbar'];
+      if (navbarType) {
+        this.currentNavbar = navbarType;
+      }
+    });
+  }
 }

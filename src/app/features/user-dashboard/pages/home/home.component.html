@@ -1,1 +1,160 @@
-<p>home works!</p>
+<!-- features/user-dashboard/pages/home/home.component.html -->
+<main class="min-h-screen py-8">
+  <div class="container mx-auto px-4">
+    <!-- Bienvenida y Búsqueda -->
+    <div class="bg-white rounded-2xl shadow p-6 mb-6 fade-in">
+      <h1 class="text-xl text-primary font-bold mb-3">¡Hola Camila! 👋</h1>
+      <p class="text-gray-600 mb-4">Encuentra al veterinario ideal para Mota</p>
+      <!-- Búsqueda -->
+      <div class="relative">
+        <div class="flex items-center bg-gray-50 rounded-lg">
+          <span class="pl-4 text-gray-500">
+            <ng-icon name="bootstrapSearch"></ng-icon>
+          </span>
+          <input
+            type="search"
+            class="w-full py-3 px-4 bg-transparent border-none focus:ring-0"
+            placeholder="Buscar veterinario, servicio o especialidad..."
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros Rápidos -->
+    <div class="bg-white rounded-2xl shadow p-6 mb-6 fade-in">
+      <h2 class="text-lg font-medium mb-4">Filtros Rápidos</h2>
+      <div class="flex flex-wrap gap-2">
+        <button
+          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"
+        >
+          <ng-icon name="bootstrapCurrencyDollar"></ng-icon>
+          <span>Precio</span>
+        </button>
+        <button
+          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"
+        >
+          <ng-icon name="bootstrapGeoAlt"></ng-icon>
+          <span>Zona</span>
+        </button>
+        <button
+          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"
+        >
+          <ng-icon name="bootstrapStar"></ng-icon>
+          <span>Rating</span>
+        </button>
+        <button
+          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"
+        >
+          <ng-icon name="bootstrapClock"></ng-icon>
+          <span>Disponible hoy</span>
+        </button>
+        <button
+          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"
+        >
+          <ng-icon name="bootstrapCamera"></ng-icon>
+          <span>Telemedicina</span>
+        </button>
+        <button
+          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"
+        >
+          <ng-icon name="bootstrapHouse"></ng-icon>
+          <span>Visita a domicilio</span>
+        </button>
+        <button
+          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"
+        >
+          <ng-icon name="bootstrapDroplet"></ng-icon>
+          <span>Vacunación</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Lista de Veterinarios -->
+    <h2 class="text-xl text-white font-medium mb-4">
+      Veterinarios Disponibles
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Card Veterinario -->
+      <article class="bg-white rounded-2xl shadow p-6 fade-in">
+        <!-- Header con foto y datos -->
+        <header class="flex items-center gap-4 mb-4">
+          <img
+            src="assets/img/placeholderveterinary.png"
+            alt="Dra. Ana Silva"
+            class="w-16 h-16 rounded-full object-cover"
+          />
+          <div>
+            <h3 class="font-medium mb-1">Dra. Ana Silva</h3>
+            <p class="text-sm text-gray-600">Especialista en felinos</p>
+            <div class="flex items-center text-yellow-400">
+              ★★★★★
+              <span class="text-gray-600 text-sm ml-1">5.0 (120)</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Info y ubicación -->
+        <div class="space-y-2 mb-4">
+          <p class="flex items-center gap-x-2 text-gray-700">
+            <ng-icon
+              name="bootstrapGeoAlt"
+              class="text-primary text-lg min-w-[1.25rem]"
+            ></ng-icon>
+            <span>Clínica Felina MiauSalud, Providencia</span>
+          </p>
+          <p class="flex items-center gap-x-2">
+            <ng-icon name="bootstrapTag" class="text-primary text-lg"></ng-icon>
+            <span class="text-primary font-medium">$25.000</span>
+            <span class="text-sm text-gray-600">Consulta general</span>
+          </p>
+        </div>
+
+        <!-- Especialidades -->
+        <div class="mb-4">
+          <p class="text-sm text-gray-600 mb-2">Especialidades:</p>
+          <div class="flex flex-wrap gap-1">
+            <span
+              class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
+              >Vacunación</span
+            >
+            <span
+              class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
+              >Cirugía</span
+            >
+            <span
+              class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
+              >Nutrición</span
+            >
+          </div>
+        </div>
+
+        <!-- Horarios -->
+        <div class="mb-4">
+          <p class="text-sm text-gray-600 mb-2">Próximas citas disponibles:</p>
+          <div class="flex flex-wrap gap-1">
+            <span
+              class="px-3 py-1 bg-green-500 text-white text-sm rounded-full flex items-center"
+            >
+              <ng-icon name="bootstrapClock" class="mr-1"></ng-icon>
+              Hoy 15:00
+            </span>
+            <span
+              class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full flex items-center"
+            >
+              <ng-icon name="bootstrapClock" class="mr-1"></ng-icon>
+              Mañana 9:00
+            </span>
+          </div>
+        </div>
+
+        <!-- Botón -->
+        <button
+          class="w-full bg-primary text-white py-2 rounded-full hover:bg-primary-dark transition-colors flex items-center justify-center"
+        >
+          <ng-icon name="bootstrapCalendarPlus" class="mr-2"></ng-icon>
+          Agendar Cita
+        </button>
+      </article>
+    </div>
+  </div>
+</main>

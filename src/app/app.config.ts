@@ -4,18 +4,9 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
-// Iconos
+// Importar todos los iconos de Bootstrap
 import { provideIcons } from '@ng-icons/core';
-import { 
-  bootstrapTwitterX,
-  bootstrapInstagram,
-  bootstrapFacebook,
-  bootstrapEyeSlashFill,
-  bootstrapEyeSlash,
-  bootstrapCheckCircle,
-  bootstrapPersonBadge,
-
-} from '@ng-icons/bootstrap-icons';
+import * as bootstrapIcons from '@ng-icons/bootstrap-icons';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,14 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), 
     provideClientHydration(withEventReplay()),
     provideIcons({ 
-      bootstrapInstagram, 
-      bootstrapTwitterX, 
-      bootstrapFacebook,
-      bootstrapEyeSlashFill,
-      bootstrapEyeSlash,
-      bootstrapCheckCircle,
-      bootstrapPersonBadge,
-  
+      ...bootstrapIcons 
     })
   ]
 };
