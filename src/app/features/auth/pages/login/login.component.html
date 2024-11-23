@@ -4,7 +4,18 @@
     <div class="container mx-auto">
       <div class="flex justify-center">
         <div class="w-full max-w-md">
-          <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="bg-white p-6 rounded-lg shadow-md relative">
+            <div class="absolute top-2 right-2 group">
+              <div class="bg-gray-100 p-1 rounded-full cursor-help">
+                <ng-icon name="bootstrapInfoCircle" size="16" class="text-gray-500"></ng-icon>
+              </div>
+              <div class="hidden group-hover:block absolute right-0 w-64 p-2 mt-1 bg-gray-800 text-white text-sm rounded-md shadow-lg">
+                <p class="font-bold mb-1">Credenciales de demo:</p>
+                <p>Email: test&#64;catmed.com</p>
+                <p>Password: Catmed123123!</p>
+              </div>
+            </div>
+
             <!-- Header -->
             <div class="text-center mb-6">
               <h2 class="text-2xl font-bold text-primary mb-2">
@@ -92,6 +103,10 @@
               >
                 {{ isLoading ? "Cargando..." : "Iniciar Sesión" }}
               </button>
+
+              <div *ngIf="errorMessage" class="text-red-500 text-sm text-center mt-2">
+                {{ errorMessage }}
+              </div>
 
               <div class="text-center mt-4">
                 <p class="text-sm">

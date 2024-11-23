@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { NgIconComponent } from '@ng-icons/core';
 
 
@@ -18,8 +18,12 @@ export class LoginComponent {
   loginForm: FormGroup;
   isLoading = false;
   showPassword = false;
+  errorMessage = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -37,8 +41,18 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       this.isLoading = true;
-      console.log(this.loginForm.value);
-      // Aquí iría la lógica de login
+      this.errorMessage = '';
+
+      const { email, password } = this.loginForm.value;
+      
+      setTimeout(() => {
+        if (email === 'test@catmed.com' && password === 'Catmed123123!') {
+          this.router.navigate(['/user/dashboard']);
+        } else {
+          this.errorMessage = 'Credenciales incorrectas';
+          this.isLoading = false;
+        }
+      }, 1000);
     }
   }
 }
