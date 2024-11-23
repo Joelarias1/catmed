@@ -9,7 +9,7 @@ Catmed es una aplicación web para la gestión de citas médicas, desarrollada c
 
 1. Clona el repositorio
 ```bash
-git clone https://github.com/[tu-usuario]/catmed.git
+git clone 
 ```
 
 2. Instala las dependencias
