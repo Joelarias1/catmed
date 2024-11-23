@@ -17,7 +17,6 @@ import { NgIconComponent } from '@ng-icons/core';
  */
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink, NgIconComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
