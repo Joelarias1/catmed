@@ -64,7 +64,8 @@ export class VetRegisterComponent implements OnInit {
     },
     licencia: {
       required: 'El número de licencia es requerido',
-      invalidLicense: 'La licencia debe contener solo números (máximo 8 dígitos)',
+      invalidLicense:
+        'La licencia debe contener solo números (máximo 8 dígitos)',
     },
     especialidad: {
       required: 'Debe seleccionar una especialidad',
@@ -116,53 +117,71 @@ export class VetRegisterComponent implements OnInit {
 
   private initForm(): void {
     this.registerForm = this.fb.group({
-      nombre: ['', [
-        Validators.required,
-        Validators.minLength(3),
-        this.patternValidator('name', 'invalidName')
-      ]],
-      apellidos: ['', [
-        Validators.required,
-        Validators.minLength(3),
-        this.patternValidator('name', 'invalidName')
-      ]],
-      email: ['', [
-        Validators.required,
-        this.patternValidator('email', 'invalidEmail')
-      ]],
-      telefono: ['', [
-        Validators.required,
-        this.patternValidator('phone', 'invalidPhone')
-      ]],
-      licencia: ['', [
-        Validators.required,
-        this.patternValidator('license', 'invalidLicense')
-      ]],
+      nombre: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          this.patternValidator('name', 'invalidName'),
+        ],
+      ],
+      apellidos: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          this.patternValidator('name', 'invalidName'),
+        ],
+      ],
+      email: [
+        '',
+        [Validators.required, this.patternValidator('email', 'invalidEmail')],
+      ],
+      telefono: [
+        '',
+        [Validators.required, this.patternValidator('phone', 'invalidPhone')],
+      ],
+      licencia: [
+        '',
+        [
+          Validators.required,
+          this.patternValidator('license', 'invalidLicense'),
+        ],
+      ],
       especialidad: ['', [Validators.required]],
-      experiencia: ['', [
-        Validators.required,
-        Validators.min(0),
-        Validators.max(50)
-      ]],
-      descripcion: ['', [
-        Validators.required,
-        Validators.minLength(50),
-        Validators.maxLength(500)
-      ]],
-      ciudad: ['', [
-        Validators.required,
-        Validators.minLength(3),
-        this.patternValidator('name', 'invalidCity')
-      ]],
-      codigo_postal: ['', [
-        this.patternValidator('postalCode', 'invalidPostalCode')
-      ]],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(20),
-        this.passwordValidator()
-      ]],
+      experiencia: [
+        '',
+        [Validators.required, Validators.min(0), Validators.max(50)],
+      ],
+      descripcion: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(50),
+          Validators.maxLength(500),
+        ],
+      ],
+      ciudad: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          this.patternValidator('name', 'invalidCity'),
+        ],
+      ],
+      codigo_postal: [
+        '',
+        [this.patternValidator('postalCode', 'invalidPostalCode')],
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(20),
+          this.passwordValidator(),
+        ],
+      ],
       confirmPassword: ['', [Validators.required]],
       terms: [false, [Validators.requiredTrue]],
     });
@@ -173,23 +192,27 @@ export class VetRegisterComponent implements OnInit {
     const confirmPassword = this.registerForm.get('confirmPassword');
 
     if (password && confirmPassword) {
-      merge(password.valueChanges, confirmPassword.valueChanges)
-        .subscribe(() => {
+      merge(password.valueChanges, confirmPassword.valueChanges).subscribe(
+        () => {
           if (confirmPassword.value) {
             const match = password.value === confirmPassword.value;
-            confirmPassword.setErrors(
-              match ? null : { mismatch: true }
-            );
+            confirmPassword.setErrors(match ? null : { mismatch: true });
           }
-        });
+        }
+      );
     }
   }
 
-  private patternValidator(patternKey: keyof typeof this.validationPatterns, errorKey: string) {
+  private patternValidator(
+    patternKey: keyof typeof this.validationPatterns,
+    errorKey: string
+  ) {
     return (control: AbstractControl) => {
       const value = control.value;
       if (!value) return null;
-      return this.validationPatterns[patternKey].test(value) ? null : { [errorKey]: true };
+      return this.validationPatterns[patternKey].test(value)
+        ? null
+        : { [errorKey]: true };
     };
   }
 
@@ -199,7 +222,7 @@ export class VetRegisterComponent implements OnInit {
       if (!value) return null;
 
       const errors: { [key: string]: boolean } = {};
-      
+
       if (!/[A-Z]/.test(value)) errors['upperCase'] = true;
       if (!/[a-z]/.test(value)) errors['lowerCase'] = true;
       if (!/[0-9]/.test(value)) errors['number'] = true;
@@ -220,8 +243,8 @@ export class VetRegisterComponent implements OnInit {
     // Para errores de contraseña, mostrar todos los errores relevantes
     if (controlName === 'password' && control.errors) {
       return Object.keys(control.errors)
-        .map(errorKey => fieldErrors[errorKey])
-        .filter(message => message)
+        .map((errorKey) => fieldErrors[errorKey])
+        .filter((message) => message)
         .join('. ');
     }
 
@@ -249,7 +272,7 @@ export class VetRegisterComponent implements OnInit {
       try {
         this.isLoading = true;
         // Simular registro
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise((resolve) => setTimeout(resolve, 1500));
         this.isSuccess = true;
         setTimeout(() => {
           this.router.navigate(['/vet/dashboard']);
@@ -265,7 +288,7 @@ export class VetRegisterComponent implements OnInit {
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {
-    Object.values(formGroup.controls).forEach(control => {
+    Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);

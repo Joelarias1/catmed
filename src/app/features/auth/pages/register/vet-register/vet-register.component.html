@@ -1,356 +1,412 @@
 <!-- features/auth/pages/register/vet-register/vet-register.component.html -->
 <main class="flex-grow mx-3">
-    <section class="mx-5">
-      <div class="container mx-auto">
-        <div class="flex justify-center">
-          <div class="w-full max-w-4xl">
-            <!-- Más ancho que el login -->
-            <div class="bg-white p-6 md:p-8 rounded-lg shadow-md">
-              <!-- Header -->
-              <div class="text-center mb-8">
-                <h2 class="text-2xl font-bold text-primary mb-2">
-                  Registro de Veterinario
-                </h2>
-                <p class="text-gray-600">
-                  Únete a nuestra red de especialistas felinos
-                </p>
-              </div>
-  
-              <!-- Formulario -->
-              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
-                <!-- Mensajes de error del formulario -->
-                @if (isSuccess) {
-                  <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-4">
-                    <div class="flex">
-                      <div class="flex-shrink-0">
-                        <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                      </div>
-                      <div class="ml-3">
-                        <p class="text-sm text-green-700">
-                          ¡Registro exitoso! Redirigiendo...
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                }
-  
-                <!-- Datos Personales -->
-                <div class="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="nombre"
-                      >Nombre</label
-                    >
-                    <input
-                      type="text"
-                      id="nombre"
-                      formControlName="nombre"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="Nombre"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('nombre'),
-                        'border-red-500 focus:ring-red-200': hasError('nombre')
-                      }"
-                    />
-                    @if (hasError('nombre')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('nombre') }}</span>
-                    }
-                  </div>
-  
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="apellidos"
-                      >Apellidos</label
-                    >
-                    <input
-                      type="text"
-                      id="apellidos"
-                      formControlName="apellidos"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="Apellidos"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('apellidos'),
-                        'border-red-500 focus:ring-red-200': hasError('apellidos')
-                      }"
-                    />
-                    @if (hasError('apellidos')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('apellidos') }}</span>
-                    }
-                  </div>
-  
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="email"
-                      >Correo electrónico</label
-                    >
-                    <input
-                      type="email"
-                      id="email"
-                      formControlName="email"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="dongato@miau.com"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('email'),
-                        'border-red-500 focus:ring-red-200': hasError('email')
-                      }"
-                    />
-                    @if (hasError('email')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('email') }}</span>
-                    }
-                  </div>
-  
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="telefono"
-                      >Teléfono</label
-                    >
-                    <input
-                      type="tel"
-                      id="telefono"
-                      formControlName="telefono"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="+56 9 0000 0000"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('telefono'),
-                        'border-red-500 focus:ring-red-200': hasError('telefono')
-                      }"
-                    />
-                    @if (hasError('telefono')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('telefono') }}</span>
-                    }
-                  </div>
-                </div>
-  
-                <!-- Datos Profesionales -->
-                <div class="space-y-6">
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="licencia"
-                      >Número de Licencia</label
-                    >
-                    <input
-                      type="text"
-                      id="licencia"
-                      formControlName="licencia"
-                      class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('licencia'),
-                        'border-red-500 focus:ring-red-200': hasError('licencia')
-                      }"
-                      placeholder="12345678"
-                      maxlength="8"
-                      (keypress)="$event.charCode >= 48 && $event.charCode <= 57"
-                    />
-                    @if (hasError('licencia')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('licencia') }}</span>
-                    }
-                  </div>
-  
-                  <!-- Experiencia y Descripción -->
-                  <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Experiencia -->
-                    <div>
-                      <label class="block text-gray-700 mb-2" for="experiencia">
-                        Años de experiencia*
-                      </label>
-                      <input
-                        type="number"
-                        id="experiencia"
-                        formControlName="experiencia"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
-                        [ngClass]="{
-                          'border-gray-300 focus:ring-primary-light': !hasError('experiencia'),
-                          'border-red-500 focus:ring-red-200': hasError('experiencia')
-                        }"
-                        min="0"
-                        max="50"
-                        placeholder="Ej: 5"
-                      />
-                      @if (hasError('experiencia')) {
-                        <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('experiencia') }}</span>
-                      }
-                    </div>
+  <section class="mx-5">
+    <div class="container mx-auto">
+      <div class="flex justify-center">
+        <div class="w-full max-w-4xl">
+          <!-- Más ancho que el login -->
+          <div class="bg-white p-6 md:p-8 rounded-lg shadow-md">
+            <!-- Header -->
+            <div class="text-center mb-8">
+              <h2 class="text-2xl font-bold text-primary mb-2">
+                Registro de Veterinario
+              </h2>
+              <p class="text-gray-600">
+                Únete a nuestra red de especialistas felinos
+              </p>
+            </div>
 
-                    <!-- Especialidad -->
-                    <div>
-                      <label class="block text-gray-700 mb-2" for="especialidad">
-                        Especialidad*
-                      </label>
-                      <select
-                        id="especialidad"
-                        formControlName="especialidad"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
-                        [ngClass]="{
-                          'border-gray-300 focus:ring-primary-light': !hasError('especialidad'),
-                          'border-red-500 focus:ring-red-200': hasError('especialidad')
-                        }"
-                      >
-                        <option value="">Selecciona una especialidad</option>
-                        @for (especialidad of especialidades; track especialidad.value) {
-                          <option [value]="especialidad.value">{{ especialidad.label }}</option>
-                        }
-                      </select>
-                      @if (hasError('especialidad')) {
-                        <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('especialidad') }}</span>
-                      }
-                    </div>
-                  </div>
-
-                  <!-- Descripción Profesional -->
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="descripcion">
-                      Descripción profesional*
-                    </label>
-                    <textarea
-                      id="descripcion"
-                      formControlName="descripcion"
-                      rows="4"
-                      class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('descripcion'),
-                        'border-red-500 focus:ring-red-200': hasError('descripcion')
-                      }"
-                      placeholder="Describe tu experiencia y especialización en medicina felina..."
-                    ></textarea>
-                    @if (hasError('descripcion')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('descripcion') }}</span>
-                    }
-                    <p class="text-sm text-gray-500 mt-1">Mínimo 50 caracteres, máximo 500</p>
-                  </div>
-                </div>
-  
-                <!-- Ubicación -->
-                <div class="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="ciudad">Ciudad</label>
-                    <input
-                      type="text"
-                      id="ciudad"
-                      formControlName="ciudad"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="Ej: Santiago"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('ciudad'),
-                        'border-red-500 focus:ring-red-200': hasError('ciudad')
-                      }"
-                    />
-                    @if (hasError('ciudad')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('ciudad') }}</span>
-                    }
-                  </div>
-  
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="codigo_postal">
-                      Código Postal (opcional)
-                    </label>
-                    <input
-                      type="text"
-                      id="codigo_postal"
-                      formControlName="codigo_postal"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="Ej: 1234567"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('codigo_postal'),
-                        'border-red-500 focus:ring-red-200': hasError('codigo_postal')
-                      }"
-                      (keypress)="$event.charCode >= 48 && $event.charCode <= 57"
-                    />
-                    @if (hasError('codigo_postal')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('codigo_postal') }}</span>
-                    }
-                  </div>
-                </div>
-  
-                <!-- Contraseña -->
-                <div class="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="password"
-                      >Contraseña</label
-                    >
-                    <input
-                      type="password"
-                      id="password"
-                      formControlName="password"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="********"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('password'),
-                        'border-red-500 focus:ring-red-200': hasError('password')
-                      }"
-                    />
-                    <p class="text-sm text-gray-500 mt-1">
-                      Mínimo 8 caracteres, incluyendo mayúsculas, números y
-                      símbolos
-                    </p>
-                    @if (hasError('password')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('password') }}</span>
-                    }
-                  </div>
-  
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="confirm_password"
-                      >Confirmar Contraseña</label
-                    >
-                    <input
-                      type="password"
-                      id="confirm_password"
-                      formControlName="confirmPassword"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      placeholder="********"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('confirmPassword'),
-                        'border-red-500 focus:ring-red-200': hasError('confirmPassword')
-                      }"
-                    />
-                    @if (hasError('confirmPassword')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('confirmPassword') }}</span>
-                    }
-                  </div>
-                </div>
-  
-                <!-- Términos -->
-                <div class="flex items-center">
+            <!-- Formulario -->
+            <form
+              [formGroup]="registerForm"
+              (ngSubmit)="onSubmit()"
+              class="space-y-6"
+            >
+              <!-- Datos Personales -->
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-gray-700 mb-2" for="nombre"
+                    >Nombre</label
+                  >
                   <input
-                    type="checkbox"
-                    id="terms"
-                    formControlName="terms"
-                    class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                    type="text"
+                    id="nombre"
+                    formControlName="nombre"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    placeholder="Nombre"
+                    [ngClass]="{
+                      'border-gray-300 focus:ring-primary-light':
+                        !hasError('nombre'),
+                      'border-red-500 focus:ring-red-200': hasError('nombre')
+                    }"
                   />
-                  <label class="ml-2 text-gray-700" for="terms">
-                    Acepto los
-                    <a href="#" class="text-primary hover:underline"
-                      >términos y condiciones</a
-                    >
-                  </label>
-                </div>
-  
-                <!-- Botón de registro -->
-                <button
-                  type="submit"
-                  class="w-full bg-primary text-white py-3 rounded-full hover:bg-primary-dark transition-all disabled:opacity-50 disabled:cursor-not-allowed relative"
-                  [disabled]="registerForm.invalid || isLoading">
-                  <span [class.opacity-0]="isLoading">Registrarme como Veterinario</span>
-                  @if (isLoading) {
-                    <div class="absolute inset-0 flex items-center justify-center">
-                      <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                    </div>
+                  @if (hasError('nombre')) {
+                  <span class="text-sm text-red-500 mt-1">{{
+                    getErrorMessage("nombre")
+                  }}</span>
                   }
-                </button>
-  
-                <!-- Login link -->
-                <div class="text-center">
-                  <p class="text-gray-600">
-                    ¿Ya tienes cuenta?
-                    <a routerLink="/login" class="text-primary hover:underline">
-                      Inicia sesión aquí
-                    </a>
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 mb-2" for="apellidos"
+                    >Apellidos</label
+                  >
+                  <input
+                    type="text"
+                    id="apellidos"
+                    formControlName="apellidos"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    placeholder="Apellidos"
+                    [ngClass]="{
+                      'border-gray-300 focus:ring-primary-light':
+                        !hasError('apellidos'),
+                      'border-red-500 focus:ring-red-200': hasError('apellidos')
+                    }"
+                  />
+                  @if (hasError('apellidos')) {
+                  <span class="text-sm text-red-500 mt-1">{{
+                    getErrorMessage("apellidos")
+                  }}</span>
+                  }
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 mb-2" for="email"
+                    >Correo electrónico</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    formControlName="email"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    placeholder="dongato@miau.com"
+                    [ngClass]="{
+                      'border-gray-300 focus:ring-primary-light':
+                        !hasError('email'),
+                      'border-red-500 focus:ring-red-200': hasError('email')
+                    }"
+                  />
+                  @if (hasError('email')) {
+                  <span class="text-sm text-red-500 mt-1">{{
+                    getErrorMessage("email")
+                  }}</span>
+                  }
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 mb-2" for="telefono"
+                    >Teléfono</label
+                  >
+                  <input
+                    type="tel"
+                    id="telefono"
+                    formControlName="telefono"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    placeholder="+56 9 0000 0000"
+                    [ngClass]="{
+                      'border-gray-300 focus:ring-primary-light':
+                        !hasError('telefono'),
+                      'border-red-500 focus:ring-red-200': hasError('telefono')
+                    }"
+                  />
+                  @if (hasError('telefono')) {
+                  <span class="text-sm text-red-500 mt-1">{{
+                    getErrorMessage("telefono")
+                  }}</span>
+                  }
+                </div>
+              </div>
+
+              <!-- Datos Profesionales -->
+              <div class="space-y-6">
+                <div>
+                  <label class="block text-gray-700 mb-2" for="licencia"
+                    >Número de Licencia</label
+                  >
+                  <input
+                    type="text"
+                    id="licencia"
+                    formControlName="licencia"
+                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+                    [ngClass]="{
+                      'border-gray-300 focus:ring-primary-light':
+                        !hasError('licencia'),
+                      'border-red-500 focus:ring-red-200': hasError('licencia')
+                    }"
+                    placeholder="12345678"
+                    maxlength="8"
+                    (keypress)="
+                      ($event.charCode >= 48 && $event.charCode <= 57)
+                    "
+                  />
+                  @if (hasError('licencia')) {
+                  <span class="text-sm text-red-500 mt-1">{{
+                    getErrorMessage("licencia")
+                  }}</span>
+                  }
+                </div>
+
+                <!-- Experiencia y Descripción -->
+                <div class="grid md:grid-cols-2 gap-6">
+                  <!-- Experiencia -->
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="experiencia">
+                      Años de experiencia*
+                    </label>
+                    <input
+                      type="number"
+                      id="experiencia"
+                      formControlName="experiencia"
+                      class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+                      [ngClass]="{
+                        'border-gray-300 focus:ring-primary-light':
+                          !hasError('experiencia'),
+                        'border-red-500 focus:ring-red-200':
+                          hasError('experiencia')
+                      }"
+                      min="0"
+                      max="50"
+                      placeholder="Ej: 5"
+                    />
+                    @if (hasError('experiencia')) {
+                    <span class="text-sm text-red-500 mt-1">{{
+                      getErrorMessage("experiencia")
+                    }}</span>
+                    }
+                  </div>
+
+                  <!-- Especialidad -->
+                  <div>
+                    <label class="block text-gray-700 mb-2" for="especialidad">
+                      Especialidad*
+                    </label>
+                    <select
+                      id="especialidad"
+                      formControlName="especialidad"
+                      class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+                      [ngClass]="{
+                        'border-gray-300 focus:ring-primary-light':
+                          !hasError('especialidad'),
+                        'border-red-500 focus:ring-red-200':
+                          hasError('especialidad')
+                      }"
+                    >
+                      <option value="">Selecciona una especialidad</option>
+                      @for (especialidad of especialidades; track
+                      especialidad.value) {
+                      <option [value]="especialidad.value">
+                        {{ especialidad.label }}
+                      </option>
+                      }
+                    </select>
+                    @if (hasError('especialidad')) {
+                    <span class="text-sm text-red-500 mt-1">{{
+                      getErrorMessage("especialidad")
+                    }}</span>
+                    }
+                  </div>
+                </div>
+
+                <!-- Descripción Profesional -->
+                <div>
+                  <label class="block text-gray-700 mb-2" for="descripcion">
+                    Descripción profesional*
+                  </label>
+                  <textarea
+                    id="descripcion"
+                    formControlName="descripcion"
+                    rows="4"
+                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+                    [ngClass]="{
+                      'border-gray-300 focus:ring-primary-light':
+                        !hasError('descripcion'),
+                      'border-red-500 focus:ring-red-200':
+                        hasError('descripcion')
+                    }"
+                    placeholder="Describe tu experiencia y especialización en medicina felina..."
+                  ></textarea>
+                  @if (hasError('descripcion')) {
+                  <span class="text-sm text-red-500 mt-1">{{
+                    getErrorMessage("descripcion")
+                  }}</span>
+                  }
+                  <p class="text-sm text-gray-500 mt-1">
+                    Mínimo 50 caracteres, máximo 500
                   </p>
                 </div>
-              </form>
-            </div>
+              </div>
+
+              <!-- Ubicación -->
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-gray-700 mb-2" for="ciudad"
+                    >Ciudad</label
+                  >
+                  <input
+                    type="text"
+                    id="ciudad"
+                    formControlName="ciudad"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    placeholder="Ej: Santiago"
+                    [ngClass]="{
+                      'border-gray-300 focus:ring-primary-light':
+                        !hasError('ciudad'),
+                      'border-red-500 focus:ring-red-200': hasError('ciudad')
+                    }"
+                  />
+                  @if (hasError('ciudad')) {
+                  <span class="text-sm text-red-500 mt-1">{{
+                    getErrorMessage("ciudad")
+                  }}</span>
+                  }
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 mb-2" for="codigo_postal">
+                    Código Postal (opcional)
+                  </label>
+                  <input
+                    type="text"
+                    id="codigo_postal"
+                    formControlName="codigo_postal"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    placeholder="Ej: 1234567"
+                    [ngClass]="{
+                      'border-gray-300 focus:ring-primary-light':
+                        !hasError('codigo_postal'),
+                      'border-red-500 focus:ring-red-200':
+                        hasError('codigo_postal')
+                    }"
+                    (keypress)="
+                      ($event.charCode >= 48 && $event.charCode <= 57)
+                    "
+                  />
+                  @if (hasError('codigo_postal')) {
+                  <span class="text-sm text-red-500 mt-1">{{
+                    getErrorMessage("codigo_postal")
+                  }}</span>
+                  }
+                </div>
+              </div>
+
+              <!-- Contraseña -->
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-gray-700 mb-2" for="password"
+                    >Contraseña</label
+                  >
+                  <input
+                    type="password"
+                    id="password"
+                    formControlName="password"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    placeholder="********"
+                    [ngClass]="{
+                      'border-gray-300 focus:ring-primary-light':
+                        !hasError('password'),
+                      'border-red-500 focus:ring-red-200': hasError('password')
+                    }"
+                  />
+                  <p class="text-sm text-gray-500 mt-1">
+                    Mínimo 8 caracteres, incluyendo mayúsculas, números y
+                    símbolos
+                  </p>
+                  @if (hasError('password')) {
+                  <span class="text-sm text-red-500 mt-1">{{
+                    getErrorMessage("password")
+                  }}</span>
+                  }
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 mb-2" for="confirm_password"
+                    >Confirmar Contraseña</label
+                  >
+                  <input
+                    type="password"
+                    id="confirm_password"
+                    formControlName="confirmPassword"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                    placeholder="********"
+                    [ngClass]="{
+                      'border-gray-300 focus:ring-primary-light':
+                        !hasError('confirmPassword'),
+                      'border-red-500 focus:ring-red-200':
+                        hasError('confirmPassword')
+                    }"
+                  />
+                  @if (hasError('confirmPassword')) {
+                  <span class="text-sm text-red-500 mt-1">{{
+                    getErrorMessage("confirmPassword")
+                  }}</span>
+                  }
+                </div>
+              </div>
+
+              <!-- Términos -->
+              <div class="flex items-center">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  formControlName="terms"
+                  class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                />
+                <label class="ml-2 text-gray-700" for="terms">
+                  Acepto los
+                  <a href="#" class="text-primary hover:underline"
+                    >términos y condiciones</a
+                  >
+                </label>
+              </div>
+
+              <!-- Botón de registro -->
+              <button
+                type="submit"
+                class="w-full bg-primary text-white py-3 rounded-full hover:bg-primary-dark transition-all disabled:opacity-50 disabled:cursor-not-allowed relative"
+                [disabled]="registerForm.invalid || isLoading"
+              >
+                <span [class.opacity-0]="isLoading"
+                  >Registrarme como Veterinario</span
+                >
+                @if (isLoading) {
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <svg
+                    class="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                </div>
+                }
+              </button>
+
+              <!-- Login link -->
+              <div class="text-center">
+                <p class="text-gray-600">
+                  ¿Ya tienes cuenta?
+                  <a routerLink="/login" class="text-primary hover:underline">
+                    Inicia sesión aquí
+                  </a>
+                </p>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    </section>
-  </main>
-  
+    </div>
+  </section>
+</main>

@@ -1,23 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { merge } from 'rxjs';
+
+interface ValidationMessage {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'app-user-register',
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: './user-register.component.html'
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  templateUrl: './user-register.component.html',
 })
-export class UserRegisterComponent {
-  registerForm: FormGroup;
+export class UserRegisterComponent implements OnInit {
+  registerForm: FormGroup = new FormGroup({});
   showPassword = false;
   showConfirmPassword = false;
-  formSubmitted = false;
   isLoading = false;
   isSuccess = false;
 
-  edadMascota = [
+  readonly edadMascota = [
     { value: '', label: 'Selecciona la edad' },
     { value: '0', label: 'Menos de 1 año' },
     { value: '1', label: '1-3 años' },
@@ -26,20 +35,94 @@ export class UserRegisterComponent {
     { value: '12', label: 'Más de 12 años' }
   ];
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router
-  ) {
+  private readonly validationPatterns = {
+    name: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+    email: /^[a-zA-Z0-9._%+-]+@(gmail|outlook|yahoo|hotmail)\.(com|es|cl)$/,
+    phone: /^\+?56\s?9\s?\d{4}\s?\d{4}$/,
+  };
+
+  private readonly validationMessages: { [key: string]: ValidationMessage } = {
+    nombre: {
+      required: 'El nombre es requerido',
+      minlength: 'Mínimo 3 caracteres',
+      invalidName: 'Solo se permiten letras y espacios',
+    },
+    apellidos: {
+      required: 'Los apellidos son requeridos',
+      minlength: 'Mínimo 3 caracteres',
+      invalidName: 'Solo se permiten letras y espacios',
+    },
+    email: {
+      required: 'El email es requerido',
+      invalidEmail: 'Email inválido (debe ser gmail, outlook, yahoo o hotmail)',
+    },
+    telefono: {
+      required: 'El teléfono es requerido',
+      invalidPhone: 'Formato de teléfono inválido (+56 9 XXXX XXXX)',
+    },
+    'mascota.nombre': {
+      required: 'El nombre de la mascota es requerido',
+      minlength: 'El nombre debe tener al menos 2 caracteres',
+    },
+    'mascota.edad': {
+      required: 'La edad de la mascota es requerida',
+      invalidAge: 'Selecciona una edad válida para tu mascota',
+    },
+    'mascota.notas': {
+      maxlength: 'Las notas no pueden exceder los 500 caracteres',
+    },
+    password: {
+      required: 'La contraseña es requerida',
+      minlength: 'La contraseña debe tener al menos 8 caracteres',
+      maxlength: 'La contraseña no puede tener más de 20 caracteres',
+      upperCase: 'Debe contener al menos una mayúscula',
+      lowerCase: 'Debe contener al menos una minúscula',
+      number: 'Debe contener al menos un número',
+      specialChar: 'Debe contener al menos un símbolo',
+      noSpaces: 'No puede contener espacios',
+    },
+    confirmPassword: {
+      required: 'La confirmación de contraseña es requerida',
+      mismatch: 'Las contraseñas no coinciden',
+    },
+    terms: {
+      required: 'Debes aceptar los términos y condiciones',
+    },
+  };
+
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.initForm();
+  }
+
+  ngOnInit(): void {
+    this.setupPasswordValidation();
+  }
+
+  private initForm(): void {
     this.registerForm = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(3), this.nameValidator()]],
-      apellidos: ['', [Validators.required, Validators.minLength(3), this.nameValidator()]],
-      email: ['', [Validators.required, this.emailValidator()]],
-      telefono: ['', [Validators.required, this.phoneValidator()]],
+      nombre: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        this.patternValidator('name', 'invalidName')
+      ]],
+      apellidos: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        this.patternValidator('name', 'invalidName')
+      ]],
+      email: ['', [
+        Validators.required,
+        this.patternValidator('email', 'invalidEmail')
+      ]],
+      telefono: ['', [
+        Validators.required,
+        this.patternValidator('phone', 'invalidPhone')
+      ]],
       mascota: this.fb.group({
-        nombre: ['', [Validators.required, Validators.minLength(2)]],
-        edad: ['', [Validators.required, this.ageValidator()]],
+        nombre: ['', [Validators.required]],
+        edad: ['', [Validators.required]],
         foto: [''],
-        notas: ['', Validators.maxLength(500)]
+        notas: ['', [Validators.maxLength(500)]]
       }),
       password: ['', [
         Validators.required,
@@ -50,145 +133,98 @@ export class UserRegisterComponent {
       confirmPassword: ['', [Validators.required]],
       terms: [false, [Validators.requiredTrue]]
     });
+  }
 
+  private setupPasswordValidation(): void {
     const password = this.registerForm.get('password');
     const confirmPassword = this.registerForm.get('confirmPassword');
 
     if (password && confirmPassword) {
-      merge(
-        password.valueChanges,
-        confirmPassword.valueChanges
-      ).subscribe(() => {
-        if (confirmPassword.value) {
-          const match = password.value === confirmPassword.value;
-          confirmPassword.setErrors(
-            match ? null : { ...confirmPassword.errors, mismatch: true }
-          );
+      merge(password.valueChanges, confirmPassword.valueChanges).subscribe(
+        () => {
+          if (confirmPassword.value) {
+            const match = password.value === confirmPassword.value;
+            confirmPassword.setErrors(match ? null : { mismatch: true });
+          }
         }
-      });
+      );
     }
   }
 
-  private nameValidator() {
+  private patternValidator(
+    patternKey: keyof typeof this.validationPatterns,
+    errorKey: string
+  ) {
     return (control: AbstractControl) => {
       const value = control.value;
       if (!value) return null;
-
-      const isValid = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value);
-      return isValid ? null : { invalidName: true };
+      return this.validationPatterns[patternKey].test(value)
+        ? null
+        : { [errorKey]: true };
     };
   }
 
-  private emailValidator() {
-    return (control: AbstractControl) => {
-      const value = control.value;
-      if (!value) return null;
-
-      const isValid = /^[a-zA-Z0-9._%+-]+@(gmail|outlook|yahoo|hotmail)\.(com|es|cl)$/.test(value);
-      return isValid ? null : { invalidEmail: true };
-    };
-  }
-
-  private phoneValidator() {
-    return (control: AbstractControl) => {
-      const value = control.value;
-      if (!value) return null;
-
-      const isValid = /^\+?56\s?9\s?\d{4}\s?\d{4}$/.test(value);
-      return isValid ? null : { invalidPhone: true };
-    };
-  }
-
-  private ageValidator() {
-    return (control: AbstractControl) => {
-      const value = control.value;
-      if (!value) return null;
-      
-      const validValues = this.edadMascota
-        .filter(edad => edad.value !== '') 
-        .map(edad => edad.value);
-        
-      return validValues.includes(value) ? null : { invalidAge: true };
-    };
-  }
   private passwordValidator() {
     return (control: AbstractControl) => {
       const value = control.value;
       if (!value) return null;
 
-      const hasUpperCase = /[A-Z]/.test(value);
-      const hasLowerCase = /[a-z]/.test(value);
-      const hasNumber = /[0-9]/.test(value);
-      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
-      const hasNoSpaces = !/\s/.test(value);
+      const errors: { [key: string]: boolean } = {};
 
-      const requirements = {
-        upperCase: hasUpperCase,
-        lowerCase: hasLowerCase,
-        number: hasNumber,
-        specialChar: hasSpecialChar,
-        noSpaces: hasNoSpaces
-      };
+      if (!/[A-Z]/.test(value)) errors['upperCase'] = true;
+      if (!/[a-z]/.test(value)) errors['lowerCase'] = true;
+      if (!/[0-9]/.test(value)) errors['number'] = true;
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) errors['specialChar'] = true;
+      if (/\s/.test(value)) errors['noSpaces'] = true;
 
-      return (hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && hasNoSpaces) 
-        ? null 
-        : { passwordRequirements: requirements };
+      return Object.keys(errors).length ? errors : null;
     };
   }
 
-  showValidationErrors() {
-    if (!this.formSubmitted) {
-      return [];
+  getErrorMessage(controlName: string): string {
+    const control = this.registerForm.get(controlName);
+    if (!control?.errors || !control.touched) return '';
+
+    const fieldErrors = this.validationMessages[controlName];
+    if (!fieldErrors) return '';
+
+    // Para errores de contraseña, mostrar todos los errores relevantes
+    if (controlName === 'password' && control.errors) {
+      return Object.keys(control.errors)
+        .map((errorKey) => fieldErrors[errorKey])
+        .filter((message) => message)
+        .join('. ');
     }
 
-    const controls = this.registerForm.controls;
-    let errorMessages: string[] = [];
-
-    Object.keys(controls).forEach(key => {
-      const control = controls[key];
-      if (control.errors) {
-        switch(key) {
-          case 'nombre':
-          case 'apellidos':
-            if (control.errors['required']) errorMessages.push(`El campo ${key} es requerido`);
-            if (control.errors['minlength']) errorMessages.push(`${key} debe tener al menos 3 caracteres`);
-            if (control.errors['invalidName']) errorMessages.push(`${key} solo puede contener letras y espacios`);
-            break;
-          case 'email':
-            if (control.errors['required']) errorMessages.push('El email es requerido');
-            if (control.errors['invalidEmail']) errorMessages.push('Email inválido (debe ser gmail, outlook, yahoo o hotmail)');
-            break;
-          case 'password':
-            if (control.errors['passwordRequirements']) {
-              const reqs = control.errors['passwordRequirements'];
-              if (!reqs.upperCase) errorMessages.push('La contraseña debe contener al menos una mayúscula');
-              if (!reqs.lowerCase) errorMessages.push('La contraseña debe contener al menos una minúscula');
-              if (!reqs.number) errorMessages.push('La contraseña debe contener al menos un número');
-              if (!reqs.specialChar) errorMessages.push('La contraseña debe contener al menos un símbolo');
-              if (!reqs.noSpaces) errorMessages.push('La contraseña no puede contener espacios');
-            }
-            break;
-        }
-      }
-    });
-
-    return errorMessages;
+    // Para otros campos, mostrar el primer error
+    const firstErrorKey = Object.keys(control.errors)[0];
+    return fieldErrors[firstErrorKey] || '';
   }
 
-  async onSubmit() {
-    this.formSubmitted = true;
+  hasError(controlName: string): boolean {
+    const control = this.registerForm.get(controlName);
+    if (!control) return false;
+    return control.invalid && control.touched;
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  async onSubmit(): Promise<void> {
     if (this.registerForm.valid) {
       try {
         this.isLoading = true;
         // Simular registro
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise((resolve) => setTimeout(resolve, 1500));
         this.isSuccess = true;
-        
-        // Usar el router de Angular
         setTimeout(() => {
           this.router.navigate(['/user/dashboard']);
         }, 1000);
-        
       } catch (error) {
         console.error('Error:', error);
       } finally {
@@ -199,105 +235,12 @@ export class UserRegisterComponent {
     }
   }
 
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-
-  toggleConfirmPasswordVisibility() {
-    this.showConfirmPassword = !this.showConfirmPassword;
-  }
-
-  private markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
+  private markFormGroupTouched(formGroup: FormGroup): void {
+    Object.values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
-
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
       }
     });
-  }
-
-  getErrorMessage(controlName: string): string {
-    const control = this.registerForm.get(controlName);
-    
-    if (!control || !control.errors || !control.touched) return '';
-
-    const errors = control.errors;
-    
-    switch(controlName) {
-      case 'nombre':
-      case 'apellidos':
-        if (errors['required']) return `El ${controlName} es requerido`;
-        if (errors['minlength']) return `El ${controlName} debe tener al menos ${errors['minlength'].requiredLength} caracteres`;
-        if (errors['invalidName']) return `El ${controlName} solo puede contener letras y espacios`;
-        break;
-        
-      case 'email':
-        if (errors['required']) return 'El email es requerido';
-        if (errors['invalidEmail']) return 'Email inválido (debe ser gmail, outlook, yahoo o hotmail)';
-        break;
-        
-      case 'edad':
-        if (errors['required']) return 'La fecha de nacimiento es requerida';
-        if (errors['minAge']) return 'Debes ser mayor de 13 años';
-        if (errors['maxAge']) return 'La edad ingresada no es válida';
-        if (errors['invalidDate']) return 'La fecha ingresada no es válida';
-        break;
-  
-      case 'telefono':
-        if (errors['required']) return 'El teléfono es requerido';
-        if (errors['invalidPhone']) return 'Formato de teléfono inválido (+56 9 XXXX XXXX)';
-        break;
-  
-      case 'mascota.nombre':
-        if (errors['required']) return 'El nombre de la mascota es requerido';
-        if (errors['minlength']) return 'El nombre debe tener al menos 2 caracteres';
-        break;
-  
-      case 'mascota.edad':
-        if (errors['required']) return 'La edad de la mascota es requerida';
-        if (errors['invalidAge']) return 'Selecciona una edad válida para tu mascota';
-        break;
-  
-      case 'mascota.notas':
-        if (errors['maxlength']) return 'Las notas no pueden exceder los 500 caracteres';
-        break;
-  
-      case 'password':
-        if (errors['required']) return 'La contraseña es requerida';
-        if (errors['minlength']) return 'La contraseña debe tener al menos 8 caracteres';
-        if (errors['maxlength']) return 'La contraseña no puede tener más de 20 caracteres';
-        if (errors['passwordRequirements']) {
-          const reqs = errors['passwordRequirements'];
-          if (!reqs.upperCase) return 'La contraseña debe contener al menos una mayúscula';
-          if (!reqs.lowerCase) return 'La contraseña debe contener al menos una minúscula';
-          if (!reqs.number) return 'La contraseña debe contener al menos un número';
-          if (!reqs.specialChar) return 'La contraseña debe contener al menos un símbolo';
-          if (!reqs.noSpaces) return 'La contraseña no puede contener espacios';
-        }
-        break;
-  
-      case 'confirmPassword':
-        if (errors['required']) return 'La confirmación de contraseña es requerida';
-        if (errors['mismatch']) return 'Las contraseñas no coinciden';
-        break;
-  
-      case 'terms':
-        if (errors['required'] || errors['requiredTrue']) return 'Debes aceptar los términos y condiciones';
-        break;
-    }
-  
-    // Si hay un error pero no está contemplado arriba
-    if (errors['required']) return 'Este campo es requerido';
-    
-    return '';
-  }
-
-  hasError(controlName: string): boolean {
-    const control = this.registerForm.get(controlName);
-    if (controlName === 'confirmPassword') {
-      return control ? (control.errors?.['mismatch'] || control.errors?.['required']) && control.touched : false;
-    }
-    return control ? (control.invalid && control.touched) : false;
   }
 }
