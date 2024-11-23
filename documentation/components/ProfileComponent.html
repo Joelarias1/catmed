@@ -1,0 +1,412 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>catmed documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">catmed documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ProfileComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/features/user-dashboard/pages/profile/profile.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-profile</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>NgIconsModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./profile.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./profile.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { NgIconsModule } from &#x27;@ng-icons/core&#x27;;
+
+@Component({
+  selector: &#x27;app-profile&#x27;,
+  standalone: true,
+  imports: [CommonModule, NgIconsModule],
+  templateUrl: &#x27;./profile.component.html&#x27;,
+  styleUrl: &#x27;./profile.component.css&#x27;
+})
+export class ProfileComponent {}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container mx-auto px-4 py-6&quot;&gt;
+  &lt;div class&#x3D;&quot;bg-white rounded-lg shadow-md p-4 md:p-6&quot;&gt;
+    &lt;!-- Header con botones --&gt;
+    &lt;div class&#x3D;&quot;flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b pb-4 gap-4&quot;&gt;
+      &lt;h2 class&#x3D;&quot;text-xl md:text-2xl font-bold text-primary&quot;&gt;Mi Perfil&lt;/h2&gt;
+      &lt;div class&#x3D;&quot;flex gap-2 w-full sm:w-auto&quot;&gt;
+        &lt;button class&#x3D;&quot;flex-1 sm:flex-initial bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full flex items-center justify-center gap-1.5 transition-colors&quot;&gt;
+          &lt;ng-icon name&#x3D;&quot;bootstrapPencil&quot; class&#x3D;&quot;text-[1.1em]&quot;&gt;&lt;/ng-icon&gt;
+          &lt;span&gt;Editar Perfil&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button class&#x3D;&quot;flex-1 sm:flex-initial bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-full flex items-center justify-center gap-1.5 whitespace-nowrap transition-colors&quot;&gt;
+          &lt;ng-icon name&#x3D;&quot;bootstrapBoxArrowRight&quot; class&#x3D;&quot;text-[1.1em]&quot;&gt;&lt;/ng-icon&gt;
+          &lt;span&gt;Cerrar Sesión&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Información del perfil --&gt;
+    &lt;div class&#x3D;&quot;space-y-6&quot;&gt;
+      &lt;!-- Foto de perfil --&gt;
+      &lt;div class&#x3D;&quot;flex flex-col items-center sm:flex-row gap-4&quot;&gt;
+        &lt;div class&#x3D;&quot;relative group&quot;&gt;
+          &lt;div class&#x3D;&quot;w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-primary/10&quot;&gt;
+            &lt;img
+              src&#x3D;&quot;/assets/img/placeholderprofilepicture.png&quot;
+              alt&#x3D;&quot;Foto de perfil&quot;
+              class&#x3D;&quot;w-full h-full object-cover&quot;
+            /&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100 cursor-pointer rounded-full transition-opacity&quot;&gt;
+            &lt;ng-icon name&#x3D;&quot;bootstrapCamera&quot; class&#x3D;&quot;text-2xl&quot;&gt;&lt;/ng-icon&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;h3 class&#x3D;&quot;text-lg font-semibold text-primary&quot;&gt;Camila Aguilar&lt;/h3&gt;
+          &lt;p class&#x3D;&quot;text-sm text-gray-600&quot;&gt;Última actualización: 15 Mar 2024&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Información personal --&gt;
+      &lt;div&gt;
+        &lt;h3 class&#x3D;&quot;text-lg font-semibold text-primary mb-4&quot;&gt;Información Personal&lt;/h3&gt;
+        &lt;div class&#x3D;&quot;grid grid-cols-1 md:grid-cols-2 gap-4&quot;&gt;
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;text-sm text-gray-500 mb-1 block&quot;&gt;Nombre completo&lt;/label&gt;
+            &lt;div class&#x3D;&quot;p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700&quot;&gt;Camila Aguilar&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;text-sm text-gray-500 mb-1 block&quot;&gt;Email&lt;/label&gt;
+            &lt;div class&#x3D;&quot;p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700&quot;&gt;camila&amp;#64;email.com&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;text-sm text-gray-500 mb-1 block&quot;&gt;Teléfono&lt;/label&gt;
+            &lt;div class&#x3D;&quot;p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700&quot;&gt;+56 9 1234 5678&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;text-sm text-gray-500 mb-1 block&quot;&gt;Dirección&lt;/label&gt;
+            &lt;div class&#x3D;&quot;p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700&quot;&gt;Av. Providencia 1234, Santiago&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Preferencias de contacto --&gt;
+      &lt;div class&#x3D;&quot;border-t pt-6&quot;&gt;
+        &lt;h3 class&#x3D;&quot;text-lg font-semibold text-primary mb-4&quot;&gt;Preferencias de Contacto&lt;/h3&gt;
+        &lt;div class&#x3D;&quot;space-y-3&quot;&gt;
+          &lt;label class&#x3D;&quot;flex items-center gap-2&quot;&gt;
+            &lt;input type&#x3D;&quot;checkbox&quot; class&#x3D;&quot;rounded text-primary focus:ring-primary&quot; checked&gt;
+            &lt;span class&#x3D;&quot;text-sm text-gray-700&quot;&gt;Recibir notificaciones por email&lt;/span&gt;
+          &lt;/label&gt;
+          &lt;label class&#x3D;&quot;flex items-center gap-2&quot;&gt;
+            &lt;input type&#x3D;&quot;checkbox&quot; class&#x3D;&quot;rounded text-primary focus:ring-primary&quot; &gt;
+            &lt;span class&#x3D;&quot;text-sm text-gray-700&quot;&gt;Recibir recordatorios de citas por SMS&lt;/span&gt;
+          &lt;/label&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="container mx-auto px-4 py-6">  <div class="bg-white rounded-lg shadow-md p-4 md:p-6">    <!-- Header con botones -->    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b pb-4 gap-4">      <h2 class="text-xl md:text-2xl font-bold text-primary">Mi Perfil</h2>      <div class="flex gap-2 w-full sm:w-auto">        <button class="flex-1 sm:flex-initial bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full flex items-center justify-center gap-1.5 transition-colors">          <ng-icon name="bootstrapPencil" class="text-[1.1em]"></ng-icon>          <span>Editar Perfil</span>        </button>        <button class="flex-1 sm:flex-initial bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-full flex items-center justify-center gap-1.5 whitespace-nowrap transition-colors">          <ng-icon name="bootstrapBoxArrowRight" class="text-[1.1em]"></ng-icon>          <span>Cerrar Sesión</span>        </button>      </div>    </div>    <!-- Información del perfil -->    <div class="space-y-6">      <!-- Foto de perfil -->      <div class="flex flex-col items-center sm:flex-row gap-4">        <div class="relative group">          <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-primary/10">            <img              src="/assets/img/placeholderprofilepicture.png"              alt="Foto de perfil"              class="w-full h-full object-cover"            />          </div>          <div class="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 group-hover:opacity-100 cursor-pointer rounded-full transition-opacity">            <ng-icon name="bootstrapCamera" class="text-2xl"></ng-icon>          </div>        </div>        <div>          <h3 class="text-lg font-semibold text-primary">Camila Aguilar</h3>          <p class="text-sm text-gray-600">Última actualización: 15 Mar 2024</p>        </div>      </div>      <!-- Información personal -->      <div>        <h3 class="text-lg font-semibold text-primary mb-4">Información Personal</h3>        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">          <div>            <label class="text-sm text-gray-500 mb-1 block">Nombre completo</label>            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">Camila Aguilar</div>          </div>          <div>            <label class="text-sm text-gray-500 mb-1 block">Email</label>            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">camila&#64;email.com</div>          </div>          <div>            <label class="text-sm text-gray-500 mb-1 block">Teléfono</label>            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">+56 9 1234 5678</div>          </div>          <div>            <label class="text-sm text-gray-500 mb-1 block">Dirección</label>            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">Av. Providencia 1234, Santiago</div>          </div>        </div>      </div>      <!-- Preferencias de contacto -->      <div class="border-t pt-6">        <h3 class="text-lg font-semibold text-primary mb-4">Preferencias de Contacto</h3>        <div class="space-y-3">          <label class="flex items-center gap-2">            <input type="checkbox" class="rounded text-primary focus:ring-primary" checked>            <span class="text-sm text-gray-700">Recibir notificaciones por email</span>          </label>          <label class="flex items-center gap-2">            <input type="checkbox" class="rounded text-primary focus:ring-primary" >            <span class="text-sm text-gray-700">Recibir recordatorios de citas por SMS</span>          </label>        </div>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppointmentsComponent', 'selector': 'app-appointments'},{'name': 'AppointmentsComponent', 'selector': 'app-appointments'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarUserComponent', 'selector': 'app-navbar-user'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PatientsComponent', 'selector': 'app-patients'},{'name': 'PetsComponent', 'selector': 'app-pets'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'UserLayoutComponent', 'selector': 'app-user-layout'},{'name': 'UserRegisterComponent', 'selector': 'app-user-register'},{'name': 'VetRegisterComponent', 'selector': 'app-vet-register'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ProfileComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProfileComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

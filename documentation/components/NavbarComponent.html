@@ -1,0 +1,506 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>catmed documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">catmed documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  NavbarComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/shared/components/navbar/navbar.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-navbar</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>RouterLink</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./navbar.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./navbar.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isMenuOpen" >isMenuOpen</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#toggleMenu" >toggleMenu</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleMenu</b></span>
+                        <a href="#toggleMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMenu()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="15"
+                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isMenuOpen"></a>
+                    <span class="name">
+                        <span ><b>isMenuOpen</b></span>
+                        <a href="#isMenuOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:13</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { RouterLink } from &#x27;@angular/router&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;app-navbar&#x27;,
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: &#x27;./navbar.component.html&#x27;,
+  styleUrls: [&#x27;./navbar.component.css&#x27;]
+})
+export class NavbarComponent {
+  isMenuOpen &#x3D; false;
+
+  toggleMenu() {
+    this.isMenuOpen &#x3D; !this.isMenuOpen;
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- navbar.component.html --&gt;
+&lt;nav class&#x3D;&quot;fixed top w-full bg-white shadow-md z-50&quot;&gt;
+    &lt;div class&#x3D;&quot;container mx-auto px-4&quot;&gt;
+      &lt;div class&#x3D;&quot;flex justify-between items-center py-4&quot;&gt;
+        &lt;!-- Logo y Marca --&gt;
+        &lt;a routerLink&#x3D;&quot;/&quot; class&#x3D;&quot;flex items-center hover:scale-105 transition-all&quot;&gt;
+        &lt;img src&#x3D;&quot;/assets/img/logo.png&quot; alt&#x3D;&quot;CatMed&quot; class&#x3D;&quot;h-16 w-auto transition-all&quot;&gt;
+          &lt;span class&#x3D;&quot;font-[&#x27;Jua&#x27;] text-primary text-2xl ml-2&quot;&gt;CatMed&lt;/span&gt;
+        &lt;/a&gt;
+  
+        &lt;!-- Menú --&gt;
+        &lt;ul class&#x3D;&quot;hidden lg:flex items-center space-x-8&quot;&gt;
+          &lt;li class&#x3D;&quot;hover:scale-110 transition-all&quot;&gt;&lt;a routerLink&#x3D;&quot;/user/dashboard&quot; class&#x3D;&quot;text-custom-gray hover:text-primary transition-all&quot;&gt;Buscar Veterinario&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hover:scale-110 transition-all&quot;&gt;&lt;a routerLink&#x3D;&quot;/registeruser&quot; class&#x3D;&quot;text-custom-gray hover:text-primary transition-all&quot;&gt;Soy Dueño/a&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hover:scale-110 transition-all&quot;&gt;&lt;a routerLink&#x3D;&quot;/registervet&quot; class&#x3D;&quot;text-custom-gray hover:text-primary transition-all&quot;&gt;Soy Veterinario&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;hover:scale-110 transition-all&quot;&gt;&lt;a routerLink&#x3D;&quot;/login&quot; class&#x3D;&quot;btn-primary text-white rounded-full&quot;&gt;Iniciar Sesión&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+  
+        &lt;!-- Botón móvil --&gt;
+        &lt;button class&#x3D;&quot;lg:hidden&quot; (click)&#x3D;&quot;toggleMenu()&quot;&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;isMenuOpen; else menuIcon&quot;&gt;
+            &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-6 w-6&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+              &lt;path strokeLinecap&#x3D;&quot;round&quot; strokeLinejoin&#x3D;&quot;round&quot; strokeWidth&#x3D;&quot;2&quot; d&#x3D;&quot;M6 18L18 6M6 6l12 12&quot; /&gt;
+            &lt;/svg&gt;
+          &lt;/ng-container&gt;
+          &lt;ng-template #menuIcon&gt;
+            &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-6 w-6&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+              &lt;path strokeLinecap&#x3D;&quot;round&quot; strokeLinejoin&#x3D;&quot;round&quot; strokeWidth&#x3D;&quot;2&quot; d&#x3D;&quot;M4 6h16M4 12h16m-16 6h16&quot; /&gt;
+            &lt;/svg&gt;
+          &lt;/ng-template&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+  
+      &lt;!-- Menú móvil --&gt;
+      &lt;div [class.hidden]&#x3D;&quot;!isMenuOpen&quot; class&#x3D;&quot;lg:hidden&quot;&gt;
+        &lt;ul class&#x3D;&quot;py-4 space-y-4&quot;&gt;
+          &lt;li&gt;&lt;a routerLink&#x3D;&quot;/user/dashboard&quot; class&#x3D;&quot;block text-custom-gray hover:text-primary&quot;&gt;Buscar Veterinario&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a routerLink&#x3D;&quot;/registeruser&quot; class&#x3D;&quot;block text-custom-gray hover:text-primary&quot;&gt;Soy Dueño/a&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a routerLink&#x3D;&quot;/registervet&quot; class&#x3D;&quot;block text-custom-gray hover:text-primary&quot;&gt;Soy Veterinario&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a routerLink&#x3D;&quot;/login&quot; class&#x3D;&quot;block btn-primary text-white text-center rounded-full&quot;&gt;Iniciar Sesión&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./navbar.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- navbar.component.html --><nav class="fixed top w-full bg-white shadow-md z-50">    <div class="container mx-auto px-4">      <div class="flex justify-between items-center py-4">        <!-- Logo y Marca -->        <a routerLink="/" class="flex items-center hover:scale-105 transition-all">        <img src="/assets/img/logo.png" alt="CatMed" class="h-16 w-auto transition-all">          <span class="font-[\'Jua\'] text-primary text-2xl ml-2">CatMed</span>        </a>          <!-- Menú -->        <ul class="hidden lg:flex items-center space-x-8">          <li class="hover:scale-110 transition-all"><a routerLink="/user/dashboard" class="text-custom-gray hover:text-primary transition-all">Buscar Veterinario</a></li>          <li class="hover:scale-110 transition-all"><a routerLink="/registeruser" class="text-custom-gray hover:text-primary transition-all">Soy Dueño/a</a></li>          <li class="hover:scale-110 transition-all"><a routerLink="/registervet" class="text-custom-gray hover:text-primary transition-all">Soy Veterinario</a></li>          <li class="hover:scale-110 transition-all"><a routerLink="/login" class="btn-primary text-white rounded-full">Iniciar Sesión</a></li>        </ul>          <!-- Botón móvil -->        <button class="lg:hidden" (click)="toggleMenu()">          <ng-container *ngIf="isMenuOpen; else menuIcon">            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />            </svg>          </ng-container>          <ng-template #menuIcon>            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-16 6h16" />            </svg>          </ng-template>        </button>      </div>        <!-- Menú móvil -->      <div [class.hidden]="!isMenuOpen" class="lg:hidden">        <ul class="py-4 space-y-4">          <li><a routerLink="/user/dashboard" class="block text-custom-gray hover:text-primary">Buscar Veterinario</a></li>          <li><a routerLink="/registeruser" class="block text-custom-gray hover:text-primary">Soy Dueño/a</a></li>          <li><a routerLink="/registervet" class="block text-custom-gray hover:text-primary">Soy Veterinario</a></li>          <li><a routerLink="/login" class="block btn-primary text-white text-center rounded-full">Iniciar Sesión</a></li>        </ul>      </div>    </div>  </nav></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppointmentsComponent', 'selector': 'app-appointments'},{'name': 'AppointmentsComponent', 'selector': 'app-appointments'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarUserComponent', 'selector': 'app-navbar-user'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PatientsComponent', 'selector': 'app-patients'},{'name': 'PetsComponent', 'selector': 'app-pets'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'UserLayoutComponent', 'selector': 'app-user-layout'},{'name': 'UserRegisterComponent', 'selector': 'app-user-register'},{'name': 'VetRegisterComponent', 'selector': 'app-vet-register'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'NavbarComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'NavbarComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

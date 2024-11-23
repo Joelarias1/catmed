@@ -1,0 +1,491 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>catmed documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">catmed documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  HomeComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/features/user-dashboard/pages/home/home.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-home</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>NgIcon</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./home.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./home.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { NgIcon } from &#x27;@ng-icons/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;app-home&#x27;,
+  imports: [CommonModule, NgIcon],
+  templateUrl: &#x27;./home.component.html&#x27;,
+  styleUrl: &#x27;./home.component.css&#x27;
+})
+export class HomeComponent {
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- features/user-dashboard/pages/home/home.component.html --&gt;
+&lt;main class&#x3D;&quot;min-h-screen py-8&quot;&gt;
+  &lt;div class&#x3D;&quot;container mx-auto px-4&quot;&gt;
+    &lt;!-- Bienvenida y Búsqueda --&gt;
+    &lt;div class&#x3D;&quot;bg-white rounded-2xl shadow p-6 mb-6 fade-in&quot;&gt;
+      &lt;h1 class&#x3D;&quot;text-xl text-primary font-bold mb-3&quot;&gt;¡Hola Camila! 👋&lt;/h1&gt;
+      &lt;p class&#x3D;&quot;text-gray-600 mb-4&quot;&gt;Encuentra al veterinario ideal para Mota&lt;/p&gt;
+      &lt;!-- Búsqueda --&gt;
+      &lt;div class&#x3D;&quot;relative&quot;&gt;
+        &lt;div class&#x3D;&quot;flex items-center bg-gray-50 rounded-lg&quot;&gt;
+          &lt;span class&#x3D;&quot;pl-4 text-gray-500&quot;&gt;
+            &lt;ng-icon name&#x3D;&quot;bootstrapSearch&quot;&gt;&lt;/ng-icon&gt;
+          &lt;/span&gt;
+          &lt;input
+            type&#x3D;&quot;search&quot;
+            class&#x3D;&quot;w-full py-3 px-4 bg-transparent border-none focus:ring-0 focus:outline-none focus:bg-slate-100&quot;
+            placeholder&#x3D;&quot;Buscar veterinario, servicio o especialidad...&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Filtros Rápidos --&gt;
+    &lt;div class&#x3D;&quot;bg-white rounded-2xl shadow p-6 mb-6 fade-in&quot;&gt;
+      &lt;h2 class&#x3D;&quot;text-lg font-medium mb-4&quot;&gt;Filtros Rápidos&lt;/h2&gt;
+      &lt;div class&#x3D;&quot;flex flex-wrap gap-2&quot;&gt;
+        &lt;button
+          class&#x3D;&quot;px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors&quot;
+        &gt;
+          &lt;ng-icon name&#x3D;&quot;bootstrapCurrencyDollar&quot;&gt;&lt;/ng-icon&gt;
+          &lt;span&gt;Precio&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors&quot;
+        &gt;
+          &lt;ng-icon name&#x3D;&quot;bootstrapGeoAlt&quot;&gt;&lt;/ng-icon&gt;
+          &lt;span&gt;Zona&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors&quot;
+        &gt;
+          &lt;ng-icon name&#x3D;&quot;bootstrapStar&quot;&gt;&lt;/ng-icon&gt;
+          &lt;span&gt;Rating&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors&quot;
+        &gt;
+          &lt;ng-icon name&#x3D;&quot;bootstrapClock&quot;&gt;&lt;/ng-icon&gt;
+          &lt;span&gt;Disponible hoy&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors&quot;
+        &gt;
+          &lt;ng-icon name&#x3D;&quot;bootstrapCamera&quot;&gt;&lt;/ng-icon&gt;
+          &lt;span&gt;Telemedicina&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors&quot;
+        &gt;
+          &lt;ng-icon name&#x3D;&quot;bootstrapHouse&quot;&gt;&lt;/ng-icon&gt;
+          &lt;span&gt;Visita a domicilio&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          class&#x3D;&quot;px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors&quot;
+        &gt;
+          &lt;ng-icon name&#x3D;&quot;bootstrapDroplet&quot;&gt;&lt;/ng-icon&gt;
+          &lt;span&gt;Vacunación&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Lista de Veterinarios --&gt;
+    &lt;h2 class&#x3D;&quot;text-xl text-white font-medium mb-4&quot;&gt;
+      Veterinarios Disponibles
+    &lt;/h2&gt;
+    &lt;div class&#x3D;&quot;grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6&quot;&gt;
+      &lt;!-- Card Veterinario --&gt;
+      &lt;article class&#x3D;&quot;bg-white rounded-2xl shadow p-6 fade-in&quot;&gt;
+        &lt;!-- Header con foto y datos --&gt;
+        &lt;header class&#x3D;&quot;flex items-center gap-4 mb-4&quot;&gt;
+          &lt;img
+            src&#x3D;&quot;assets/img/placeholderveterinary.png&quot;
+            alt&#x3D;&quot;Dra. Ana Silva&quot;
+            class&#x3D;&quot;w-16 h-16 rounded-full object-cover&quot;
+          /&gt;
+          &lt;div&gt;
+            &lt;h3 class&#x3D;&quot;font-medium mb-1&quot;&gt;Dra. Ana Silva&lt;/h3&gt;
+            &lt;p class&#x3D;&quot;text-sm text-gray-600&quot;&gt;Especialista en felinos&lt;/p&gt;
+            &lt;div class&#x3D;&quot;flex items-center text-yellow-400&quot;&gt;
+              ★★★★★
+              &lt;span class&#x3D;&quot;text-gray-600 text-sm ml-1&quot;&gt;5.0 (120)&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/header&gt;
+
+        &lt;!-- Info y ubicación --&gt;
+        &lt;div class&#x3D;&quot;space-y-2 mb-4&quot;&gt;
+          &lt;p class&#x3D;&quot;flex items-center gap-x-2 text-gray-700&quot;&gt;
+            &lt;ng-icon
+              name&#x3D;&quot;bootstrapGeoAlt&quot;
+              class&#x3D;&quot;text-primary text-lg min-w-[1.25rem]&quot;
+            &gt;&lt;/ng-icon&gt;
+            &lt;span&gt;Clínica Felina MiauSalud, Providencia&lt;/span&gt;
+          &lt;/p&gt;
+          &lt;p class&#x3D;&quot;flex items-center gap-x-2&quot;&gt;
+            &lt;ng-icon name&#x3D;&quot;bootstrapTag&quot; class&#x3D;&quot;text-primary text-lg&quot;&gt;&lt;/ng-icon&gt;
+            &lt;span class&#x3D;&quot;text-primary font-medium&quot;&gt;$25.000&lt;/span&gt;
+            &lt;span class&#x3D;&quot;text-sm text-gray-600&quot;&gt;Consulta general&lt;/span&gt;
+          &lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Especialidades --&gt;
+        &lt;div class&#x3D;&quot;mb-4&quot;&gt;
+          &lt;p class&#x3D;&quot;text-sm text-gray-600 mb-2&quot;&gt;Especialidades:&lt;/p&gt;
+          &lt;div class&#x3D;&quot;flex flex-wrap gap-1&quot;&gt;
+            &lt;span
+              class&#x3D;&quot;px-3 py-1 bg-primary/10 text-primary text-sm rounded-full&quot;
+              &gt;Vacunación&lt;/span
+            &gt;
+            &lt;span
+              class&#x3D;&quot;px-3 py-1 bg-primary/10 text-primary text-sm rounded-full&quot;
+              &gt;Cirugía&lt;/span
+            &gt;
+            &lt;span
+              class&#x3D;&quot;px-3 py-1 bg-primary/10 text-primary text-sm rounded-full&quot;
+              &gt;Nutrición&lt;/span
+            &gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Horarios --&gt;
+        &lt;div class&#x3D;&quot;mb-4&quot;&gt;
+          &lt;p class&#x3D;&quot;text-sm text-gray-600 mb-2&quot;&gt;Próximas citas disponibles:&lt;/p&gt;
+          &lt;div class&#x3D;&quot;flex flex-wrap gap-1&quot;&gt;
+            &lt;span
+              class&#x3D;&quot;px-3 py-1 bg-green-500 text-white text-sm rounded-full flex items-center&quot;
+            &gt;
+              &lt;ng-icon name&#x3D;&quot;bootstrapClock&quot; class&#x3D;&quot;mr-1&quot;&gt;&lt;/ng-icon&gt;
+              Hoy 15:00
+            &lt;/span&gt;
+            &lt;span
+              class&#x3D;&quot;px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full flex items-center&quot;
+            &gt;
+              &lt;ng-icon name&#x3D;&quot;bootstrapClock&quot; class&#x3D;&quot;mr-1&quot;&gt;&lt;/ng-icon&gt;
+              Mañana 9:00
+            &lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Botón --&gt;
+        &lt;button
+          class&#x3D;&quot;w-full bg-primary text-white py-2 rounded-full hover:bg-primary-dark transition-colors flex items-center justify-center&quot;
+        &gt;
+          &lt;ng-icon name&#x3D;&quot;bootstrapCalendarPlus&quot; class&#x3D;&quot;mr-2&quot;&gt;&lt;/ng-icon&gt;
+          Agendar Cita
+        &lt;/button&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- features/user-dashboard/pages/home/home.component.html --><main class="min-h-screen py-8">  <div class="container mx-auto px-4">    <!-- Bienvenida y Búsqueda -->    <div class="bg-white rounded-2xl shadow p-6 mb-6 fade-in">      <h1 class="text-xl text-primary font-bold mb-3">¡Hola Camila! 👋</h1>      <p class="text-gray-600 mb-4">Encuentra al veterinario ideal para Mota</p>      <!-- Búsqueda -->      <div class="relative">        <div class="flex items-center bg-gray-50 rounded-lg">          <span class="pl-4 text-gray-500">            <ng-icon name="bootstrapSearch"></ng-icon>          </span>          <input            type="search"            class="w-full py-3 px-4 bg-transparent border-none focus:ring-0 focus:outline-none focus:bg-slate-100"            placeholder="Buscar veterinario, servicio o especialidad..."          />        </div>      </div>    </div>    <!-- Filtros Rápidos -->    <div class="bg-white rounded-2xl shadow p-6 mb-6 fade-in">      <h2 class="text-lg font-medium mb-4">Filtros Rápidos</h2>      <div class="flex flex-wrap gap-2">        <button          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"        >          <ng-icon name="bootstrapCurrencyDollar"></ng-icon>          <span>Precio</span>        </button>        <button          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"        >          <ng-icon name="bootstrapGeoAlt"></ng-icon>          <span>Zona</span>        </button>        <button          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"        >          <ng-icon name="bootstrapStar"></ng-icon>          <span>Rating</span>        </button>        <button          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"        >          <ng-icon name="bootstrapClock"></ng-icon>          <span>Disponible hoy</span>        </button>        <button          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"        >          <ng-icon name="bootstrapCamera"></ng-icon>          <span>Telemedicina</span>        </button>        <button          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"        >          <ng-icon name="bootstrapHouse"></ng-icon>          <span>Visita a domicilio</span>        </button>        <button          class="px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center gap-2 transition-colors"        >          <ng-icon name="bootstrapDroplet"></ng-icon>          <span>Vacunación</span>        </button>      </div>    </div>    <!-- Lista de Veterinarios -->    <h2 class="text-xl text-white font-medium mb-4">      Veterinarios Disponibles    </h2>    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">      <!-- Card Veterinario -->      <article class="bg-white rounded-2xl shadow p-6 fade-in">        <!-- Header con foto y datos -->        <header class="flex items-center gap-4 mb-4">          <img            src="assets/img/placeholderveterinary.png"            alt="Dra. Ana Silva"            class="w-16 h-16 rounded-full object-cover"          />          <div>            <h3 class="font-medium mb-1">Dra. Ana Silva</h3>            <p class="text-sm text-gray-600">Especialista en felinos</p>            <div class="flex items-center text-yellow-400">              ★★★★★              <span class="text-gray-600 text-sm ml-1">5.0 (120)</span>            </div>          </div>        </header>        <!-- Info y ubicación -->        <div class="space-y-2 mb-4">          <p class="flex items-center gap-x-2 text-gray-700">            <ng-icon              name="bootstrapGeoAlt"              class="text-primary text-lg min-w-[1.25rem]"            ></ng-icon>            <span>Clínica Felina MiauSalud, Providencia</span>          </p>          <p class="flex items-center gap-x-2">            <ng-icon name="bootstrapTag" class="text-primary text-lg"></ng-icon>            <span class="text-primary font-medium">$25.000</span>            <span class="text-sm text-gray-600">Consulta general</span>          </p>        </div>        <!-- Especialidades -->        <div class="mb-4">          <p class="text-sm text-gray-600 mb-2">Especialidades:</p>          <div class="flex flex-wrap gap-1">            <span              class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"              >Vacunación</span            >            <span              class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"              >Cirugía</span            >            <span              class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"              >Nutrición</span            >          </div>        </div>        <!-- Horarios -->        <div class="mb-4">          <p class="text-sm text-gray-600 mb-2">Próximas citas disponibles:</p>          <div class="flex flex-wrap gap-1">            <span              class="px-3 py-1 bg-green-500 text-white text-sm rounded-full flex items-center"            >              <ng-icon name="bootstrapClock" class="mr-1"></ng-icon>              Hoy 15:00            </span>            <span              class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full flex items-center"            >              <ng-icon name="bootstrapClock" class="mr-1"></ng-icon>              Mañana 9:00            </span>          </div>        </div>        <!-- Botón -->        <button          class="w-full bg-primary text-white py-2 rounded-full hover:bg-primary-dark transition-colors flex items-center justify-center"        >          <ng-icon name="bootstrapCalendarPlus" class="mr-2"></ng-icon>          Agendar Cita        </button>      </article>    </div>  </div></main></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppointmentsComponent', 'selector': 'app-appointments'},{'name': 'AppointmentsComponent', 'selector': 'app-appointments'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarUserComponent', 'selector': 'app-navbar-user'},{'name': 'PasswordRecoveryComponent', 'selector': 'app-password-recovery'},{'name': 'PatientsComponent', 'selector': 'app-patients'},{'name': 'PetsComponent', 'selector': 'app-pets'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'UserLayoutComponent', 'selector': 'app-user-layout'},{'name': 'UserRegisterComponent', 'selector': 'app-user-register'},{'name': 'VetRegisterComponent', 'selector': 'app-vet-register'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HomeComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

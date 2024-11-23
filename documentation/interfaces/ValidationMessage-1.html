@@ -1,0 +1,569 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>catmed documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">catmed documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  ValidationMessage</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/features/auth/pages/register/vet-register/vet-register.component.ts</code>
+        </p>
+
+
+
+
+
+
+            <section data-compodoc="block-indexables">
+    <h3 id="inputs">Indexable</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <code>[key: string]:        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/features/auth/pages/register/vet-register/vet-register.component.ts:13</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl,
+} from &#x27;@angular/forms&#x27;;
+import { Router, RouterLink } from &#x27;@angular/router&#x27;;
+import { merge } from &#x27;rxjs&#x27;;
+
+interface ValidationMessage {
+  [key: string]: string;
+}
+
+/**
+ * @description Componente para el registro de veterinarios en la plataforma
+ * @usageNotes
+ * &#x60;&#x60;&#x60;typescript
+ * &lt;app-vet-register&gt;&lt;/app-vet-register&gt;
+ * &#x60;&#x60;&#x60;
+ */
+@Component({
+  selector: &#x27;app-vet-register&#x27;,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  templateUrl: &#x27;./vet-register.component.html&#x27;,
+})
+export class VetRegisterComponent implements OnInit {
+  registerForm: FormGroup &#x3D; new FormGroup({});
+  showPassword &#x3D; false;
+  showConfirmPassword &#x3D; false;
+  isLoading &#x3D; false;
+  isSuccess &#x3D; false;
+
+  readonly especialidades &#x3D; [
+    { value: &#x27;general&#x27;, label: &#x27;Medicina General Felina&#x27; },
+    { value: &#x27;cirugia&#x27;, label: &#x27;Cirugía Felina&#x27; },
+    { value: &#x27;dermatologia&#x27;, label: &#x27;Dermatología Felina&#x27; },
+    { value: &#x27;comportamiento&#x27;, label: &#x27;Comportamiento Felino&#x27; },
+    { value: &#x27;nutricion&#x27;, label: &#x27;Nutrición Felina&#x27; },
+    { value: &#x27;dental&#x27;, label: &#x27;Odontología Felina&#x27; },
+  ];
+
+  private readonly validationPatterns &#x3D; {
+    name: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
+    email: /^[a-zA-Z0-9._%+-]+@(gmail|outlook|yahoo|hotmail)\.(com|es|cl)$/,
+    phone: /^\+?56\s?9\s?\d{4}\s?\d{4}$/,
+    license: /^\d{1,8}$/,
+    postalCode: /^\d+$/,
+  };
+
+  private readonly validationMessages: { [key: string]: ValidationMessage } &#x3D; {
+    nombre: {
+      required: &#x27;El campo nombre es requerido&#x27;,
+      minlength: &#x27;Mínimo 3 caracteres&#x27;,
+      invalidName: &#x27;Solo se permiten letras y espacios&#x27;,
+    },
+    apellidos: {
+      required: &#x27;El campo apellidos es requerido&#x27;,
+      minlength: &#x27;Mínimo 3 caracteres&#x27;,
+      invalidName: &#x27;Solo se permiten letras y espacios&#x27;,
+    },
+    email: {
+      required: &#x27;El email es requerido&#x27;,
+      invalidEmail: &#x27;Email inválido (debe ser gmail, outlook, yahoo o hotmail)&#x27;,
+    },
+    telefono: {
+      required: &#x27;El teléfono es requerido&#x27;,
+      invalidPhone: &#x27;Formato de teléfono inválido (+56 9 XXXX XXXX)&#x27;,
+    },
+    licencia: {
+      required: &#x27;El número de licencia es requerido&#x27;,
+      invalidLicense:
+        &#x27;La licencia debe contener solo números (máximo 8 dígitos)&#x27;,
+    },
+    especialidad: {
+      required: &#x27;Debe seleccionar una especialidad&#x27;,
+    },
+    experiencia: {
+      required: &#x27;Los años de experiencia son requeridos&#x27;,
+      min: &#x27;La experiencia no puede ser negativa&#x27;,
+      max: &#x27;La experiencia no puede ser mayor a 50 años&#x27;,
+    },
+    descripcion: {
+      required: &#x27;La descripción profesional es requerida&#x27;,
+      minlength: &#x27;La descripción debe tener al menos 50 caracteres&#x27;,
+      maxlength: &#x27;La descripción no puede exceder 500 caracteres&#x27;,
+    },
+    ciudad: {
+      required: &#x27;La ciudad es requerida&#x27;,
+      minlength: &#x27;El nombre de la ciudad debe tener al menos 3 caracteres&#x27;,
+      invalidCity: &#x27;Solo se permiten letras y espacios&#x27;,
+    },
+    codigo_postal: {
+      invalidPostalCode: &#x27;El código postal debe contener solo números&#x27;,
+    },
+    password: {
+      required: &#x27;La contraseña es requerida&#x27;,
+      minlength: &#x27;La contraseña debe tener al menos 8 caracteres&#x27;,
+      maxlength: &#x27;La contraseña no puede tener más de 20 caracteres&#x27;,
+      upperCase: &#x27;Debe contener al menos una mayúscula&#x27;,
+      lowerCase: &#x27;Debe contener al menos una minúscula&#x27;,
+      number: &#x27;Debe contener al menos un número&#x27;,
+      specialChar: &#x27;Debe contener al menos un símbolo&#x27;,
+      noSpaces: &#x27;No puede contener espacios&#x27;,
+    },
+    confirmPassword: {
+      required: &#x27;La confirmación de contraseña es requerida&#x27;,
+      mismatch: &#x27;Las contraseñas no coinciden&#x27;,
+    },
+    terms: {
+      required: &#x27;Debes aceptar los términos y condiciones&#x27;,
+    },
+  };
+
+  /**
+   * @description Inicializa el formulario con sus validaciones
+   * @param fb FormBuilder para crear el formulario reactivo
+   * @param router Router para la navegación post-registro
+   */
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.initForm();
+  }
+
+  /**
+   * @description Inicializa las validaciones de contraseña
+   * @returns void
+   */
+  ngOnInit(): void {
+    this.setupPasswordValidation();
+  }
+
+  private initForm(): void {
+    this.registerForm &#x3D; this.fb.group({
+      nombre: [
+        &#x27;&#x27;,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          this.patternValidator(&#x27;name&#x27;, &#x27;invalidName&#x27;),
+        ],
+      ],
+      apellidos: [
+        &#x27;&#x27;,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          this.patternValidator(&#x27;name&#x27;, &#x27;invalidName&#x27;),
+        ],
+      ],
+      email: [
+        &#x27;&#x27;,
+        [Validators.required, this.patternValidator(&#x27;email&#x27;, &#x27;invalidEmail&#x27;)],
+      ],
+      telefono: [
+        &#x27;&#x27;,
+        [Validators.required, this.patternValidator(&#x27;phone&#x27;, &#x27;invalidPhone&#x27;)],
+      ],
+      licencia: [
+        &#x27;&#x27;,
+        [
+          Validators.required,
+          this.patternValidator(&#x27;license&#x27;, &#x27;invalidLicense&#x27;),
+        ],
+      ],
+      especialidad: [&#x27;&#x27;, [Validators.required]],
+      experiencia: [
+        &#x27;&#x27;,
+        [Validators.required, Validators.min(0), Validators.max(50)],
+      ],
+      descripcion: [
+        &#x27;&#x27;,
+        [
+          Validators.required,
+          Validators.minLength(50),
+          Validators.maxLength(500),
+        ],
+      ],
+      ciudad: [
+        &#x27;&#x27;,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          this.patternValidator(&#x27;name&#x27;, &#x27;invalidCity&#x27;),
+        ],
+      ],
+      codigo_postal: [
+        &#x27;&#x27;,
+        [this.patternValidator(&#x27;postalCode&#x27;, &#x27;invalidPostalCode&#x27;)],
+      ],
+      password: [
+        &#x27;&#x27;,
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(20),
+          this.passwordValidator(),
+        ],
+      ],
+      confirmPassword: [&#x27;&#x27;, [Validators.required]],
+      terms: [false, [Validators.requiredTrue]],
+    });
+  }
+
+  private setupPasswordValidation(): void {
+    const password &#x3D; this.registerForm.get(&#x27;password&#x27;);
+    const confirmPassword &#x3D; this.registerForm.get(&#x27;confirmPassword&#x27;);
+
+    if (password &amp;&amp; confirmPassword) {
+      merge(password.valueChanges, confirmPassword.valueChanges).subscribe(
+        () &#x3D;&gt; {
+          if (confirmPassword.value) {
+            const match &#x3D; password.value &#x3D;&#x3D;&#x3D; confirmPassword.value;
+            confirmPassword.setErrors(match ? null : { mismatch: true });
+          }
+        }
+      );
+    }
+  }
+
+  /**
+   * @description Valida patrones usando expresiones regulares
+   * @param patternKey Clave del patrón a validar
+   * @param errorKey Clave del error a retornar
+   * @returns Función validadora para AbstractControl
+   */
+  private patternValidator(
+    patternKey: keyof typeof this.validationPatterns,
+    errorKey: string
+  ) {
+    return (control: AbstractControl) &#x3D;&gt; {
+      const value &#x3D; control.value;
+      if (!value) return null;
+      return this.validationPatterns[patternKey].test(value)
+        ? null
+        : { [errorKey]: true };
+    };
+  }
+
+  /**
+   * @description Valida requisitos de contraseña
+   * @returns Función validadora para AbstractControl
+   * @usageNotes Valida mayúsculas, minúsculas, números, caracteres especiales y espacios
+   */
+  private passwordValidator() {
+    return (control: AbstractControl) &#x3D;&gt; {
+      const value &#x3D; control.value;
+      if (!value) return null;
+
+      const errors: { [key: string]: boolean } &#x3D; {};
+
+      if (!/[A-Z]/.test(value)) errors[&#x27;upperCase&#x27;] &#x3D; true;
+      if (!/[a-z]/.test(value)) errors[&#x27;lowerCase&#x27;] &#x3D; true;
+      if (!/[0-9]/.test(value)) errors[&#x27;number&#x27;] &#x3D; true;
+      if (!/[!@#$%^&amp;*(),.?&quot;:{}|&lt;&gt;]/.test(value)) errors[&#x27;specialChar&#x27;] &#x3D; true;
+      if (/\s/.test(value)) errors[&#x27;noSpaces&#x27;] &#x3D; true;
+
+      return Object.keys(errors).length ? errors : null;
+    };
+  }
+
+  /**
+   * @description Obtiene el mensaje de error para un control específico
+   * @param controlName Nombre del control del formulario
+   * @returns Mensaje de error o cadena vacía
+   */
+  getErrorMessage(controlName: string): string {
+    const control &#x3D; this.registerForm.get(controlName);
+    if (!control?.errors || !control.touched) return &#x27;&#x27;;
+
+    const fieldErrors &#x3D; this.validationMessages[controlName];
+    if (!fieldErrors) return &#x27;&#x27;;
+
+    if (controlName &#x3D;&#x3D;&#x3D; &#x27;password&#x27; &amp;&amp; control.errors) {
+      return Object.keys(control.errors)
+        .map((errorKey) &#x3D;&gt; fieldErrors[errorKey])
+        .filter((message) &#x3D;&gt; message)
+        .join(&#x27;. &#x27;);
+    }
+
+    const firstErrorKey &#x3D; Object.keys(control.errors)[0];
+    return fieldErrors[firstErrorKey] || &#x27;&#x27;;
+  }
+
+  hasError(controlName: string): boolean {
+    const control &#x3D; this.registerForm.get(controlName);
+    if (!control) return false;
+    return control.invalid &amp;&amp; control.touched;
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword &#x3D; !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword &#x3D; !this.showConfirmPassword;
+  }
+
+  /**
+   * @description Maneja el envío del formulario
+   * @returns Promise&lt;void&gt;
+   * @usageNotes Simula un registro y redirige a /vet/dashboard en caso de éxito
+   */
+  async onSubmit(): Promise&lt;void&gt; {
+    if (this.registerForm.valid) {
+      try {
+        this.isLoading &#x3D; true;
+        await new Promise((resolve) &#x3D;&gt; setTimeout(resolve, 1500));
+        this.isSuccess &#x3D; true;
+        setTimeout(() &#x3D;&gt; {
+          this.router.navigate([&#x27;/vet/dashboard&#x27;]);
+        }, 1000);
+      } catch (error) {
+        console.error(&#x27;Error:&#x27;, error);
+      } finally {
+        this.isLoading &#x3D; false;
+      }
+    } else {
+      this.markFormGroupTouched(this.registerForm);
+    }
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup): void {
+    Object.values(formGroup.controls).forEach((control) &#x3D;&gt; {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ValidationMessage-1.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
