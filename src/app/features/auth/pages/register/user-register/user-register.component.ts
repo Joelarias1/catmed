@@ -14,6 +14,13 @@ interface ValidationMessage {
   [key: string]: string;
 }
 
+/**
+ * @description Componente para el registro de usuarios dueños de mascotas
+ * @usageNotes
+ * ```typescript
+ * <app-user-register></app-user-register>
+ * ```
+ */
 @Component({
   selector: 'app-user-register',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
@@ -90,10 +97,19 @@ export class UserRegisterComponent implements OnInit {
     },
   };
 
+  /**
+   * @description Inicializa el formulario con sus validaciones
+   * @param fb FormBuilder para crear el formulario reactivo
+   * @param router Router para la navegación post-registro
+   */
   constructor(private fb: FormBuilder, private router: Router) {
     this.initForm();
   }
 
+  /**
+   * @description Inicializa las validaciones de contraseña
+   * @returns void
+   */
   ngOnInit(): void {
     this.setupPasswordValidation();
   }
@@ -151,6 +167,12 @@ export class UserRegisterComponent implements OnInit {
     }
   }
 
+  /**
+   * @description Valida patrones usando expresiones regulares
+   * @param patternKey Clave del patrón a validar
+   * @param errorKey Clave del error a retornar
+   * @returns Función validadora para AbstractControl
+   */
   private patternValidator(
     patternKey: keyof typeof this.validationPatterns,
     errorKey: string
@@ -164,6 +186,11 @@ export class UserRegisterComponent implements OnInit {
     };
   }
 
+  /**
+   * @description Valida requisitos de contraseña
+   * @returns Función validadora para AbstractControl
+   * @usageNotes Valida mayúsculas, minúsculas, números, caracteres especiales y espacios
+   */
   private passwordValidator() {
     return (control: AbstractControl) => {
       const value = control.value;
@@ -181,6 +208,11 @@ export class UserRegisterComponent implements OnInit {
     };
   }
 
+  /**
+   * @description Obtiene el mensaje de error para un control específico
+   * @param controlName Nombre del control del formulario
+   * @returns Mensaje de error o cadena vacía
+   */
   getErrorMessage(controlName: string): string {
     const control = this.registerForm.get(controlName);
     if (!control?.errors || !control.touched) return '';
@@ -215,6 +247,11 @@ export class UserRegisterComponent implements OnInit {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
+  /**
+   * @description Maneja el envío del formulario
+   * @returns Promise<void>
+   * @usageNotes Simula un registro y redirige a /user/dashboard en caso de éxito
+   */
   async onSubmit(): Promise<void> {
     if (this.registerForm.valid) {
       try {

@@ -5,8 +5,16 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { RouterLink, Router } from '@angular/router';
 import { NgIconComponent } from '@ng-icons/core';
 
-
-
+/**
+ * @description Componente de login que maneja la autenticación demo del usuario
+ * @usageNotes
+ * ```typescript
+ * <app-login></app-login>
+ * ```
+ * Credenciales de demo:
+ * - Email: test@catmed.com
+ * - Password: Catmed123123!
+ */
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -20,6 +28,11 @@ export class LoginComponent {
   showPassword = false;
   errorMessage = '';
 
+  /**
+   * @description Inicializa el formulario de login y configura las validaciones
+   * @param fb FormBuilder para crear el formulario reactivo
+   * @param router Router para la navegación post-login
+   */
   constructor(
     private fb: FormBuilder,
     private router: Router
@@ -31,13 +44,36 @@ export class LoginComponent {
     });
   }
 
+  /**
+   * @description Getter para el campo email del formulario
+   * @returns AbstractControl del campo email
+   */
   get email() { return this.loginForm.get('email'); }
+
+  /**
+   * @description Getter para el campo password del formulario
+   * @returns AbstractControl del campo password
+   */
   get password() { return this.loginForm.get('password'); }
 
+  /**
+   * @description Alterna la visibilidad de la contraseña
+   * @returns void
+   */
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
+  /**
+   * @description Maneja el envío del formulario de login
+   * @returns void
+   * @usageNotes
+   * El método valida las credenciales demo:
+   * - Email: test@catmed.com
+   * - Password: Catmed123123!
+   * Si son correctas, redirige a /user/dashboard
+   * Si son incorrectas, muestra un mensaje de error
+   */
   onSubmit() {
     if (this.loginForm.valid) {
       this.isLoading = true;
