@@ -6,7 +6,6 @@ import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-user-register',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './user-register.component.html'
 })

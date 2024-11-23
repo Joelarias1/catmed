@@ -18,6 +18,24 @@
   
               <!-- Formulario -->
               <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
+                <!-- Mensajes de error del formulario -->
+                @if (isSuccess) {
+                  <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-4">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                      </div>
+                      <div class="ml-3">
+                        <p class="text-sm text-green-700">
+                          ¡Registro exitoso! Redirigiendo...
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                }
+  
                 <!-- Datos Personales -->
                 <div class="grid md:grid-cols-2 gap-6">
                   <div>
@@ -108,7 +126,7 @@
                       >Número de Licencia</label
                     >
                     <input
-                      type="number"
+                      type="text"
                       id="licencia"
                       formControlName="licencia"
                       class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
@@ -116,87 +134,98 @@
                         'border-gray-300 focus:ring-primary-light': !hasError('licencia'),
                         'border-red-500 focus:ring-red-200': hasError('licencia')
                       }"
-                      placeholder="12345"
-                      maxlength="5"
+                      placeholder="12345678"
+                      maxlength="8"
+                      (keypress)="$event.charCode >= 48 && $event.charCode <= 57"
                     />
                     @if (hasError('licencia')) {
                       <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('licencia') }}</span>
                     }
                   </div>
   
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="especialidad">Especialidad</label>
-                    <select
-                      id="especialidad"
-                      formControlName="especialidad"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light bg-white"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('especialidad'),
-                        'border-red-500 focus:ring-red-200': hasError('especialidad')
-                      }">
-                      <option value="">Selecciona una especialidad</option>
-                      @for (especialidad of especialidades; track especialidad.value) {
-                        <option [value]="especialidad.value">{{ especialidad.label }}</option>
+                  <!-- Experiencia y Descripción -->
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Experiencia -->
+                    <div>
+                      <label class="block text-gray-700 mb-2" for="experiencia">
+                        Años de experiencia*
+                      </label>
+                      <input
+                        type="number"
+                        id="experiencia"
+                        formControlName="experiencia"
+                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+                        [ngClass]="{
+                          'border-gray-300 focus:ring-primary-light': !hasError('experiencia'),
+                          'border-red-500 focus:ring-red-200': hasError('experiencia')
+                        }"
+                        min="0"
+                        max="50"
+                        placeholder="Ej: 5"
+                      />
+                      @if (hasError('experiencia')) {
+                        <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('experiencia') }}</span>
                       }
-                    </select>
-                    @if (hasError('especialidad')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('especialidad') }}</span>
-                    }
+                    </div>
+
+                    <!-- Especialidad -->
+                    <div>
+                      <label class="block text-gray-700 mb-2" for="especialidad">
+                        Especialidad*
+                      </label>
+                      <select
+                        id="especialidad"
+                        formControlName="especialidad"
+                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
+                        [ngClass]="{
+                          'border-gray-300 focus:ring-primary-light': !hasError('especialidad'),
+                          'border-red-500 focus:ring-red-200': hasError('especialidad')
+                        }"
+                      >
+                        <option value="">Selecciona una especialidad</option>
+                        @for (especialidad of especialidades; track especialidad.value) {
+                          <option [value]="especialidad.value">{{ especialidad.label }}</option>
+                        }
+                      </select>
+                      @if (hasError('especialidad')) {
+                        <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('especialidad') }}</span>
+                      }
+                    </div>
                   </div>
-  
+
+                  <!-- Descripción Profesional -->
                   <div>
-                    <label class="block text-gray-700 mb-2" for="experiencia"
-                      >Años de experiencia</label
-                    >
-                    <input
-                      type="number"
-                      id="experiencia"
-                      formControlName="experiencia"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
-                      min="0"
-                      placeholder="0"
-                      [ngClass]="{
-                        'border-gray-300 focus:ring-primary-light': !hasError('experiencia'),
-                        'border-red-500 focus:ring-red-200': hasError('experiencia')
-                      }"
-                    />
-                    @if (hasError('experiencia')) {
-                      <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('experiencia') }}</span>
-                    }
-                  </div>
-  
-                  <div>
-                    <label class="block text-gray-700 mb-2" for="descripcion"
-                      >Descripción profesional</label
-                    >
+                    <label class="block text-gray-700 mb-2" for="descripcion">
+                      Descripción profesional*
+                    </label>
                     <textarea
                       id="descripcion"
-                      rows="3"
                       formControlName="descripcion"
-                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light resize-y max-h-48 min-h24"
-                      placeholder="Cuéntanos sobre tu experiencia con gatos..."
+                      rows="4"
+                      class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2"
                       [ngClass]="{
                         'border-gray-300 focus:ring-primary-light': !hasError('descripcion'),
                         'border-red-500 focus:ring-red-200': hasError('descripcion')
                       }"
+                      placeholder="Describe tu experiencia y especialización en medicina felina..."
                     ></textarea>
                     @if (hasError('descripcion')) {
                       <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('descripcion') }}</span>
                     }
+                    <p class="text-sm text-gray-500 mt-1">Mínimo 50 caracteres, máximo 500</p>
                   </div>
                 </div>
   
                 <!-- Ubicación -->
                 <div class="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label class="block text-gray-700 mb-2" for="ciudad"
-                      >Ciudad</label
-                    >
+                    <label class="block text-gray-700 mb-2" for="ciudad">Ciudad</label>
                     <input
                       type="text"
                       id="ciudad"
                       formControlName="ciudad"
                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                      placeholder="Ej: Santiago"
                       [ngClass]="{
                         'border-gray-300 focus:ring-primary-light': !hasError('ciudad'),
                         'border-red-500 focus:ring-red-200': hasError('ciudad')
@@ -208,18 +237,20 @@
                   </div>
   
                   <div>
-                    <label class="block text-gray-700 mb-2" for="codigo_postal"
-                      >Código Postal</label
-                    >
+                    <label class="block text-gray-700 mb-2" for="codigo_postal">
+                      Código Postal (opcional)
+                    </label>
                     <input
                       type="text"
                       id="codigo_postal"
                       formControlName="codigo_postal"
                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light"
+                      placeholder="Ej: 1234567"
                       [ngClass]="{
                         'border-gray-300 focus:ring-primary-light': !hasError('codigo_postal'),
                         'border-red-500 focus:ring-red-200': hasError('codigo_postal')
                       }"
+                      (keypress)="$event.charCode >= 48 && $event.charCode <= 57"
                     />
                     @if (hasError('codigo_postal')) {
                       <span class="text-sm text-red-500 mt-1">{{ getErrorMessage('codigo_postal') }}</span>
@@ -293,9 +324,17 @@
                 <!-- Botón de registro -->
                 <button
                   type="submit"
-                  class="w-full bg-primary text-white py-3 rounded-full hover:bg-primary-dark transition-all"
-                >
-                  Registrarme como Veterinario
+                  class="w-full bg-primary text-white py-3 rounded-full hover:bg-primary-dark transition-all disabled:opacity-50 disabled:cursor-not-allowed relative"
+                  [disabled]="registerForm.invalid || isLoading">
+                  <span [class.opacity-0]="isLoading">Registrarme como Veterinario</span>
+                  @if (isLoading) {
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </div>
+                  }
                 </button>
   
                 <!-- Login link -->
