@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { bootstrapEyeSlash, bootstrapEyeSlashFill, bootstrapInfoCircle } from '@ng-icons/bootstrap-icons';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { setupTestModule } from '@utils/test-utils';
 
 describe('✨ Login Component Tests', () => {
   let component: LoginComponent;
@@ -12,23 +10,7 @@ describe('✨ Login Component Tests', () => {
   let router: Router;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        LoginComponent,
-        ReactiveFormsModule,
-        RouterTestingModule.withRoutes([
-          { path: 'user/dashboard', component: {} as any }
-        ]),
-        NgIconComponent
-      ],
-      providers: [
-        provideIcons({ 
-          bootstrapEyeSlash, 
-          bootstrapEyeSlashFill,
-          bootstrapInfoCircle 
-        })
-      ]
-    }).compileComponents();
+    await setupTestModule(LoginComponent, [ReactiveFormsModule]);
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
@@ -74,6 +56,7 @@ describe('✨ Login Component Tests', () => {
       fixture.detectChanges();
       
       expect(component.errorMessage).toBe('Credenciales incorrectas');
+      expect(router.navigate).not.toHaveBeenCalled();
     }));
 
     it('✅ should accept correct demo credentials', fakeAsync(() => {
@@ -87,6 +70,7 @@ describe('✨ Login Component Tests', () => {
       fixture.detectChanges();
       
       expect(component.errorMessage).toBe('');
+      expect(router.navigate).toHaveBeenCalledWith(['/user/dashboard']);
     }));
   });
 });
