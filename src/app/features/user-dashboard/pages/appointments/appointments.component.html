@@ -1,123 +1,230 @@
 <div class="container mx-auto px-4 py-6">
   <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
     <!-- Header con botón de agendar -->
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b pb-4 gap-4">
+    <div
+      class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b pb-4 gap-4"
+    >
       <h2 class="text-xl md:text-2xl font-bold text-primary">Mis Citas</h2>
-      <button class="w-full sm:w-auto bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full flex items-center justify-center gap-2 transition-colors">
-        <ng-icon name="bootstrapCalendarPlus"></ng-icon>
-        <span>Agendar Cita</span>
-      </button>
+      <a
+        routerLink="/user/dashboard"
+        class="w-full sm:w-auto bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full flex items-center justify-center gap-2 transition-colors"
+      >
+        <ng-icon
+          name="bootstrapCalendarPlus"
+          class="flex-shrink-0 text-[1.1em] relative -top-[1px]"
+        ></ng-icon>
+        <span class="relative top-[1px]">Agendar Cita</span>
+      </a>
     </div>
 
     <!-- Lista de Citas -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- Cita Individual - Próxima -->
-      <div class="bg-gray-50 rounded-lg p-4 hover:shadow-md transition-shadow border-l-4 border-l-blue-500">
-        <!-- Cabecera con info principal -->
-        <div class="flex items-start gap-3 mb-3">
-          <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10 flex-shrink-0">
+      <div
+        class="bg-gray-50 rounded-lg p-4 hover:shadow-md transition-shadow border-l-4 border-l-blue-500"
+      >
+        <!-- Header con estado y tipo -->
+        <div class="flex items-start justify-between gap-2 mb-3">
+          <h3 class="text-base font-semibold text-gray-800">
+            Vacunación - Mota
+          </h3>
+          <span
+            class="inline-flex px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-600"
+          >
+            Próxima
+          </span>
+        </div>
+
+        <!-- Info del veterinario -->
+        <div class="flex items-center gap-3 mb-4">
+          <div
+            class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10"
+          >
             <img
               src="/assets/img/placeholderveterinary.png"
               alt="Dr. Carlos Ruiz"
               class="w-full h-full object-cover"
             />
           </div>
-          <div class="flex-grow">
-            <div class="flex items-start justify-between gap-2">
-              <h3 class="text-base font-semibold text-gray-800">Vacunación - Mota</h3>
-              <span class="inline-flex px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-600">
-                Próxima
-              </span>
-            </div>
-            <p class="text-sm text-gray-600 mt-1">
-              <span class="font-medium">Dr. Carlos Ruiz</span>
-            </p>
+          <div>
+            <p class="text-sm font-medium text-gray-800">Dr. Carlos Ruiz</p>
+            <p class="text-xs text-gray-600">Veterinario General</p>
           </div>
         </div>
 
-        <!-- Info compacta -->
-        <div class="space-y-2 mb-3 text-sm">
-          <div class="flex items-center gap-2 text-gray-600">
-            <ng-icon name="bootstrapCalendar3" class="text-primary flex-shrink-0"></ng-icon>
-            <span class="font-medium">22 marzo 2024</span>
-            <span class="mx-1">•</span>
-            <span>10:00</span>
+        <!-- Detalles de la cita -->
+        <div class="space-y-3 mb-4">
+          <!-- Fecha y hora -->
+          <div class="flex items-center gap-2 text-sm text-gray-600">
+            <ng-icon
+              name="bootstrapCalendar3"
+              class="text-primary flex-shrink-0"
+            ></ng-icon>
+            <div>
+              <span class="font-medium">22 marzo 2024</span>
+              <span class="mx-1">•</span>
+              <span>10:00 - 10:30</span>
+            </div>
           </div>
-          <div class="flex items-center gap-2 text-gray-600">
-            <ng-icon name="bootstrapGeoAlt" class="text-primary flex-shrink-0"></ng-icon>
-            <span>Clínica CatMed Norte</span>
+
+          <!-- Ubicación -->
+          <div class="flex items-start gap-2 text-sm text-gray-600">
+            <ng-icon
+              name="bootstrapGeoAlt"
+              class="text-primary flex-shrink-0 mt-0.5"
+            ></ng-icon>
+            <div>
+              <p class="font-medium">Clínica CatMed Norte</p>
+              <p class="text-xs">Av. Principal 123, Providencia</p>
+            </div>
+          </div>
+
+          <!-- Información de pago -->
+          <div class="flex items-center gap-2 text-sm text-gray-600">
+            <ng-icon
+              name="bootstrapCreditCard"
+              class="text-primary flex-shrink-0"
+            ></ng-icon>
+            <div>
+              <span class="font-medium">$25.000</span>
+              <span class="text-xs ml-1">• Pago en clínica</span>
+            </div>
           </div>
         </div>
 
         <!-- Botones de acción -->
         <div class="flex justify-end gap-2">
-          <button 
-            class="w-10 h-10 flex items-center justify-center bg-primary/5 hover:bg-primary/15 text-primary rounded-full transition-colors relative group"
-            title="Ver detalles">
-            <ng-icon name="bootstrapFileText" class="text-lg"></ng-icon>
-            <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-              Ver detalles
-            </span>
+          <button
+            class="inline-flex items-center justify-center px-3 py-1.5 text-xs bg-primary/5 hover:bg-primary/15 text-primary rounded-full transition-colors"
+          >
+            <ng-icon
+              name="bootstrapMap"
+              class="flex-shrink-0 text-[1.1em]"
+            ></ng-icon>
+            <span class="ml-1">Ver ubicación</span>
           </button>
-          <button 
-            class="w-10 h-10 flex items-center justify-center bg-red-50 hover:bg-red-100 text-red-600 rounded-full transition-colors relative group"
-            title="Cancelar cita">
-            <ng-icon name="bootstrapXCircle" class="text-lg"></ng-icon>
-            <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-              Cancelar cita
-            </span>
+          <button
+            class="inline-flex items-center justify-center px-3 py-1.5 text-xs bg-red-50 hover:bg-red-100 text-red-600 rounded-full transition-colors"
+          >
+            <ng-icon
+              name="bootstrapXCircle"
+              class="flex-shrink-0 text-[1.1em]"
+            ></ng-icon>
+            <span class="ml-1">Cancelar cita</span>
           </button>
         </div>
       </div>
 
-      <!-- Cita Individual - Completada -->
-      <div class="bg-gray-50 rounded-lg p-4 hover:shadow-md transition-shadow border-l-4 border-l-green-500">
-        <!-- Similar estructura pero más compacta -->
-        <div class="flex items-start gap-3 mb-3">
-          <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10 flex-shrink-0">
+      <!-- Cita Individual - Completada (similar estructura pero con info adicional) -->
+      <div
+        class="bg-gray-50 rounded-lg p-4 hover:shadow-md transition-shadow border-l-4 border-l-green-500"
+      >
+        <!-- Header con estado y tipo -->
+        <div class="flex items-start justify-between gap-2 mb-3">
+          <h3 class="text-base font-semibold text-gray-800">
+            Control General - Mota
+          </h3>
+          <span
+            class="inline-flex px-2 py-1 text-xs rounded-full bg-green-100 text-green-600"
+          >
+            Completada
+          </span>
+        </div>
+
+        <!-- Info del veterinario -->
+        <div class="flex items-center gap-3 mb-4">
+          <div
+            class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10"
+          >
             <img
               src="/assets/img/placeholderveterinary.png"
               alt="Dra. Ana Silva"
               class="w-full h-full object-cover"
             />
           </div>
-          <div class="flex-grow">
-            <div class="flex items-start justify-between gap-2">
-              <h3 class="text-base font-semibold text-gray-800">Control General - Mota</h3>
-              <span class="inline-flex px-2 py-1 text-xs rounded-full bg-green-100 text-green-600">
-                Completada
-              </span>
-            </div>
-            <p class="text-sm text-gray-600 mt-1">
-              <span class="font-medium">Dra. Ana Silva</span>
-            </p>
+          <div>
+            <p class="text-sm font-medium text-gray-800">Dra. Ana Silva</p>
+            <p class="text-xs text-gray-600">Veterinaria Especialista</p>
           </div>
         </div>
 
-        <!-- Info compacta -->
-        <div class="space-y-2 mb-3 text-sm">
-          <div class="flex items-center gap-2 text-gray-600">
-            <ng-icon name="bootstrapCalendar3" class="text-primary flex-shrink-0"></ng-icon>
-            <span class="font-medium">15 marzo 2024</span>
-            <span class="mx-1">•</span>
-            <span>14:30</span>
+        <!-- Detalles de la cita -->
+        <div class="space-y-3 mb-4">
+          <!-- Fecha y hora -->
+          <div class="flex items-center gap-2 text-sm text-gray-600">
+            <ng-icon
+              name="bootstrapCalendar3"
+              class="text-primary flex-shrink-0"
+            ></ng-icon>
+            <div>
+              <span class="font-medium">15 marzo 2024</span>
+              <span class="mx-1">•</span>
+              <span>14:30 - 15:00</span>
+            </div>
           </div>
-          <div class="flex items-center gap-2 text-gray-600">
-            <ng-icon name="bootstrapGeoAlt" class="text-primary flex-shrink-0"></ng-icon>
-            <span>Clínica CatMed Central</span>
+
+          <!-- Ubicación -->
+          <div class="flex items-start gap-2 text-sm text-gray-600">
+            <ng-icon
+              name="bootstrapGeoAlt"
+              class="text-primary flex-shrink-0 mt-0.5"
+            ></ng-icon>
+            <div>
+              <p class="font-medium">Clínica CatMed Central</p>
+              <p class="text-xs">Av. Principal 456, Providencia</p>
+            </div>
+          </div>
+
+          <!-- Información de pago -->
+          <div class="flex items-center gap-2 text-sm text-gray-600">
+            <ng-icon
+              name="bootstrapCreditCard"
+              class="text-primary flex-shrink-0"
+            ></ng-icon>
+            <div>
+              <span class="font-medium">$30.000</span>
+              <span class="text-xs ml-1">• Pago en línea</span>
+            </div>
           </div>
         </div>
 
         <!-- Botones de acción -->
         <div class="flex justify-end gap-2">
-          <button 
-            class="w-10 h-10 flex items-center justify-center bg-primary/5 hover:bg-primary/15 text-primary rounded-full transition-colors relative group"
-            title="Ver detalles">
-            <ng-icon name="bootstrapFileText" class="text-lg"></ng-icon>
-            <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-              Ver detalles
-            </span>
+          <button
+            class="inline-flex items-center justify-center px-3 py-1.5 text-xs bg-primary/5 hover:bg-primary/15 text-primary rounded-full transition-colors"
+          >
+            <ng-icon
+              name="bootstrapMap"
+              class="flex-shrink-0 text-[1.1em]"
+            ></ng-icon>
+            <span class="ml-1">Ver ubicación</span>
           </button>
+          <button
+            disabled
+            class="inline-flex items-center justify-center px-3 py-1.5 text-xs bg-gray-100 text-gray-400 rounded-full cursor-not-allowed"
+          >
+            <ng-icon
+              name="bootstrapXCircle"
+              class="flex-shrink-0 text-[1.1em]"
+            ></ng-icon>
+            <span class="ml-1">Cancelar cita</span>
+          </button>
+        </div>
+
+        <!-- Agregar para citas completadas: -->
+        <div class="border-t mt-4 pt-3">
+          <p class="text-xs text-gray-600 mb-2">Comprobantes:</p>
+          <div class="flex flex-wrap gap-2">
+            <a
+              href="#"
+              download
+              class="inline-flex items-center gap-2 text-xs bg-primary/5 hover:bg-primary/10 text-primary px-3 py-1.5 rounded-full transition-colors"
+            >
+              <ng-icon name="bootstrapFileText" class="text-sm"></ng-icon>
+              <span>Boleta de pago</span>
+              <ng-icon name="bootstrapDownload" class="text-sm"></ng-icon>
+            </a>
+          </div>
         </div>
       </div>
     </div>

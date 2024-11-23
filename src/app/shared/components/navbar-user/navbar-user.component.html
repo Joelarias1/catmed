@@ -35,6 +35,13 @@
           <span>Mis Citas</span>
         </a>
         <a
+          routerLink="/user/dashboard"
+          class="flex items-center gap-x-2 text-gray-700 hover:text-primary transition-colors"
+        >
+          <ng-icon name="bootstrapCalendarPlus"></ng-icon>
+          <span>Agendar</span>
+        </a>
+        <a
           routerLink="/user/pets"
           routerLinkActive="text-primary"
           class="flex items-center gap-x-2 text-gray-700 hover:text-primary transition-colors"
@@ -43,11 +50,11 @@
           <span>Mi Gato</span>
         </a>
 
-        <!-- Perfil -->
+        <!-- Perfil con nuevo estilo -->
         <a
           routerLink="/user/profile"
           routerLinkActive="bg-gray-100"
-          class="flex items-center gap-x-2 px-4 py-2 rounded-full hover:bg-gray-100 transition-colors"
+          class="flex items-center gap-x-2 px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-200 transition-colors"
         >
           <div class="w-8 h-8 rounded-full overflow-hidden">
             <img
@@ -64,6 +71,12 @@
     <!-- Menú móvil -->
     <div class="lg:hidden" [class.hidden]="!isMenuOpen">
       <div class="pt-2 pb-3 space-y-1">
+        <a
+          routerLink="/user/dashboard"
+          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+        >
+          Agendar
+        </a>
         <a
           routerLink="/user/appointments"
           routerLinkActive="text-primary bg-primary/10"

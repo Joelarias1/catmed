@@ -25,7 +25,7 @@ export const routes: Routes = [
       {
         path: '',
         component: LandingComponent,
-        title: 'Inicio',
+        title: 'Bienvenido a CatMed',
       },
       {
         path: 'login',
