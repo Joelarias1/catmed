@@ -1,6 +1,10 @@
 # Etapa de compilación
 FROM node:18.17.1 AS dev-deps
 WORKDIR /app
+
+# Configurar npm para acelerar la instalación
+RUN npm config set strict-ssl false
+
 COPY package.json package.json
 RUN npm install
 
