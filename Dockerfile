@@ -1,26 +1,18 @@
 # Etapa de compilación
-FROM node:20.11-alpine AS dev-deps
+FROM node:18.17.1 AS dev-deps
 WORKDIR /app
+COPY package.json package.json
+RUN npm install
 
-# Copiar solo los archivos necesarios para la instalación
-COPY package*.json ./
-
-# Instalar solo las dependencias de producción
-RUN npm ci --only=production --no-audit
-
-# Etapa de build
-FROM node:20.11-alpine AS builder
+#etapa 2
+FROM node:18.17.1 AS builder
 WORKDIR /app
-
-# Copiar las dependencias y archivos necesarios
 COPY --from=dev-deps /app/node_modules ./node_modules
 COPY . .
+RUN npm run build
 
-# Construir la aplicación con configuración de producción
-RUN npm run build --prod
-
-# Etapa de producción con nginx ligero
-FROM nginx:1.23.3-alpine AS prod
-COPY --from=builder /app/dist/catmed/browser/ /usr/share/nginx/html
+# Etapa de producción
+FROM nginx:1.23.3 AS prod
 EXPOSE 80
+COPY --from=builder /app/dist/app-web/browser/ /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]
