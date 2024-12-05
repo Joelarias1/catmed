@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { NgIconComponent } from '@ng-icons/core';
+import { UserService } from '../../../../core/services/user.service';
 
 /**
  * @description Componente de login que maneja la autenticación demo del usuario
@@ -11,15 +12,12 @@ import { NgIconComponent } from '@ng-icons/core';
  * ```typescript
  * <app-login></app-login>
  * ```
- * Credenciales de demo:
- * - Email: test@catmed.com
- * - Password: Catmed123123!
  */
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink, NgIconComponent],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -34,7 +32,8 @@ export class LoginComponent {
    */
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -80,14 +79,26 @@ export class LoginComponent {
 
       const { email, password } = this.loginForm.value;
       
-      setTimeout(() => {
-        if (email === 'test@catmed.com' && password === 'Catmed123123!') {
-          this.router.navigate(['/user/dashboard']);
-        } else {
-          this.errorMessage = 'Credenciales incorrectas';
+      this.userService.login(email, password).subscribe({
+        next: (user) => {
           this.isLoading = false;
+          // Redirigir según el rol
+          if (user.role === 'user') {
+            this.router.navigate(['/user/dashboard']);
+          } else if (user.role === 'vet') {
+            this.router.navigate(['/vet/dashboard']);
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.errorMessage = error;
         }
-      }, 1000);
+      });
+    } else {
+      Object.keys(this.loginForm.controls).forEach(key => {
+        const control = this.loginForm.get(key);
+        if (control) control.markAsTouched();
+      });
     }
   }
 }

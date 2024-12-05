@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, throwError, switchMap } from 'rxjs';
+import { Observable, catchError, throwError, map, switchMap } from 'rxjs';
 import { User, Cat, ApiResponse } from '../interfaces/user.interface';
 
 @Injectable({
@@ -13,6 +13,28 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  // Método para validar login
+  login(email: string, password: string): Observable<User> {
+    return this.http.get<ApiResponse>(this.S3_URL).pipe(
+      map(response => {
+        const user = response.users.find(u => 
+          u.email === email && u.password === password
+        );
+        
+        if (!user) {
+          throw new Error('Credenciales incorrectas');
+        }
+        
+        return user;
+      }),
+      catchError(error => {
+        console.error('Error en login:', error);
+        return throwError(() => error.message || 'Error en el login');
+      })
+    );
+  }
+
+  // Método existente de createUser
   createUser(formData: any): Observable<User> {
     const newCat: Cat = {
       id: `cat${Date.now()}`,
@@ -44,14 +66,21 @@ export class UserService {
 
     return this.http.get<ApiResponse>(this.S3_URL).pipe(
       switchMap(response => {
+        const emailExists = response.users.some(user => user.email === newUser.email);
+        if (emailExists) {
+          throw new Error('El email ya está registrado');
+        }
+
         const updatedData = {
           users: [...response.users, newUser]
         };
-        return this.http.put<User>(this.S3_URL, updatedData);
+        return this.http.put<User>(this.S3_URL, updatedData).pipe(
+          map(() => newUser)
+        );
       }),
       catchError(error => {
         console.error('Error al crear usuario:', error);
-        return throwError(() => new Error('Error al crear usuario'));
+        return throwError(() => error.message || 'Error al crear usuario');
       })
     );
   }
