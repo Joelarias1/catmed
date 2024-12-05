@@ -1,31 +1,27 @@
-# Etapa de construcción
-FROM node:18-alpine AS builder
+# Etapa de compilación
+FROM node:18.17.1 AS dev-deps
 
 WORKDIR /app
 
-# Copiar solo los archivos necesarios para npm install
-COPY package*.json ./
+COPY package.json package.json
 
-# Usar npm ci en lugar de npm install y limpiar caché
-RUN npm ci && npm cache clean --force
+RUN npm install
 
-# Copiar el resto del código
+#etapa 2
+FROM node:18.17.1 AS builder
+
+WORKDIR /app
+
+COPY --from=dev-deps /app/node_modules ./node_modules
 COPY . .
 
-# Construir la aplicación
 RUN npm run build
 
 # Etapa de producción
-FROM nginx:alpine
+FROM nginx:1.23.3 AS prod
 
-# Copiar la configuración de nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copiar los archivos construidos
-COPY --from=builder /app/dist/catmed /usr/share/nginx/html
-
-# Exponer puerto 80
 EXPOSE 80
 
-# Comando para iniciar nginx
+COPY --from=builder /app/dist/catmed/browser/ /usr/share/nginx/html
+
 CMD ["nginx", "-g", "daemon off;"]
