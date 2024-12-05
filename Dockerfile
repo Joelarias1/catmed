@@ -1,22 +1,22 @@
 # Etapa de compilación
-FROM node:18.17.1 AS dev-deps
+FROM node:20.14 as build
+
 WORKDIR /app
 
-# Configurar npm para acelerar la instalación
-RUN npm config set strict-ssl false
+COPY package*.json ./
 
-COPY package.json package.json
 RUN npm install
 
-#etapa 2
-FROM node:18.17.1 AS builder
-WORKDIR /app
-COPY --from=dev-deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
 
-# Etapa de producción
-FROM nginx:1.23.3 AS prod
+RUN npm run build --prod
+
+FROM nginx:alpine
+
+COPY --from=build /app/dist/catmed/browser/ /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 80
-COPY --from=builder /app/dist/app-web/browser/ /usr/share/nginx/html
+
 CMD ["nginx", "-g", "daemon off;"]
