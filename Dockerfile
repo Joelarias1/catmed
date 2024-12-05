@@ -1,22 +1,31 @@
-# Etapa de compilación
-FROM node:20.14 as build
+# Etapa de construcción
+FROM node:18 AS builder
 
 WORKDIR /app
 
+# Copiar package.json y package-lock.json
 COPY package*.json ./
 
-RUN npm install
+# Instalar dependencias
+RUN npm ci
 
+# Copiar el resto del código
 COPY . .
 
-RUN npm run build --prod
+# Construir la aplicación
+RUN npm run build
 
+# Etapa de producción
 FROM nginx:alpine
 
-COPY --from=build /app/dist/catmed/browser/ /usr/share/nginx/html
+# Copiar la configuración de nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copiar los archivos construidos
+COPY --from=builder /app/dist/catmed /usr/share/nginx/html
 
+# Exponer puerto 80
 EXPOSE 80
 
+# Comando para iniciar nginx
 CMD ["nginx", "-g", "daemon off;"]
