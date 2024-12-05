@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { merge } from 'rxjs';
+import { UserService } from '../../../../../core/services/user.service';
 
 interface ValidationMessage {
   [key: string]: string;
@@ -23,6 +24,7 @@ interface ValidationMessage {
  */
 @Component({
   selector: 'app-user-register',
+  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './user-register.component.html',
 })
@@ -32,6 +34,7 @@ export class UserRegisterComponent implements OnInit {
   showConfirmPassword = false;
   isLoading = false;
   isSuccess = false;
+  errorMessage = '';
 
   readonly edadMascota = [
     { value: '', label: 'Selecciona la edad' },
@@ -102,7 +105,11 @@ export class UserRegisterComponent implements OnInit {
    * @param fb FormBuilder para crear el formulario reactivo
    * @param router Router para la navegación post-registro
    */
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService
+  ) {
     this.initForm();
   }
 
@@ -135,9 +142,9 @@ export class UserRegisterComponent implements OnInit {
         this.patternValidator('phone', 'invalidPhone')
       ]],
       mascota: this.fb.group({
-        nombre: ['', [Validators.required]],
+        nombre: ['', [Validators.required, Validators.minLength(2)]],
         edad: ['', [Validators.required]],
-        foto: [''],
+        raza: [''],
         notas: ['', [Validators.maxLength(500)]]
       }),
       password: ['', [
@@ -252,31 +259,30 @@ export class UserRegisterComponent implements OnInit {
    * @returns Promise<void>
    * @usageNotes Simula un registro y redirige a /user/dashboard en caso de éxito
    */
-  async onSubmit(): Promise<void> {
-    if (this.registerForm.valid) {
-      try {
-        this.isLoading = true;
-        // Simular registro
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+  onSubmit(): void {
+    if (this.registerForm.invalid) {
+      Object.keys(this.registerForm.controls).forEach(key => {
+        const control = this.registerForm.get(key);
+        if (control) control.markAsTouched();
+      });
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.userService.createUser(this.registerForm.value).subscribe({
+      next: (user) => {
+        this.isLoading = false;
         this.isSuccess = true;
         setTimeout(() => {
-          this.router.navigate(['/user/dashboard']);
-        }, 1000);
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
+          this.router.navigate(['/auth/login']);
+        }, 2000);
+      },
+      error: (error) => {
         this.isLoading = false;
-      }
-    } else {
-      this.markFormGroupTouched(this.registerForm);
-    }
-  }
-
-  private markFormGroupTouched(formGroup: FormGroup): void {
-    Object.values(formGroup.controls).forEach((control) => {
-      control.markAsTouched();
-      if (control instanceof FormGroup) {
-        this.markFormGroupTouched(control);
+        this.errorMessage = 'Error al crear el usuario. Por favor, intenta nuevamente.';
+        console.error('Error al registrar usuario:', error);
       }
     });
   }
