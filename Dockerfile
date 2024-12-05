@@ -1,13 +1,13 @@
 # Etapa de construcción
-FROM node:18 AS builder
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Copiar package.json y package-lock.json
+# Copiar solo los archivos necesarios para npm install
 COPY package*.json ./
 
-# Instalar dependencias
-RUN npm ci
+# Usar npm ci en lugar de npm install y limpiar caché
+RUN npm ci && npm cache clean --force
 
 # Copiar el resto del código
 COPY . .
