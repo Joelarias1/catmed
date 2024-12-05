@@ -1,5 +1,5 @@
 # Etapa de compilación
-FROM node:18.17.1 AS dev-deps
+FROM node:20 AS dev-deps
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ COPY package.json package.json
 RUN npm install
 
 #etapa 2
-FROM node:18.17.1 AS builder
+FROM node:20 AS builder
 
 WORKDIR /app
 
