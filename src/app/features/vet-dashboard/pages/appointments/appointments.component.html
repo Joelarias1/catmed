@@ -1,1 +1,172 @@
-<p>appointments works!</p>
+<div class="min-h-screen">
+  <div class="container mx-auto px-4 py-6">
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex items-center gap-4">
+          <div class="p-3 bg-primary/10 rounded-lg">
+            <ng-icon name="bootstrapCalendarCheck" class="text-2xl text-primary"></ng-icon>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">Citas Hoy</p>
+            <p class="text-2xl font-semibold text-gray-800">8</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex items-center gap-4">
+          <div class="p-3 bg-yellow-50 rounded-lg">
+            <ng-icon name="bootstrapClock" class="text-2xl text-yellow-600"></ng-icon>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">Pendientes</p>
+            <p class="text-2xl font-semibold text-gray-800">12</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex items-center gap-4">
+          <div class="p-3 bg-green-50 rounded-lg">
+            <ng-icon name="bootstrapCheckCircle" class="text-2xl text-green-600"></ng-icon>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">Completadas</p>
+            <p class="text-2xl font-semibold text-gray-800">45</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header y filtros -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <h1 class="text-2xl font-bold text-gray-800">Gestión de Citas</h1>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Buscar cita..."
+              class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary w-full"
+            />
+            <ng-icon
+              name="bootstrapSearch"
+              class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            ></ng-icon>
+          </div>
+          <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary/20 focus:border-primary">
+            <option value="all">Todos los estados</option>
+            <option value="pending">Pendientes</option>
+            <option value="completed">Completadas</option>
+            <option value="cancelled">Canceladas</option>
+          </select>
+          <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-600 transition-colors flex items-center gap-2">
+            <ng-icon name="bootstrapPlus"></ng-icon>
+            Nueva Cita
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex gap-4 mt-6 border-b border-gray-200">
+        <button class="px-4 py-2 text-primary border-b-2 border-primary font-medium">
+          Todas las citas
+        </button>
+        <button class="px-4 py-2 text-gray-500 hover:text-gray-700">
+          Hoy
+        </button>
+        <button class="px-4 py-2 text-gray-500 hover:text-gray-700">
+          Esta semana
+        </button>
+      </div>
+    </div>
+
+    <!-- Grid de citas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Tarjeta de cita -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <h3 class="font-medium text-gray-800">Luna García</h3>
+            <p class="text-sm text-gray-500">Gato Persa · 2 años</p>
+          </div>
+          <span class="px-2 py-1 text-xs font-medium rounded-full" 
+                [ngClass]="{
+                  'bg-yellow-100 text-yellow-800': true,
+                  'bg-green-100 text-green-800': false,
+                  'bg-red-100 text-red-800': false
+                }">
+            Pendiente
+          </span>
+        </div>
+        
+        <div class="flex items-center gap-2 text-sm text-gray-600 mb-3">
+          <ng-icon name="bootstrapCalendar3" class="text-gray-400"></ng-icon>
+          <span>24 Mar 2024 - 15:30</span>
+        </div>
+        
+        <div class="flex items-start gap-2 text-sm text-gray-600 mb-4">
+          <ng-icon name="bootstrapJournalText" class="text-gray-400 mt-1"></ng-icon>
+          <p>Control de rutina y vacunación programada</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button class="flex-1 px-3 py-2 text-sm font-medium rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+            Ver detalles
+          </button>
+          <button class="px-3 py-2 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-100 transition-colors">
+            <ng-icon name="bootstrapThreeDotsVertical"></ng-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tarjeta de próxima cita -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <h3 class="font-medium text-gray-800">Milo Rodríguez</h3>
+            <p class="text-sm text-gray-500">Gato Siamés · 1 año</p>
+          </div>
+          <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+            Confirmada
+          </span>
+        </div>
+        
+        <div class="flex items-center gap-2 text-sm text-gray-600 mb-3">
+          <ng-icon name="bootstrapCalendar3" class="text-gray-400"></ng-icon>
+          <span>25 Mar 2024 - 10:15</span>
+        </div>
+        
+        <div class="flex items-start gap-2 text-sm text-gray-600 mb-4">
+          <ng-icon name="bootstrapJournalText" class="text-gray-400 mt-1"></ng-icon>
+          <p>Revisión post-operatoria</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button class="flex-1 px-3 py-2 text-sm font-medium rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+            Ver detalles
+          </button>
+          <button class="px-3 py-2 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-100 transition-colors">
+            <ng-icon name="bootstrapThreeDotsVertical"></ng-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paginación -->
+    <div class="flex justify-center mt-6">
+      <nav class="flex gap-2">
+        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50">
+          Anterior
+        </button>
+        <button class="px-3 py-1 rounded bg-primary text-white">1</button>
+        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50">2</button>
+        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50">3</button>
+        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50">
+          Siguiente
+        </button>
+      </nav>
+    </div>
+  </div>
+</div>

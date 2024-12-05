@@ -7,6 +7,7 @@ import { filter } from 'rxjs/operators';
 // Shared Components
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { NavbarUserComponent } from './shared/components/navbar-user/navbar-user.component';
+import { NavbarVetComponent } from './shared/components/navbar-vet/navbar-vet.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 
 @Component({
@@ -17,7 +18,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     RouterOutlet, 
     NavbarComponent, 
     NavbarUserComponent,
-    FooterComponent
+    FooterComponent,  
+    NavbarVetComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

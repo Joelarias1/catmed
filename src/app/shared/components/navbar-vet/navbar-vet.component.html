@@ -1,0 +1,127 @@
+<nav class="bg-gray-50 shadow-md fixed w-full top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <!-- Logo y nombre -->
+      <div class="flex items-center">
+        <a routerLink="/vet/dashboard" class="flex items-center gap-x-2">
+          <img src="assets/img/logo.png" alt="CatMed" class="h-8 w-auto" />
+          <span class="text-primary font-semibold text-lg hidden sm:inline">CatMed</span>
+        </a>
+      </div>
+
+      <!-- Botón hamburguesa móvil -->
+      <div class="flex items-center lg:hidden">
+        <button
+          type="button"
+          (click)="toggleMenu()"
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/20"
+        >
+          <ng-icon
+            [name]="isMenuOpen ? 'bootstrapX' : 'bootstrapList'"
+            class="h-6 w-6"
+          >
+          </ng-icon>
+        </button>
+      </div>
+
+      <!-- Menú desktop -->
+      <div class="hidden lg:flex lg:items-center lg:space-x-1">
+        <a
+          routerLink="/vet/dashboard"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-2 px-4 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 transition-all"
+        >
+          <ng-icon name="bootstrapSpeedometer2" class="text-lg"></ng-icon>
+          <span>Panel Principal</span>
+        </a>
+        <a
+          routerLink="/vet/appointments"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-2 px-4 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 transition-all"
+        >
+          <ng-icon name="bootstrapCalendar2Check" class="text-lg"></ng-icon>
+          <span>Citas</span>
+        </a>
+        <a
+          routerLink="/vet/patients"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-2 px-4 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 transition-all"
+        >
+          <ng-icon name="bootstrapHeart" class="text-lg"></ng-icon>
+          <span>Pacientes</span>
+        </a>
+        <div
+          class="flex items-center gap-x-2 px-3 py-1.5 rounded-full hover:bg-gray-50 transition-all ml-2 cursor-pointer"
+        >
+          <div class="w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary/10 flex items-center justify-center bg-gray-100">
+            <img
+              src="assets/img/cat-with-aidkit.png"
+              alt="Perfil Veterinario"
+              class="w-full h-full object-contain"
+            />
+          </div>
+          <span class="text-gray-700 font-medium">Dr. Vet</span>
+        </div>
+        <button
+          (click)="logout()"
+          class="flex items-center gap-x-2 px-4 py-2 rounded-lg text-red-600 hover:bg-red-50 transition-all ml-2"
+        >
+          <ng-icon name="bootstrapBoxArrowRight" class="text-lg"></ng-icon>
+          <span>Salir</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú móvil -->
+    <div class="lg:hidden bg-gray-50" [class.hidden]="!isMenuOpen">
+      <div class="pt-2 pb-3 space-y-1">
+        <a
+          routerLink="/vet/dashboard"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-primary hover:bg-primary/5"
+        >
+          <ng-icon name="bootstrapSpeedometer2" class="text-lg"></ng-icon>
+          <span>Panel Principal</span>
+        </a>
+        <a
+          routerLink="/vet/appointments"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-primary hover:bg-primary/5"
+        >
+          <ng-icon name="bootstrapCalendar2Check" class="text-lg"></ng-icon>
+          <span>Citas</span>
+        </a>
+        <a
+          routerLink="/vet/patients"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-primary hover:bg-primary/5"
+        >
+          <ng-icon name="bootstrapHeart" class="text-lg"></ng-icon>
+          <span>Pacientes</span>
+        </a>
+        <div
+          class="flex items-center gap-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700"
+        >
+          <div class="w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary/10 mr-2 flex items-center justify-center bg-gray-100">
+            <img
+              src="assets/img/cat-with-aidkit.png"
+              alt="Perfil Veterinario"
+              class="w-full h-full object-contain"
+            />
+          </div>
+          <span>Mi Perfil</span>
+        </div>
+        <button
+          (click)="logout()"
+          class="flex w-full items-center gap-x-3 px-3 py-2 rounded-lg text-base font-medium text-red-600 hover:bg-red-50"
+        >
+          <ng-icon name="bootstrapBoxArrowRight" class="text-lg"></ng-icon>
+          <span>Salir</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Espaciador para compensar el navbar fijo -->
+<div class="h-16"></div> 

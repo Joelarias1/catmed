@@ -16,6 +16,12 @@ import { AppointmentsComponent } from './features/user-dashboard/pages/appointme
 import { PetsComponent } from './features/user-dashboard/pages/pets/pets.component';
 import { ProfileComponent } from './features/user-dashboard/pages/profile/profile.component';
 
+// Vet Dashboard
+import { VetLayoutComponent } from './features/vet-dashboard/vet-layout/vet-layout.component';
+import { HomeComponentVet } from './features/vet-dashboard/pages/home/home.component';
+import { AppointmentsComponent as VetAppointmentsComponent } from './features/vet-dashboard/pages/appointments/appointments.component';
+import { PatientsComponent } from './features/vet-dashboard/pages/patients/patients.component';
+
 export const routes: Routes = [
   // Rutas públicas con navbar principal
   {
@@ -81,6 +87,19 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full'
       }
+    ]
+  },
+
+  // Rutas del veterinario con navbar del veterinario
+  {
+    path: 'vet',
+    component: VetLayoutComponent,
+    data: { navbar: 'vet' },
+    children: [
+      { path: 'dashboard', component: HomeComponentVet },
+      { path: 'appointments', component: VetAppointmentsComponent },
+      { path: 'patients', component: PatientsComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
 

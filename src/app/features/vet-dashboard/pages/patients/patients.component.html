@@ -1,1 +1,196 @@
-<p>patients works!</p>
+<div class="min-h-screen">
+  <div class="container mx-auto px-4 py-6">
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex items-center gap-4">
+          <div class="p-3 bg-primary/10 rounded-lg">
+            <ng-icon name="bootstrapPeople" class="text-2xl text-primary"></ng-icon>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">Total Pacientes</p>
+            <p class="text-2xl font-semibold text-gray-800">124</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex items-center gap-4">
+          <div class="p-3 bg-green-50 rounded-lg">
+            <ng-icon name="bootstrapActivity" class="text-2xl text-green-600"></ng-icon>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">Activos este mes</p>
+            <p class="text-2xl font-semibold text-gray-800">28</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="flex items-center gap-4">
+          <div class="p-3 bg-yellow-50 rounded-lg">
+            <ng-icon name="bootstrapCalendarPlus" class="text-2xl text-yellow-600"></ng-icon>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">Nuevos (30 días)</p>
+            <p class="text-2xl font-semibold text-gray-800">12</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header y filtros -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <h1 class="text-2xl font-bold text-gray-800">Mis Pacientes</h1>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Buscar paciente..."
+              class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary w-full"
+            />
+            <ng-icon
+              name="bootstrapSearch"
+              class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            ></ng-icon>
+          </div>
+          <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary/20 focus:border-primary">
+            <option value="all">Todos</option>
+            <option value="active">Activos</option>
+            <option value="inactive">Inactivos</option>
+          </select>
+          <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-600 transition-colors">
+            <span class="flex items-center gap-2">
+              <ng-icon name="bootstrapPlus"></ng-icon>
+              Nuevo Paciente
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+        <div class="text-center">
+          <p class="text-sm text-gray-600">Gatos</p>
+          <p class="text-xl font-semibold text-gray-800">98</p>
+        </div>
+        <div class="text-center">
+          <p class="text-sm text-gray-600">Machos</p>
+          <p class="text-xl font-semibold text-gray-800">52</p>
+        </div>
+        <div class="text-center">
+          <p class="text-sm text-gray-600">Hembras</p>
+          <p class="text-xl font-semibold text-gray-800">46</p>
+        </div>
+        <div class="text-center">
+          <p class="text-sm text-gray-600">Edad Promedio</p>
+          <p class="text-xl font-semibold text-gray-800">3.5 años</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de pacientes -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Tarjeta de paciente existente -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow">
+        <div class="flex gap-4">
+          <div class="w-20 h-20 rounded-lg overflow-hidden bg-gray-100">
+            <img
+              src="assets/img/cat-placeholder.png"
+              alt="Foto del paciente"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="flex-1">
+            <h3 class="font-medium text-gray-800">Luna García</h3>
+            <p class="text-sm text-gray-500">Gato Persa · Hembra</p>
+            <p class="text-sm text-gray-500">2 años · 4.5 kg</p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-gray-100">
+          <div class="flex items-center gap-2 text-sm text-gray-600 mb-2">
+            <ng-icon name="bootstrapPerson" class="text-gray-400"></ng-icon>
+            <span>Dueño: María García</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm text-gray-600">
+            <ng-icon name="bootstrapTelephone" class="text-gray-400"></ng-icon>
+            <span>+34 123 456 789</span>
+          </div>
+        </div>
+
+        <div class="flex gap-2 mt-4">
+          <button class="flex-1 px-3 py-2 text-sm font-medium rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+            Ver historial
+          </button>
+          <button class="flex-1 px-3 py-2 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-100 transition-colors">
+            Nueva cita
+          </button>
+        </div>
+      </div>
+
+      <!-- Nueva tarjeta de paciente -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow">
+        <div class="flex gap-4">
+          <div class="w-20 h-20 rounded-lg overflow-hidden bg-gray-100">
+            <img
+              src="assets/img/cat-placeholder.png"
+              alt="Foto del paciente"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <h3 class="font-medium text-gray-800">Simba Torres</h3>
+              <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                Activo
+              </span>
+            </div>
+            <p class="text-sm text-gray-500">Gato Ragdoll · Macho</p>
+            <p class="text-sm text-gray-500">1.5 años · 5.2 kg</p>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-gray-100">
+          <div class="flex items-center gap-2 text-sm text-gray-600 mb-2">
+            <ng-icon name="bootstrapPerson" class="text-gray-400"></ng-icon>
+            <span>Dueño: Carlos Torres</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm text-gray-600 mb-2">
+            <ng-icon name="bootstrapTelephone" class="text-gray-400"></ng-icon>
+            <span>+34 987 654 321</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm text-gray-600">
+            <ng-icon name="bootstrapCalendarCheck" class="text-gray-400"></ng-icon>
+            <span>Última visita: 15 Mar 2024</span>
+          </div>
+        </div>
+
+        <div class="flex gap-2 mt-4">
+          <button class="flex-1 px-3 py-2 text-sm font-medium rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+            Ver historial
+          </button>
+          <button class="flex-1 px-3 py-2 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-100 transition-colors">
+            Nueva cita
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paginación -->
+    <div class="flex justify-center mt-6">
+      <nav class="flex gap-2">
+        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50">
+          Anterior
+        </button>
+        <button class="px-3 py-1 rounded bg-primary text-white">1</button>
+        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50">2</button>
+        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50">3</button>
+        <button class="px-3 py-1 rounded border border-gray-300 text-gray-600 hover:bg-gray-50">
+          Siguiente
+        </button>
+      </nav>
+    </div>
+  </div>
+</div>

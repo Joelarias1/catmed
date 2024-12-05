@@ -3,6 +3,7 @@
   <ng-container [ngSwitch]="currentNavbar">
     <app-navbar *ngSwitchCase="'public'"></app-navbar>
     <app-navbar-user *ngSwitchCase="'user'"></app-navbar-user>
+    <app-navbar-vet *ngSwitchCase="'vet'"></app-navbar-vet>
   </ng-container>
   
   <!-- Espaciador solo para navbar público -->

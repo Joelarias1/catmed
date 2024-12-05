@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { NgIconComponent } from '@ng-icons/core';
 
 @Component({
   selector: 'app-patients',
-  imports: [],
-  templateUrl: './patients.component.html',
-  styleUrl: './patients.component.css'
+  standalone: true,
+  imports: [NgIconComponent],
+  templateUrl: './patients.component.html'
 })
 export class PatientsComponent {
-
+  // Aquí irá la lógica del componente
 }
