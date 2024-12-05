@@ -106,66 +106,48 @@
                 <div class="flex flex-col md:grid md:grid-cols-3 gap-2 md:gap-3">
                   <!-- Vacunación -->
                   <div class="relative overflow-hidden rounded-lg border border-gray-200 bg-white">
-                    <div class="absolute inset-0 bg-gradient-to-r" 
-                         [ngClass]="(currentCat?.estado?.vacunado ?? false) ? 'from-green-50 to-transparent' : 'from-gray-50 to-transparent'">
-                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-red-50 to-transparent"></div>
                     <div class="relative p-3 flex items-center gap-3">
                       <div class="flex-shrink-0">
-                        <div [ngClass]="(currentCat?.estado?.vacunado ?? false) ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'"
-                             class="w-8 h-8 rounded-full flex items-center justify-center">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center bg-red-100 text-red-600">
                           <ng-icon name="bootstrapDroplet" class="text-[1.1rem]"></ng-icon>
                         </div>
                       </div>
                       <div class="flex-1 min-w-0">
                         <p class="text-xs md:text-sm font-medium text-gray-600">Vacunación</p>
-                        <p [ngClass]="(currentCat?.estado?.vacunado ?? false) ? 'text-green-600' : 'text-gray-500'"
-                           class="text-sm font-medium">
-                          {{ (currentCat?.estado?.vacunado ?? false) ? 'Al día' : 'Pendiente' }}
-                        </p>
+                        <p class="text-sm font-medium text-red-600">Pendiente</p>
                       </div>
                     </div>
                   </div>
 
                   <!-- Esterilización -->
                   <div class="relative overflow-hidden rounded-lg border border-gray-200 bg-white">
-                    <div class="absolute inset-0 bg-gradient-to-r" 
-                         [ngClass]="(currentCat?.estado?.esterilizado ?? false) ? 'from-blue-50 to-transparent' : 'from-gray-50 to-transparent'">
-                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-50 to-transparent"></div>
                     <div class="relative p-3 flex items-center gap-3">
                       <div class="flex-shrink-0">
-                        <div [ngClass]="(currentCat?.estado?.esterilizado ?? false) ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'"
-                             class="w-8 h-8 rounded-full flex items-center justify-center">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center bg-blue-100 text-blue-600">
                           <ng-icon name="bootstrapHeart" class="text-[1.1rem]"></ng-icon>
                         </div>
                       </div>
                       <div class="flex-1 min-w-0">
                         <p class="text-xs md:text-sm font-medium text-gray-600">Esterilización</p>
-                        <p [ngClass]="(currentCat?.estado?.esterilizado ?? false) ? 'text-blue-600' : 'text-gray-500'"
-                           class="text-sm font-medium">
-                          {{ (currentCat?.estado?.esterilizado ?? false) ? 'Realizada' : 'No realizada' }}
-                        </p>
+                        <p class="text-sm font-medium text-blue-600">Realizada</p>
                       </div>
                     </div>
                   </div>
 
                   <!-- Peso -->
                   <div class="relative overflow-hidden rounded-lg border border-gray-200 bg-white">
-                    <div class="absolute inset-0 bg-gradient-to-r" 
-                         [ngClass]="!(currentCat?.estado?.sobrepeso ?? false) ? 'from-green-50 to-transparent' : 'from-yellow-50 to-transparent'">
-                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-green-50 to-transparent"></div>
                     <div class="relative p-3 flex items-center gap-3">
                       <div class="flex-shrink-0">
-                        <div [ngClass]="!(currentCat?.estado?.sobrepeso ?? false) ? 'bg-green-100 text-green-600' : 'bg-yellow-100 text-yellow-600'"
-                             class="w-8 h-8 rounded-full flex items-center justify-center">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center bg-green-100 text-green-600">
                           <ng-icon name="bootstrapStar" class="text-[1.1rem]"></ng-icon>
                         </div>
                       </div>
                       <div class="flex-1 min-w-0">
                         <p class="text-xs md:text-sm font-medium text-gray-600">Peso</p>
-                        <p [ngClass]="!(currentCat?.estado?.sobrepeso ?? false) ? 'text-green-600' : 'text-yellow-600'"
-                           class="text-sm font-medium">
-                          {{ !(currentCat?.estado?.sobrepeso ?? false) ? 'Normal' : 'Sobrepeso' }}
-                        </p>
+                        <p class="text-sm font-medium text-green-600">Normal</p>
                       </div>
                     </div>
                   </div>

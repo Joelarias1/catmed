@@ -272,11 +272,11 @@ export class UserRegisterComponent implements OnInit {
     this.errorMessage = '';
 
     this.userService.createUser(this.registerForm.value).subscribe({
-      next: (user) => {
+      next: () => {
         this.isLoading = false;
         this.isSuccess = true;
         setTimeout(() => {
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/login']);
         }, 2000);
       },
       error: (error) => {

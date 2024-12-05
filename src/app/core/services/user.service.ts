@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError, map, tap, of, switchMap } from 'rxjs';
 import { User, Cat, ApiResponse } from '../interfaces/user.interface';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,14 @@ export class UserService {
   private readonly CAT_PLACEHOLDER = 'https://bucket-catmed.s3.us-east-2.amazonaws.com/img/cat-placeholder.jpg';
   private readonly STORAGE_KEY = 'currentUser';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
+  private get isInBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
 
   // Método para validar login
   login(email: string, password: string): Observable<User> {
@@ -49,23 +57,26 @@ export class UserService {
 
   // Obtener usuario actual
   getCurrentUser(): User | null {
+    if (!this.isInBrowser) return null;
     const userStr = localStorage.getItem(this.STORAGE_KEY);
     return userStr ? JSON.parse(userStr) : null;
   }
 
   setCurrentUser(user: User): void {
+    if (!this.isInBrowser) return;
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user));
   }
 
   // Cerrar sesión
   logout(): void {
+    if (!this.isInBrowser) return;
     console.log('Cerrando sesión');
     localStorage.removeItem(this.STORAGE_KEY);
   }
 
   // Verificar si hay usuario logueado
   isLoggedIn(): boolean {
-    return !!this.getCurrentUser();
+    return this.isInBrowser && !!this.getCurrentUser();
   }
 
   // Método existente de createUser
@@ -116,8 +127,7 @@ export class UserService {
         // Actualizamos el archivo en S3
         return this.http.put<ApiResponse>(this.S3_URL, { users }).pipe(
           map(() => {
-            // Guardamos en localStorage
-            this.setCurrentUser(newUser);
+            // Removemos el setCurrentUser para que no se auto-loguee
             return newUser;
           }),
           catchError(error => {
