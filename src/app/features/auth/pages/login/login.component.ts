@@ -35,6 +35,11 @@ export class LoginComponent {
     private router: Router,
     private userService: UserService
   ) {
+    // Redirigir si ya está logueado
+    if (this.userService.isLoggedIn()) {
+      this.router.navigate(['/user/dashboard']);
+    }
+
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -82,11 +87,8 @@ export class LoginComponent {
       this.userService.login(email, password).subscribe({
         next: (user) => {
           this.isLoading = false;
-          // Redirigir según el rol
           if (user.role === 'user') {
             this.router.navigate(['/user/dashboard']);
-          } else if (user.role === 'vet') {
-            this.router.navigate(['/vet/dashboard']);
           }
         },
         error: (error) => {

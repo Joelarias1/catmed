@@ -1,114 +1,222 @@
 <div class="container mx-auto px-4 py-6">
-  <!-- Sección principal -->
   <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
     <!-- Header con botón de añadir -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b pb-4 gap-4">
-      <h2 class="text-xl md:text-2xl font-bold text-primary">Mi Gato</h2>
-      <button class="w-full sm:w-auto bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full flex items-center justify-center gap-2 transition-colors">
-        <ng-icon name="bootstrapPlusCircle" class="flex-shrink-0 text-[1.1em] relative -top-[1px]"></ng-icon>
-        <span class="relative top-[1px]">Añadir Mascota</span>
+      <div>
+        <h2 class="text-xl md:text-2xl font-bold text-primary">Mi Gato</h2>
+        <p class="text-sm text-gray-500 mt-1">Información y estado de salud de tu mascota</p>
+      </div>
+      <button 
+        disabled
+        class="w-full sm:w-auto bg-gray-100 text-gray-400 px-4 py-2 rounded-full flex items-center justify-center gap-2 cursor-not-allowed opacity-75">
+        <ng-icon name="bootstrapPlusCircle" class="flex-shrink-0 text-[1.1em]"></ng-icon>
+        <span>Añadir Mascota</span>
       </button>
     </div>
 
-    <!-- Información de la Mascota -->
-    <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6 mb-6 md:mb-8">
-      <!-- Foto mascota -->
-      <div class="flex-shrink-0">
-        <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-primary/10">
-          <img
-            src="/assets/img/catplaceholder.png"
-            alt="Mota"
-            class="w-full h-full object-cover"
-          />
+    <!-- Contenido -->
+    <div *ngIf="currentCat" class="space-y-6">
+      <!-- Información básica del gato -->
+      <div class="flex flex-col md:flex-row gap-6">
+        <!-- Foto del gato -->
+        <div class="w-full md:w-1/3">
+          <div class="relative group">
+            <div class="aspect-square rounded-2xl overflow-hidden bg-gray-100 ring-1 ring-gray-200">
+              <img 
+                [src]="currentCat.imagen_gato" 
+                [alt]="currentCat.nombre"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Detalles del gato -->
+        <div class="w-full md:w-2/3">
+          <div class="bg-white rounded-2xl p-6 h-full border border-gray-100">
+            <div class="flex justify-between items-center mb-6">
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-xl font-bold text-gray-800 mb-1">Información del Gato</h3>
+                  <div class="flex gap-2">
+                    <button 
+                      *ngIf="!isEditing"
+                      (click)="startEditing()"
+                      class="w-8 h-8 flex items-center justify-center bg-primary/10 hover:bg-primary/20 text-primary rounded-full transition-all">
+                      <ng-icon name="bootstrapPencil" class="text-sm"></ng-icon>
+                    </button>
+                    <ng-container *ngIf="isEditing">
+                      <button 
+                        (click)="saveChanges()"
+                        [disabled]="!editForm.valid"
+                        class="w-8 h-8 flex items-center justify-center bg-green-100 hover:bg-green-200 text-green-600 rounded-full transition-all">
+                        <ng-icon name="bootstrapCheck" class="text-sm"></ng-icon>
+                      </button>
+                      <button 
+                        (click)="cancelEditing()"
+                        class="w-8 h-8 flex items-center justify-center bg-red-100 hover:bg-red-200 text-red-600 rounded-full transition-all">
+                        <ng-icon name="bootstrapX" class="text-sm"></ng-icon>
+                      </button>
+                    </ng-container>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-500">Datos básicos y estado de salud</p>
+              </div>
+            </div>
+
+            <!-- Formulario de información -->
+            <form [formGroup]="editForm" class="space-y-6">
+              <!-- Datos básicos -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label class="block text-sm font-medium text-gray-700">Nombre</label>
+                  <input 
+                    type="text" 
+                    formControlName="nombre"
+                    class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-sm transition-colors focus:outline-none"
+                    [class.bg-white]="isEditing"
+                    [class.focus:border-primary]="isEditing" />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-sm font-medium text-gray-700">Edad</label>
+                  <select
+                    formControlName="edad"
+                    class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-sm transition-colors focus:outline-none"
+                    [class.bg-white]="isEditing"
+                    [class.focus:border-primary]="isEditing">
+                    <option *ngFor="let edad of edadMascota" [value]="edad.value">
+                      {{ edad.label }}
+                    </option>
+                  </select>
+                </div>
+                <div class="space-y-1.5">
+                  <label class="block text-sm font-medium text-gray-700">Raza</label>
+                  <input 
+                    type="text" 
+                    formControlName="raza"
+                    class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 text-sm transition-colors focus:outline-none"
+                    [class.bg-white]="isEditing"
+                    [class.focus:border-primary]="isEditing" />
+                </div>
+              </div>
+
+              <!-- Estado de Salud -->
+              <div class="border-t pt-4">
+                <h4 class="text-sm font-medium text-gray-700 mb-3">Estado de Salud</h4>
+                <div class="flex flex-col md:grid md:grid-cols-3 gap-2 md:gap-3">
+                  <!-- Vacunación -->
+                  <div class="relative overflow-hidden rounded-lg border border-gray-200 bg-white">
+                    <div class="absolute inset-0 bg-gradient-to-r" 
+                         [ngClass]="(currentCat?.estado?.vacunado ?? false) ? 'from-green-50 to-transparent' : 'from-gray-50 to-transparent'">
+                    </div>
+                    <div class="relative p-3 flex items-center gap-3">
+                      <div class="flex-shrink-0">
+                        <div [ngClass]="(currentCat?.estado?.vacunado ?? false) ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'"
+                             class="w-8 h-8 rounded-full flex items-center justify-center">
+                          <ng-icon name="bootstrapDroplet" class="text-[1.1rem]"></ng-icon>
+                        </div>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <p class="text-xs md:text-sm font-medium text-gray-600">Vacunación</p>
+                        <p [ngClass]="(currentCat?.estado?.vacunado ?? false) ? 'text-green-600' : 'text-gray-500'"
+                           class="text-sm font-medium">
+                          {{ (currentCat?.estado?.vacunado ?? false) ? 'Al día' : 'Pendiente' }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Esterilización -->
+                  <div class="relative overflow-hidden rounded-lg border border-gray-200 bg-white">
+                    <div class="absolute inset-0 bg-gradient-to-r" 
+                         [ngClass]="(currentCat?.estado?.esterilizado ?? false) ? 'from-blue-50 to-transparent' : 'from-gray-50 to-transparent'">
+                    </div>
+                    <div class="relative p-3 flex items-center gap-3">
+                      <div class="flex-shrink-0">
+                        <div [ngClass]="(currentCat?.estado?.esterilizado ?? false) ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'"
+                             class="w-8 h-8 rounded-full flex items-center justify-center">
+                          <ng-icon name="bootstrapHeart" class="text-[1.1rem]"></ng-icon>
+                        </div>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <p class="text-xs md:text-sm font-medium text-gray-600">Esterilización</p>
+                        <p [ngClass]="(currentCat?.estado?.esterilizado ?? false) ? 'text-blue-600' : 'text-gray-500'"
+                           class="text-sm font-medium">
+                          {{ (currentCat?.estado?.esterilizado ?? false) ? 'Realizada' : 'No realizada' }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Peso -->
+                  <div class="relative overflow-hidden rounded-lg border border-gray-200 bg-white">
+                    <div class="absolute inset-0 bg-gradient-to-r" 
+                         [ngClass]="!(currentCat?.estado?.sobrepeso ?? false) ? 'from-green-50 to-transparent' : 'from-yellow-50 to-transparent'">
+                    </div>
+                    <div class="relative p-3 flex items-center gap-3">
+                      <div class="flex-shrink-0">
+                        <div [ngClass]="!(currentCat?.estado?.sobrepeso ?? false) ? 'bg-green-100 text-green-600' : 'bg-yellow-100 text-yellow-600'"
+                             class="w-8 h-8 rounded-full flex items-center justify-center">
+                          <ng-icon name="bootstrapStar" class="text-[1.1rem]"></ng-icon>
+                        </div>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <p class="text-xs md:text-sm font-medium text-gray-600">Peso</p>
+                        <p [ngClass]="!(currentCat?.estado?.sobrepeso ?? false) ? 'text-green-600' : 'text-yellow-600'"
+                           class="text-sm font-medium">
+                          {{ !(currentCat?.estado?.sobrepeso ?? false) ? 'Normal' : 'Sobrepeso' }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
-      <!-- Info mascota -->
-      <div class="flex-grow text-center md:text-left space-y-2 md:space-y-3">
-        <h3 class="text-lg md:text-xl font-semibold text-primary">Mota</h3>
-        <p class="text-sm md:text-base text-gray-600">
-          Gato Persa • 5 años
-        </p>
-        <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-          <span class="px-2 md:px-3 py-1 bg-green-100 text-green-600 rounded-full text-xs md:text-sm">
-            Vacunas al día
-          </span>
-          <span class="px-2 md:px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-xs md:text-sm">
-            Esterilizado
-          </span>
-          <span class="px-2 md:px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs md:text-sm">
-            Sobrepeso
-          </span>
+      <!-- Historial Médico -->
+      <div class="mt-8">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <h4 class="text-lg font-semibold text-gray-800">Historial Médico</h4>
+            <p class="text-sm text-gray-500 mt-1">Registro de consultas y tratamientos</p>
+          </div>
+          <button class="inline-flex items-center gap-2 px-3 py-1.5 text-primary hover:text-primary/80 hover:bg-primary/5 rounded-lg transition-colors text-sm">
+            <ng-icon name="bootstrapFileText" class="text-base flex-shrink-0"></ng-icon>
+            <span>Ver historial</span>
+          </button>
         </div>
-      </div>
 
-      <!-- Botones de acción -->
-      <div class="flex gap-2 mt-4 md:mt-0">
-
-        <!-- Botón Editar -->
-        <button 
-          class="w-10 h-10 flex items-center justify-center bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-full transition-colors relative group"
-          title="Ver historial clínico">
-          <ng-icon name="bootstrapPencil" class="text-lg"></ng-icon>
-          <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 shadow-lg">
-            Editar información
-          </span>
-        </button>
+        <div *ngIf="currentCat.historialMedico.length === 0" 
+             class="bg-gray-50/50 rounded-xl p-6 text-center border border-dashed border-gray-200">
+          <div class="max-w-md mx-auto">
+            <div class="mb-4 text-primary/50">
+              <ng-icon name="bootstrapFileText" class="text-4xl"></ng-icon>
+            </div>
+            <p class="text-gray-800 text-base font-medium mb-2">Sin diagnósticos registrados</p>
+            <p class="text-gray-500 text-sm mb-6">¿Qué esperas para agendar una cita para {{ currentCat.nombre }}?</p>
+            <button class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-primary text-white text-sm rounded-full hover:bg-primary/90 transition-all hover:scale-105">
+              <ng-icon name="bootstrapPlusCircle" class="text-base flex-shrink-0"></ng-icon>
+              <span>Agendar Primera Cita</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Historial Médico -->
-    <div class="border-t pt-4 md:pt-6">
-      <div class="mb-4">
-        <h4 class="text-base md:text-lg font-semibold text-primary mb-2">Historial Médico</h4>
-        <p class="text-sm text-gray-600">Registro médico completo, incluyendo diagnósticos, recetas, exámenes y documentos relacionados con la salud de tu mascota.</p>
+    <!-- Mensaje si no hay gato registrado -->
+    <div *ngIf="!currentCat" class="text-center py-12">
+      <div class="mb-4 text-primary/50">
+        <ng-icon name="bootstrapPlusCircle" class="text-4xl"></ng-icon>
       </div>
-      
-      <div class="space-y-3 md:space-y-4">
-        <!-- Entrada de historial - Diagnóstico -->
-        <div class="bg-gray-50 p-3 md:p-4 rounded-lg border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
-          <!-- Header con fecha y doctor -->
-          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
-            <div>
-              <div class="flex items-center gap-2">
-                <h5 class="font-medium text-gray-800 text-sm md:text-base">Diagnóstico General</h5>
-                <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded-full text-xs">Diagnóstico</span>
-              </div>
-              <p class="text-xs md:text-sm text-gray-600">Dr. María González</p>
-            </div>
-            <span class="text-xs md:text-sm text-gray-500">15 Mar 2024</span>
-          </div>
-
-          <!-- Contenido del diagnóstico -->
-          <div class="space-y-4">
-            <!-- Diagnóstico y recomendaciones -->
-            <div class="text-xs md:text-sm text-gray-700">
-              <span class="font-medium block mb-1">Diagnóstico:</span>
-              <p class="mb-3">Sobrepeso moderado y signos de ansiedad.</p>
-              
-              <span class="font-medium block mb-1">Recomendaciones:</span>
-              <p>Se recomienda dieta especial para control de peso y enriquecimiento ambiental para reducir ansiedad.</p>
-            </div>
-
-            <!-- Documentación relacionada -->
-            <div class="border-t pt-3">
-              <p class="text-xs text-gray-600 mb-2">Documentación del diagnóstico:</p>
-              <div class="flex flex-wrap gap-2">
-                <a href="#" download class="inline-flex items-center gap-2 text-xs bg-primary/5 hover:bg-primary/10 text-primary px-3 py-1.5 rounded-full transition-colors">
-                  <ng-icon name="bootstrapFileText" class="flex-shrink-0 text-[1.1em] relative -top-[1px]"></ng-icon>
-                  <span class="relative top-[1px]">Receta dieta especial</span>
-                  <ng-icon name="bootstrapDownload" class="flex-shrink-0 text-[1.1em] relative -top-[1px]"></ng-icon>
-                </a>
-                <a href="#" download class="inline-flex items-center gap-2 text-xs bg-primary/5 hover:bg-primary/10 text-primary px-3 py-1.5 rounded-full transition-colors">
-                  <ng-icon name="bootstrapFileText" class="flex-shrink-0 text-[1.1em] relative -top-[1px]"></ng-icon>
-                  <span class="relative top-[1px]">Plan de ejercicios</span>
-                  <ng-icon name="bootstrapDownload" class="flex-shrink-0 text-[1.1em] relative -top-[1px]"></ng-icon>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">No tienes ningún gato registrado</h3>
+      <p class="text-gray-500 text-sm mb-6 max-w-md mx-auto">Registra a tu felino para comenzar a usar nuestros servicios veterinarios</p>
+      <button class="px-6 py-2 bg-primary text-white text-sm rounded-full hover:bg-primary/90 transition-all hover:scale-105 inline-flex items-center gap-2">
+        <ng-icon name="bootstrapPlusCircle" class="text-base"></ng-icon>
+        Registrar Mascota
+      </button>
     </div>
   </div>
 </div>

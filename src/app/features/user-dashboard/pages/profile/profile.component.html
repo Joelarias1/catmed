@@ -4,13 +4,14 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b pb-4 gap-4">
       <h2 class="text-xl md:text-2xl font-bold text-primary">Mi Perfil</h2>
       <div class="flex gap-2 w-full sm:w-auto">
-        <button class="flex-1 sm:flex-initial bg-primary/10 hover:bg-primary/20 text-primary px-4 py-2 rounded-full flex items-center justify-center gap-1.5 transition-colors">
-          <ng-icon name="bootstrapPencil" class="text-[1.1em]"></ng-icon>
-          <span>Editar Perfil</span>
+        <button 
+          class="w-8 h-8 flex items-center justify-center bg-primary/10 hover:bg-primary/20 text-primary rounded-full transition-all">
+          <ng-icon name="bootstrapPencil" class="text-sm"></ng-icon>
         </button>
-        <button class="flex-1 sm:flex-initial bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-full flex items-center justify-center gap-1.5 whitespace-nowrap transition-colors">
-          <ng-icon name="bootstrapBoxArrowRight" class="text-[1.1em]"></ng-icon>
-          <span>Cerrar Sesión</span>
+        <button 
+          (click)="showDeleteConfirmation()"
+          class="w-8 h-8 flex items-center justify-center bg-red-100 hover:bg-red-200 text-red-600 rounded-full transition-all">
+          <ng-icon name="bootstrapTrash" class="text-sm"></ng-icon>
         </button>
       </div>
     </div>
@@ -22,8 +23,8 @@
         <div class="relative group">
           <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-primary/10">
             <img
-              src="/assets/img/placeholderprofilepicture.png"
-              alt="Foto de perfil"
+              [src]="currentUser?.imagen_perfil || '/assets/img/placeholderprofilepicture.png'"
+              [alt]="currentUser?.nombre || 'Foto de perfil'"
               class="w-full h-full object-cover"
             />
           </div>
@@ -32,8 +33,8 @@
           </div>
         </div>
         <div>
-          <h3 class="text-lg font-semibold text-primary">Camila Aguilar</h3>
-          <p class="text-sm text-gray-600">Última actualización: 15 Mar 2024</p>
+          <h3 class="text-lg font-semibold text-primary">{{ currentUser?.nombre }} {{ currentUser?.apellidos }}</h3>
+          <p class="text-sm text-gray-600">Última actualización: {{ currentUser?.createdAt | date:'dd MMM yyyy' }}</p>
         </div>
       </div>
 
@@ -43,19 +44,15 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="text-sm text-gray-500 mb-1 block">Nombre completo</label>
-            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">Camila Aguilar</div>
+            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">{{ currentUser?.nombre }} {{ currentUser?.apellidos }}</div>
           </div>
           <div>
             <label class="text-sm text-gray-500 mb-1 block">Email</label>
-            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">camila&#64;email.com</div>
+            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">{{ currentUser?.email }}</div>
           </div>
           <div>
             <label class="text-sm text-gray-500 mb-1 block">Teléfono</label>
-            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">+56 9 1234 5678</div>
-          </div>
-          <div>
-            <label class="text-sm text-gray-500 mb-1 block">Dirección</label>
-            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">Av. Providencia 1234, Santiago</div>
+            <div class="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-700">{{ currentUser?.telefono }}</div>
           </div>
         </div>
       </div>
@@ -77,3 +74,14 @@
     </div>
   </div>
 </div>
+
+<app-modal
+  [show]="showDeleteModal"
+  title="Eliminar cuenta"
+  message="¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer."
+  confirmButtonText="Eliminar"
+  cancelButtonText="Cancelar"
+  type="danger"
+  (confirm)="onConfirmDelete()"
+  (cancel)="onCancelDelete()">
+</app-modal>

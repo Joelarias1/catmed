@@ -1,11 +1,11 @@
-<nav class="bg-white shadow-md">
+<nav class="bg-gray-50 shadow-md fixed w-full top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
       <!-- Logo y nombre -->
       <div class="flex items-center">
         <a routerLink="/user/home" class="flex items-center gap-x-2">
           <img src="/assets/img/logo.png" alt="Logo" class="h-8 w-auto" />
-          <span class="text-primary font-semibold text-lg">CatMed</span>
+          <span class="text-primary font-semibold text-lg hidden sm:inline">CatMed</span>
         </a>
       </div>
 
@@ -14,7 +14,7 @@
         <button
           type="button"
           (click)="toggleMenu()"
-          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100"
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/20"
         >
           <ng-icon
             [name]="isMenuOpen ? 'bootstrapX' : 'bootstrapList'"
@@ -25,80 +25,109 @@
       </div>
 
       <!-- Menú desktop -->
-      <div class="hidden lg:flex lg:items-center lg:space-x-8">
+      <div class="hidden lg:flex lg:items-center lg:space-x-1">
         <a
           routerLink="/user/appointments"
-          routerLinkActive="text-primary"
-          class="flex items-center gap-x-2 text-gray-700 hover:text-primary transition-colors"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-2 px-4 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 transition-all"
         >
-          <ng-icon name="bootstrapCalendar2Check"></ng-icon>
+          <ng-icon name="bootstrapCalendar2Check" class="text-lg"></ng-icon>
           <span>Mis Citas</span>
         </a>
         <a
           routerLink="/user/dashboard"
-          class="flex items-center gap-x-2 text-gray-700 hover:text-primary transition-colors"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-2 px-4 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 transition-all"
         >
-          <ng-icon name="bootstrapCalendarPlus"></ng-icon>
+          <ng-icon name="bootstrapCalendarPlus" class="text-lg"></ng-icon>
           <span>Agendar</span>
         </a>
         <a
           routerLink="/user/pets"
-          routerLinkActive="text-primary"
-          class="flex items-center gap-x-2 text-gray-700 hover:text-primary transition-colors"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-2 px-4 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 transition-all"
         >
-          <ng-icon name="bootstrapHeart"></ng-icon>
+          <ng-icon name="bootstrapHeart" class="text-lg"></ng-icon>
           <span>Mi Gato</span>
         </a>
 
         <!-- Perfil con nuevo estilo -->
         <a
           routerLink="/user/profile"
-          routerLinkActive="bg-gray-100"
-          class="flex items-center gap-x-2 px-4 py-2 rounded-full bg-gray-50 hover:bg-gray-200 transition-colors"
+          routerLinkActive="ring-2 ring-primary/20"
+          class="flex items-center gap-x-2 px-3 py-1.5 rounded-full hover:bg-gray-50 transition-all ml-2"
         >
-          <div class="w-8 h-8 rounded-full overflow-hidden">
+          <div class="w-8 h-8 rounded-full overflow-hidden ring-2 ring-primary/10">
             <img
-              src="assets/img/placeholderprofilepicture.png"
-              alt=""
+              [src]="currentUser?.imagen_perfil || 'assets/img/placeholderprofilepicture.png'"
+              [alt]="currentUser?.nombre"
               class="w-full h-full object-cover"
             />
           </div>
-          <span class="text-gray-700">Camila</span>
+          <span class="text-gray-700 font-medium">{{ currentUser?.nombre || 'Usuario' }}</span>
         </a>
+        <button
+          (click)="logout()"
+          class="flex items-center gap-x-2 px-4 py-2 rounded-lg text-red-600 hover:bg-red-50 transition-all ml-2"
+        >
+          <ng-icon name="bootstrapBoxArrowRight" class="text-lg"></ng-icon>
+          <span>Salir</span>
+        </button>
       </div>
     </div>
 
     <!-- Menú móvil -->
-    <div class="lg:hidden" [class.hidden]="!isMenuOpen">
+    <div class="lg:hidden bg-gray-50" [class.hidden]="!isMenuOpen">
       <div class="pt-2 pb-3 space-y-1">
         <a
           routerLink="/user/dashboard"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-primary hover:bg-primary/5"
         >
-          Agendar
+          <ng-icon name="bootstrapCalendarPlus" class="text-lg"></ng-icon>
+          <span>Agendar</span>
         </a>
         <a
           routerLink="/user/appointments"
-          routerLinkActive="text-primary bg-primary/10"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-primary hover:bg-primary/5"
         >
-          Mis Citas
+          <ng-icon name="bootstrapCalendar2Check" class="text-lg"></ng-icon>
+          <span>Mis Citas</span>
         </a>
         <a
           routerLink="/user/pets"
-          routerLinkActive="text-primary bg-primary/10"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-primary hover:bg-primary/5"
         >
-          Mi Gato
+          <ng-icon name="bootstrapHeart" class="text-lg"></ng-icon>
+          <span>Mi Gato</span>
         </a>
         <a
           routerLink="/user/profile"
-          routerLinkActive="text-primary bg-primary/10"
-          class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+          routerLinkActive="text-primary bg-primary/5"
+          class="flex items-center gap-x-3 px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:text-primary hover:bg-primary/5"
         >
-          Mi Perfil
+          <div class="w-8 h-8 rounded-full overflow-hidden ring-2 ring-primary/10 mr-2">
+            <img
+              [src]="currentUser?.imagen_perfil || 'assets/img/placeholderprofilepicture.png'"
+              [alt]="currentUser?.nombre"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <span>Mi Perfil</span>
         </a>
+        <button
+          (click)="logout()"
+          class="flex w-full items-center gap-x-3 px-3 py-2 rounded-lg text-base font-medium text-red-600 hover:bg-red-50"
+        >
+          <ng-icon name="bootstrapBoxArrowRight" class="text-lg"></ng-icon>
+          <span>Cerrar Sesión</span>
+        </button>
       </div>
     </div>
   </div>
 </nav>
+
+<!-- Espaciador para compensar el navbar fijo -->
+<div class="h-16"></div>

@@ -1,0 +1,51 @@
+<!-- Overlay -->
+<div 
+  *ngIf="show"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  
+  <!-- Modal -->
+  <div 
+    class="bg-white rounded-lg shadow-xl w-full max-w-md transform transition-all"
+    [class.scale-100]="show"
+    [class.opacity-100]="show"
+    [class.scale-95]="!show"
+    [class.opacity-0]="!show">
+    
+    <!-- Header -->
+    <div class="px-6 py-4 border-b" [ngClass]="{
+      'border-red-200': type === 'danger',
+      'border-blue-200': type === 'info',
+      'border-green-200': type === 'success'
+    }">
+      <h3 class="text-lg font-semibold" [ngClass]="{
+        'text-red-600': type === 'danger',
+        'text-blue-600': type === 'info',
+        'text-green-600': type === 'success'
+      }">{{ title }}</h3>
+    </div>
+    
+    <!-- Body -->
+    <div class="px-6 py-4">
+      <p class="text-gray-600">{{ message }}</p>
+    </div>
+    
+    <!-- Footer -->
+    <div class="px-6 py-4 bg-gray-50 rounded-b-lg flex justify-end gap-2">
+      <button
+        (click)="onCancel()"
+        class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors">
+        {{ cancelButtonText }}
+      </button>
+      <button
+        (click)="onConfirm()"
+        class="px-4 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors"
+        [ngClass]="{
+          'bg-red-600 hover:bg-red-700 focus:ring-red-500': type === 'danger',
+          'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500': type === 'info',
+          'bg-green-600 hover:bg-green-700 focus:ring-green-500': type === 'success'
+        }">
+        {{ confirmButtonText }}
+      </button>
+    </div>
+  </div>
+</div>
