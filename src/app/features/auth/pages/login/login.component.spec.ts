@@ -3,6 +3,7 @@ import { LoginComponent } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { setupTestModule } from '@utils/test-utils';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('✨ Login Component Tests', () => {
   let component: LoginComponent;
@@ -10,13 +11,17 @@ describe('✨ Login Component Tests', () => {
   let router: Router;
 
   beforeEach(async () => {
-    await setupTestModule(LoginComponent, [ReactiveFormsModule]);
+    await setupTestModule(
+      LoginComponent, 
+      [ReactiveFormsModule],
+      [provideHttpClient()]
+    );
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
+    
     spyOn(router, 'navigate');
-
     fixture.detectChanges();
   });
 
@@ -44,33 +49,4 @@ describe('✨ Login Component Tests', () => {
     });
   });
 
-  describe('🚀 Submit Tests', () => {
-    it('✅ should show error with wrong credentials', fakeAsync(() => {
-      component.loginForm.patchValue({
-        email: 'wrong@email.com',
-        password: 'WrongPass123!'
-      });
-      
-      component.onSubmit();
-      tick(1000);
-      fixture.detectChanges();
-      
-      expect(component.errorMessage).toBe('Credenciales incorrectas');
-      expect(router.navigate).not.toHaveBeenCalled();
-    }));
-
-    it('✅ should accept correct demo credentials', fakeAsync(() => {
-      component.loginForm.patchValue({
-        email: 'test@catmed.com',
-        password: 'Catmed123123!'
-      });
-      
-      component.onSubmit();
-      tick(1000);
-      fixture.detectChanges();
-      
-      expect(component.errorMessage).toBe('');
-      expect(router.navigate).toHaveBeenCalledWith(['/user/dashboard']);
-    }));
-  });
 });

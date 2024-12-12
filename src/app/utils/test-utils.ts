@@ -19,7 +19,11 @@ const routes = [
   { path: 'vet/dashboard', component: {} as any }
 ];
 
-export const setupTestModule = async (component: any, additionalImports: any[] = []) => {
+export const setupTestModule = async (
+  component: any, 
+  additionalImports: any[] = [],
+  additionalProviders: any[] = []
+) => {
   await TestBed.configureTestingModule({
     imports: [
       NgIconsModule.withIcons(bootstrapIcons),
@@ -28,7 +32,8 @@ export const setupTestModule = async (component: any, additionalImports: any[] =
     ],
     providers: [
       provideRouter(routes, withComponentInputBinding()),
-      { provide: ActivatedRoute, useValue: mockActivatedRoute }
+      { provide: ActivatedRoute, useValue: mockActivatedRoute },
+      ...additionalProviders
     ]
   }).compileComponents();
 };

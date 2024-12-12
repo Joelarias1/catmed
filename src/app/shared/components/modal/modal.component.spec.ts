@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { setupTestModule } from '@app/utils/test-utils';
 import { ModalComponent } from './modal.component';
 
 describe('ModalComponent', () => {
@@ -7,11 +7,8 @@ describe('ModalComponent', () => {
   let fixture: ComponentFixture<ModalComponent>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ModalComponent]
-    })
-    .compileComponents();
-
+    await setupTestModule(ModalComponent);
+    
     fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

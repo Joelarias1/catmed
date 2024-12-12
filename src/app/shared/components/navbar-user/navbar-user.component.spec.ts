@@ -1,13 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarUserComponent } from './navbar-user.component';
-import { setupTestModule } from '@utils/test-utils';
+import { setupTestModule } from '@app/utils/test-utils';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('🎯 NavbarUser Component', () => {
   let component: NavbarUserComponent;
   let fixture: ComponentFixture<NavbarUserComponent>;
 
   beforeEach(async () => {
-    await setupTestModule(NavbarUserComponent);
+    await setupTestModule(NavbarUserComponent, [], [provideHttpClient()]);
+
     fixture = TestBed.createComponent(NavbarUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -24,4 +26,5 @@ describe('🎯 NavbarUser Component', () => {
     component.toggleMenu();
     expect(component.isMenuOpen).toBeFalse();
   });
+
 });

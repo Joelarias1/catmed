@@ -3,18 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { UserService } from '../../../../core/services/user.service';
 import { User } from '../../../../core/interfaces/user.interface';
-import { 
-  bootstrapSearch, 
-  bootstrapCurrencyDollar,
-  bootstrapGeoAlt,
-  bootstrapStar,
-  bootstrapClock,
-  bootstrapCamera,
-  bootstrapHouse,
-  bootstrapDroplet,
-  bootstrapCalendarPlus,
-  bootstrapTag
-} from '@ng-icons/bootstrap-icons';
+import { bootstrapSearch } from '@ng-icons/bootstrap-icons';
 
 @Component({
   selector: 'app-home',
@@ -23,15 +12,6 @@ import {
   providers: [
     provideIcons({ 
       bootstrapSearch, 
-      bootstrapCurrencyDollar,
-      bootstrapGeoAlt,
-      bootstrapStar,
-      bootstrapClock,
-      bootstrapCamera,
-      bootstrapHouse,
-      bootstrapDroplet,
-      bootstrapCalendarPlus,
-      bootstrapTag
     })
   ],
   templateUrl: './home.component.html',
